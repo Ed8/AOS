@@ -1,11 +1,13 @@
 #!/bin/sh
-
+#$1=(domain, mail, web)  $2=nomàremplacer $3=nouveaunom
+chemin=/etc/tinydns/root
 case $1 in
 domain)
 if [ ! -e "/etc/tinydns/root/$2.zone" ]; then
- echo "Le domaine existe deja!"
+ echo "Le domaine nexiste pas!"
 else
- sed -i "s/.$2"
+ mv chemin/$2.zone chemin/$3.zone
+ sed -i "s/.$2/.$3/g" chemin/$3.zone
 fi
 
 ;;
