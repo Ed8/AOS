@@ -25,5 +25,5 @@ read reponse
 		bash deleteUserMail.sh $nom $domaine
 		echo "Votre boîte mail à bien été supprimez !"
 	else
-		echo "Entrez 1 (Création) ou 2 (Suppression) d'un boîte mail !"
+		echo "Entrez 1 (Création) ou 2 (Suppression) d'une boîte mail !"
 	fi
