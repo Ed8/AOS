@@ -14,8 +14,8 @@ elif [ "$3"=e ]; then
  echo ".$2:88.177.168.133:259200 " >> /etc/tinydns/root/$2.zone	
 
 fi
-sed -n '/$name/p' /etc/tinydns/root/data >> /etc/tinydns/root/$2.zone
-sed -i '/.$2.aos.itinet/d' /etc/tinydns/root/data
+sed -n "/$2/p" /etc/tinydns/root/data >> /etc/tinydns/root/$2.zone
+sed -i "/.$2.aos.itinet/d" /etc/tinydns/root/data
 ;;
 mail)
 if [ -e "/etc/tinydns/root/$2.zone" ]; then
