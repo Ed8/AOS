@@ -26,6 +26,12 @@ if [ $pass1 = $pass2 ]; then
 	sudo mkdir /var/www/$domain/dev_html
 	sudo echo "Repository /var/www/$domain/dev_html created !"
 
+	sudo touch /var/www/$domain/public_html/index.php
+	sudo echo "Bienvenue sur $domain !" >> /var/www/$domain/public_html/index.php
+	
+	sudo touch /var/www/$domain/dev_html/index.php
+	sudo echo "Bienvenue sur $domain !" >> /var/www/$domain/dev_html/index.php
+	
 	#Create symbolinc link var/www/ and /home/
 	sudo ln -s /var/www/$domain /home/$username/$domain
 	sudo echo "Symbolic link /home/$username/$domain created !"
