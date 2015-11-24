@@ -6,16 +6,16 @@ rm /etc/tinydns/root/$2.zone
 ;;
 mail)
 if [ -e "/etc/tinydns/root/$2.zone" ]; then
- sed -i '/@$2.aos.itinet.fr/d' /etc/tinydns/root/$2.zone
+ sed -i "/@$2.aos.itinet.fr/d" /etc/tinydns/root/$2.zone
 else
- sed -i '/@$2.aos.itinet.fr/d' /etc/tinydns/root/data
+ sed -i "/@$2.aos.itinet.fr/d" /etc/tinydns/root/data
 fi
 ;;
 web) 
 if [ -e "/etc/tinydns/root/$2.zone" ]; then
- sed -i '/www.$2.aos.itinet.fr/d' /etc/tinydns/root/$2.zone
+ sed -i "/www.$2.aos.itinet.fr/d" /etc/tinydns/root/$2.zone
 else
- sed -i '/www.$2.aos.itinet.fr/d' /etc/tinydns/root/data
+ sed -i "/www.$2.aos.itinet.fr/d" /etc/tinydns/root/data
 fi
 ;;
 esac
