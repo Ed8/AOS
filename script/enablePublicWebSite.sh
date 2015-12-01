@@ -1,15 +1,16 @@
 #!/bin/bash
 #Enable public website
-domain=$1
+username=$1
+domain=$2
 
 #############################################################################
 #Activate public web conf____________________________________________________
 #Create symbolic link for public in sites-available/enabled
-if [ -e /etc/apache2/sites-available/$domain.conf ]; then
-	sudo ln -s /etc/apache2/sites-available/$domain.conf /etc/apache2/sites-enabled/$domain.conf
-	sudo echo "Symbolic link /sites-enabled/$domain.conf created !"
+if [ -e /etc/apache2/sites-available/$username.$domain.conf ]; then
+	sudo ln -s /etc/apache2/sites-available/$username.$domain.conf /etc/apache2/sites-enabled/$username.$domain.conf
+	sudo echo "Symbolic link /sites-enabled/$username.$domain.conf created !"
 else
-	sudo echo "File $domain.conf doesn't exist !"
+	sudo echo "File $username.$domain.conf doesn't exist !"
 fi
 #############################################################################
 sudo service apache2 reload

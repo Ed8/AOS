@@ -5,11 +5,11 @@ domain=$2
 
 #############################################################################
 #Delete pub website available conf
-if [ -e /etc/apache2/sites-available/$domain.conf ]; then
-	sudo rm /etc/apache2/sites-available/$domain.conf
-	sudo echo "File /sites-available/$domain.conf deleted !"
+if [ -e /etc/apache2/sites-available/$username.$domain.conf ]; then
+	sudo rm /etc/apache2/sites-available/$username.$domain.conf
+	sudo echo "File /sites-available/$username.$domain.conf deleted !"
 else
-	sudo echo "File /sites-available/$domain.conf doesn't exist !"
+	sudo echo "File /sites-available/$username.$domain.conf doesn't exist !"
 fi
 
 if [ -d /var/www/$username/public_html ]; then

@@ -8,7 +8,7 @@ if [ $enrg = "domaine" -a $domaine != "aos.itinet.fr" ]; then
 		sudo rm /etc/tinydns/root/$nomuser.zone
 		sudo sed -i '10 s/'\ $domaine'//g' /etc/postfix/main.cf
 		sudo rm -r /var/mail/$domaine
-		#sudo rm /var/www/rainloop/data/_data_/_default_/domains/$domaine.ini
+		sudo rm /var/www/rainloop/data/_data_/_default_/domains/$domaine.ini
 	else
 		sudo echo "Ce domaine n'existe pas!"
 	fi
@@ -18,7 +18,7 @@ elif [ $enrg = "mail" -a "$domaine" != "aos.itinet.fr" ]; then
 			sudo sed -i /"@$nomuser.$domaine:$adresse"/d /etc/tinydns/root/$nomuser.zone
 			sudo sed -i '10 s/'\ $domaine'//g' /etc/postfix/main.cf
 			sudo rm -r /var/mail/$domaine
-			#sudo rm /var/www/rainloop/data/_data_/_default_/domains/$domaine.ini
+			sudo rm /var/www/rainloop/data/_data_/_default_/domains/$domaine.ini
 		else
 			sudo echo "Ce mail est inconnu!"
 		fi
@@ -45,5 +45,3 @@ elif [ $enrg = "web" -a $domaine != "aos.itinet.fr" ]; then
 		sudo echo "Ce web est inconnu"
 	fi
 fi
-
-

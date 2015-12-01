@@ -23,38 +23,38 @@ fi
 #############################################################################
 #############################################################################
 #Disable pub website enabled conf
-if [ -e /etc/apache2/sites-enabled/$domain.conf ]; then
-        sudo rm /etc/apache2/sites-enabled/$domain.conf
-        sudo echo "File /sites-enabled/$domain.conf deleted !"
+if [ -e /etc/apache2/sites-enabled/$username.$domain.conf ]; then
+        sudo rm /etc/apache2/sites-enabled/$username.$domain.conf
+        sudo echo "File /sites-enabled/$username.$domain.conf deleted !"
 else
-        sudo echo "File /sites-enabled/$domain.conf doesn't exist !"
+        sudo echo "File /sites-enabled/$username.$domain.conf doesn't exist !"
 fi
 #############################################################################
 #############################################################################
 #Delete pub website available conf
-if [ -e /etc/apache2/sites-available/$domain.conf ]; then
-	sudo rm /etc/apache2/sites-available/$domain.conf
-	sudo echo "File /sites-available/$domain.conf deleted !"
+if [ -e /etc/apache2/sites-available/$username.$domain.conf ]; then
+	sudo rm /etc/apache2/sites-available/$username.$domain.conf
+	sudo echo "File /sites-available/$username.$domain.conf deleted !"
 else
-	sudo echo "File /sites-available/$domain.conf doesn't exist !"
+	sudo echo "File /sites-available/$username.$domain.conf doesn't exist !"
 fi
 #############################################################################
 #############################################################################
 #Disable dev website conf
-if [ -e /etc/apache2/sites-enabled/dev_$domain.conf ]; then
-        sudo rm /etc/apache2/sites-enabled/dev_$domain.conf
-        sudo echo "File /sites-enabled/dev_$domain.conf deleted !"
+if [ -e /etc/apache2/sites-enabled/dev_$username.$domain.conf ]; then
+        sudo rm /etc/apache2/sites-enabled/dev_$username.$domain.conf
+        sudo echo "File /sites-enabled/dev_$username.$domain.conf deleted !"
 else
-        sudo echo "File /sites-enabled/dev_$domain.conf doesn't exist !"
+        sudo echo "File /sites-enabled/dev_$username.$domain.conf doesn't exist !"
 fi
 #############################################################################
 #############################################################################
 #Delete dev website available conf
-if [ -e /etc/apache2/sites-available/dev_$domain.conf ]; then
-	sudo rm /etc/apache2/sites-available/dev_$domain.conf
-	sudo echo "File /sites-available/dev_$domain.conf deleted !"
+if [ -e /etc/apache2/sites-available/dev_$username.$domain.conf ]; then
+	sudo rm /etc/apache2/sites-available/dev_$username.$domain.conf
+	sudo echo "File /sites-available/dev_$username.$domain.conf deleted !"
 else
-	sudo echo "File /sites-available/dev_$domain.conf doesn't exist !"
+	sudo echo "File /sites-available/dev_$username.$domain.conf doesn't exist !"
 fi
 #############################################################################
 #############################################################################

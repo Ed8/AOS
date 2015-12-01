@@ -1,14 +1,17 @@
-#!bin/bash
+#!/bin/bash
 
-sudo echo "1 - MAIL"
+sudo echo "1 - DNS"
 sudo echo "2 - WEB"
+sudo echo "3 - MAIL"
 read reponse
 
 	if [ $reponse = "1" ]; then
-		sudo bash masterMail.sh
+		sudo bash masterDns.sh
 	elif [ $reponse = "2" ]; then
 		sudo bash masterScriptWeb.sh
+	elif [ $reponse = "3" ]; then
+		sudo bash masterMail.sh
 	else
-		echo "Veuillez rentrer 1 ou 2 "
+		sudo echo "Veuillez entrer 1, 2 ou 3"
 	fi
 		

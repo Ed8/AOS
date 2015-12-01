@@ -5,11 +5,11 @@ domain=$2
 
 #############################################################################
 #Delete dev website available conf
-if [ -e /etc/apache2/sites-available/dev_$domain.conf ]; then
-	sudo rm /etc/apache2/sites-available/dev_$domain.conf
-	sudo echo "File /sites-available/dev_$domain.conf deleted !"
+if [ -e /etc/apache2/sites-available/dev_$username.$domain.conf ]; then
+	sudo rm /etc/apache2/sites-available/dev_$username.$domain.conf
+	sudo echo "File /sites-available/dev_$username.$domain.conf deleted !"
 else
-	sudo echo "File /sites-available/dev_$domain.conf doesn't exist !"
+	sudo echo "File /sites-available/dev_$username.$domain.conf doesn't exist !"
 fi
 	
 if [ -d /var/www/$username/dev_html ]; then

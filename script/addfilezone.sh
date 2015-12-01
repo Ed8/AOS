@@ -1,7 +1,8 @@
 #!/bin/bash
 nomuser=$1 
-domaine=$2 #aos.itinet.fr ou domaine.com
-adresse=$3 #88.177.168.133 ou adresses externe
+domaine=$2 
+adresse=$3 
+
 if  [ "$domaine" != "aos.itinet.fr" ]; then     
 	if [ -e "/etc/tinydns/root/$nomuser.zone" ]; then
       		sudo echo "Le domaine existe deja!" 

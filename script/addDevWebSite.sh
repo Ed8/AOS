@@ -18,21 +18,21 @@ if [ -e /var/www/$username/dev_html/index.php ]; then
 	echo "File /$username/dev_html/index.php already exist !"
 else
 	sudo touch /var/www/$username/dev_html/index.php
-	sudo echo "Bienvenue sur $domain !" >> /var/www/$username/dev_html/index.php
+	sudo echo "Bienvenue sur $username.$domain !" >> /var/www/$username/dev_html/index.php
 	sudo chown $username /var/www/$username/dev_html/index.php
 	sudo echo "File /dev_html/index.php created !"
 fi
 
 #Create dev_$domain.conf
-if [ -e /etc/apache2/sites-available/dev_$domain.conf ]; then
-	sudo echo "File dev_$domain.conf already exist !"
+if [ -e /etc/apache2/sites-available/dev_$username.$domain.conf ]; then
+	sudo echo "File dev_$username.$domain.conf already exist !"
 else
-	sudo touch /etc/apache2/sites-available/dev_$domain.conf
-	sudo echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/dev_$domain.conf
-	sudo echo "	ServerName www.dev.$domain" >> /etc/apache2/sites-available/dev_$domain.conf
-	sudo echo "	Documentroot /var/www/$username/dev_html" >> /etc/apache2/sites-available/dev_$domain.conf
-	sudo echo "</VirtualHost>" >> /etc/apache2/sites-available/dev_$domain.conf
-	sudo echo "File /sites-available/dev_$domain.conf created !"
+	sudo touch /etc/apache2/sites-available/dev_$username.$domain.conf
+	sudo echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/dev_$username.$domain.conf
+	sudo echo "	ServerName www.dev.$username.$domain" >> /etc/apache2/sites-available/dev_$username.$domain.conf
+	sudo echo "	Documentroot /var/www/$username/dev_html" >> /etc/apache2/sites-available/dev_$username.$domain.conf
+	sudo echo "</VirtualHost>" >> /etc/apache2/sites-available/dev_$username.$domain.conf
+	sudo echo "File /sites-available/dev_$username.$domain.conf created !"
 fi
 sudo chown -R $username:www-data /var/www/$username
 sudo chmod -R 770 /var/www/$username

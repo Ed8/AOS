@@ -14,7 +14,7 @@ if [ $enrg = "mail" ]; then
 	   			if [ -z "$verification" ]; then
 	   				sudo sed -i '10 s/$/'\ $domaine'/g' /etc/postfix/main.cf
 					sudo mkdir /var/mail/$domaine
-					#sudo chown -R vmail:vmail /var/mail/$domainesudo 
+					sudo chown -R vmail:vmail /var/mail/$domaine 
 					sudo bash domainRainloop.sh $domaine
 				fi
 			else				
