@@ -6,7 +6,7 @@ domain=$2
 #Public______________________________________________________________________
 #Create repository public_html
 if [ -d /var/www/$username/public_html ]; then
-	echo "Repository /$username/public_html already exist !"
+	sudo echo "Repository /$username/public_html already exist !"
 else
 	sudo mkdir /var/www/$username/public_html
 	sudo chown $username /var/www/$username/public_html
@@ -15,7 +15,7 @@ fi
 
 #Creating public web page for public_html
 if [ -e /var/www/$username/public_html/index.php ]; then
-	echo "File /$username/public_html/index.php already exist !"
+	sudo echo "File /$username/public_html/index.php already exist !"
 else
 	sudo touch /var/www/$username/public_html/index.php
 	sudo echo "Bienvenue sur $username.$domain !" >> /var/www/$username/public_html/index.php
