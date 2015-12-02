@@ -78,6 +78,5 @@ if grep -q $username /etc/shadow; then
 else
 	sudo echo "User $username doesn't exist in shadow !"
 fi
-sudo gpasswd -d $username quotaweb
 #############################################################################
 sudo service apache2 reload

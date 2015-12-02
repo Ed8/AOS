@@ -8,7 +8,7 @@ pass=$2
 if grep -q $username /etc/passwd; then
 	sudo echo "User $username already exist in /etc/passwd !"
 else
-	sudo useradd -p $pass -s /usr/bin/mysecureshell $username -g sftpusers -G quotaweb
+	sudo useradd -p $pass -s /usr/bin/mysecureshell $username -g sftpusers
 	sudo echo "User $username added in passwd,shadow and sftpusers group affected !"
 	
 	#changing to encrypted password
