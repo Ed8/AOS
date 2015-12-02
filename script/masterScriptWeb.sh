@@ -19,31 +19,31 @@ do
 		
 		if [[ $addanswer == *"1"* ]]; then
 			sudo echo "Enter username :"
-			read usernameadd
+			read username
 			sudo echo "Enter password :"
-			read passwordadd
-			sudo bash addUser.sh $usernameadd $passwordadd
-			sudo bash addUserPhpMyAdmin.sh $usernameadd $passwordadd
+			read password
+			sudo bash addUser.sh $username $password
+			sudo bash addUserPhpMyAdmin.sh $username $password
 		elif [[ $addanswer == *"2"* ]]; then
 			sudo echo "1 - public website"
 			sudo echo "2 - dev website"
 			read addwebsite
 			if [[ $addwebsite == *"1"* ]]; then
 				sudo echo "Enter username :"
-				read usernameaddpublicwebsite
+				read username
 				sudo echo "Enter FQDN :"
-				read fqdnaddpublicwebsite
-				sudo bash addRepositoryWebSites.sh $usernameaddpublicwebsite
-				sudo bash addPublicWebSite.sh $usernameaddpublicwebsite $fqdnaddpublicwebsite
-				sudo bash addenregzone.sh $usernameaddpublicwebsite $fqdnaddpublicwebsite web 88.177.168.133 
+				read fqdn
+				sudo bash addRepositoryWebSites.sh $username
+				sudo bash addPublicWebSite.sh $username $fqdn
+				sudo bash addenregzone.sh $username $fqdn web 88.177.168.133 
 			elif [[ $addwebsite == *"2"* ]];then
 				sudo echo "Enter username :"
-				read usernameadddevwebsite
+				read username
 				sudo echo "Enter FQDN :"
-				read fqdnadddevwebsite
-				sudo bash addRepositoryWebSites.sh $usernameadddevwebsite
-				sudo bash addDevWebSite.sh $usernameadddevwebsite $fqdnadddevwebsite
-				sudo bash addenregzone.sh $usernameadddevwebsite $fqdnadddevwebsite web 88.177.168.133
+				read fqdn
+				sudo bash addRepositoryWebSites.sh $username
+				sudo bash addDevWebSite.sh $username $fqdn
+				sudo bash addenregzone.sh $username $fqdn web 88.177.168.133
 			else
 				sudo echo "Please enter a right choice !"
 			fi
@@ -53,16 +53,16 @@ do
 			read enablewebsite
 			if [[ $enablewebsite == *"1"* ]]; then
 				sudo echo "Enter Username :"
-				read usernamefqdnenablepublicwebsite
+				read username
 				sudo echo "Enter FQDN :"
-				read fqdnenablepublicwebsite
-				sudo bash enablePublicWebSite.sh $usernamefqdnenablepublicwebsite $fqdnenablepublicwebsite
+				read fqdn
+				sudo bash enablePublicWebSite.sh $username $fqdn
 			elif [[ $enablewebsite == *"2"* ]];then
 				sudo echo "Enter Username :"
-				read usernamefqdnenabledevwebsite
+				read username
 				sudo echo "Enter FQDN :"
-				read fqdnenabledevwebsite
-				sudo bash enableDevWebSite.sh $usernamefqdnenabledevwebsite $fqdnenabledevwebsite
+				read fqdn
+				sudo bash enableDevWebSite.sh $username $fqdn
 			else
 				sudo echo "Please enter a right choice !"
 			fi
@@ -72,21 +72,21 @@ do
 			read adddb
 			if [[ $adddb == *"1"* ]]; then
 				sudo echo "Enter username :"
-				read usernameaddpublicdatabase
-				sudo bash addPublicDatabase.sh $usernameaddpublicdatabase
+				read username
+				sudo bash addPublicDatabase.sh $username
 			elif [[ $adddb == *"2"* ]]; then
 				sudo echo "Enter username :"
-				read usernameadddevdatabase
-				sudo bash addDevDatabase.sh $usernameadddevdatabase
+				read username
+				sudo bash addDevDatabase.sh $username
 			else
 				sudo echo "Please enter a right choice !"
 			fi
 		elif [[ $addanswer == *"5"* ]]; then
 			sudo echo "Enter username :"
-			read usernamechangepassword
+			read username
 			sudo echo "Enter new password :"
-			read passwordchange
-			sudo bash changePassword.sh $usernamechangepassword $passwordchange
+			read password
+			sudo bash changePassword.sh $username $password
 		else
 			sudo echo "Please enter a right choice !"
 		fi	
@@ -99,12 +99,12 @@ do
 		
 		if [[ $delanswer == *"1"* ]]; then
 			sudo echo "Enter username :"
-			read usernamedel
+			read username
 			sudo echo "Enter user's FQDN :"
-			read fqdndel
-			sudo bash deleteUser.sh $usernamedel $fqdndel
-			sudo bash delzone.sh $usernamedel $fqdndel web 88.177.168.133
-			sudo bash delzone.sh dev.$usernamdel $fqdndel web 88.177.168.133
+			read fqdn
+			sudo bash deleteUser.sh $username $fqdn
+			sudo bash delzone.sh $username $fqdn web 88.177.168.133
+			sudo bash delzone.sh dev.$username $fqdn web 88.177.168.133
 		
 		elif [[ $delanswer == *"2"* ]]; then
 			sudo echo "1 - public website"
@@ -112,16 +112,16 @@ do
 			read disablewebsite
 			if [[ $disablewebsite == *"1"* ]]; then
 				sudo echo "Enter Username :"
-				read usernamefqdndisablepublicwebsite
+				read username
 				sudo echo "Enter FQDN :"
-				read fqdndisablepublicwebsite
-				sudo bash disablePublicWebSite.sh $usernamefqdndisablepublicwebsite $fqdndisablepublicwebsite
+				read fqdn
+				sudo bash disablePublicWebSite.sh $username $fqdn
 			elif [[ $disablewebsite == *"2"* ]];then
 				sudo echo "Enter Username :"
-				read usernamefqdndisabledevwebsite
+				read username
 				sudo echo "Enter FQDN :"
-				read fqdndisabledevwebsite
-				sudo bash disableDevWebSite.sh $usernamefqdndisabledevwebsite $fqdndisabledevwebsite
+				read fqdn
+				sudo bash disableDevWebSite.sh $username $fqdn
 			else
 				sudo echo "Please enter a right choice !"
 			fi
@@ -131,22 +131,22 @@ do
 			read delwebsite
 			if [[ $delwebsite == *"1"* ]]; then
 				sudo echo "Enter Username :"
-				read usernamedelpublicdatabase
+				read username
 				sudo echo "Enter FQDN :"
-				read fqdndelpublicwebsite
-				sudo bash disablePublicWebSite.sh $usernamedelpublicdatabase $fqdndelpublicwebsite
-				sudo bash deletePublicWebSite.sh $usernamedelpublicdatabase $fqdndelpublicwebsite
-				sudo bash deletePublicDatabase.sh $usernamedelpublicdatabase
-				sudo bash delzone.sh $usernamedelpublicdatabase $fqdndelpublicwebsite web 88.177.168.133
+				read fqdn
+				sudo bash disablePublicWebSite.sh $username $fqdn
+				sudo bash deletePublicWebSite.sh $username $fqdn
+				sudo bash deletePublicDatabase.sh $username
+				sudo bash delzone.sh $username $fqdn web 88.177.168.133
 			elif [[ $delwebsite == *"2"* ]];then
 				sudo echo "Enter Username :"
-				read usernamedeldevdatabase
+				read username
 				sudo echo "Enter FQDN :"
-				read fqdndeldevwebsite
-				sudo bash disableDevWebSite.sh $usernamedeldevdatabase $fqdndeldevwebsite
-				sudo bash deleteDevWebSite.sh $usernamedeldevdatabase $fqdndeldevwebsite
-				sudo bash deleteDevDatabase.sh $usernamedeldevdatabase
-				sudo bash delzone.sh dev.$usernamedeldevdatabase $fqdndeldevwebsite web 88.177.168.133
+				read fqdn
+				sudo bash disableDevWebSite.sh $username $fqdn
+				sudo bash deleteDevWebSite.sh $username $fqdn
+				sudo bash deleteDevDatabase.sh $username
+				sudo bash delzone.sh dev.$username $fqdn web 88.177.168.133
 			else
 				sudo echo "Please enter a right choice !"
 			fi
@@ -156,12 +156,12 @@ do
 			read deldb
 			if [[ $deldb == *"1"* ]]; then
 				sudo echo "Enter username :"
-				read usernamedelpublicdatabase
-				sudo bash deletePublicDatabase.sh $usernamedelpublicdatabase
+				read username
+				sudo bash deletePublicDatabase.sh $username
 			elif [[ $deldb == *"2"* ]]; then
 				sudo echo "Enter username :"
-				read usernamedeldevdatabase
-				sudo bash deleteDevDatabase.sh $usernamedeldevdatabase
+				read username
+				sudo bash deleteDevDatabase.sh $username
 			else
 				sudo echo "Please enter a right choice !"
 			fi
