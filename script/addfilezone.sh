@@ -11,10 +11,8 @@ if  [ "$domaine" != "aos.itinet.fr" ]; then
        		sudo echo ".$domaine:$adresse:259200 " >> /etc/tinydns/root/$nomuser.zone
     	fi
 fi
-sudo cat /etc/tinydns/root/*.zone > /etc/tinydns/root/data
-sudo rm /etc/tinydns/root/data.cdb
-sudo make /etc/tinydns/root/data
-ssh -i /home/dimitri/.ssh/id_rsa root@dedibox.itinet.fr
+sudo bash updatezone.sh
+
 
 
 

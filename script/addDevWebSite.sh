@@ -37,9 +37,5 @@ fi
 sudo chown -R $username:www-data /var/www/$username
 sudo chmod -R 770 /var/www/$username
 
-sudo cat /etc/tinydns/root/*.zone > /etc/tinydns/root/data
-sudo rm /etc/tinydns/root/data.cdb
-sudo make /etc/tinydns/root/data
-ssh -i /home/dimitri/.ssh/id_rsa root@dedibox.itinet.fr
-
+sudo bash updatezone.sh
 sudo service apache2 reload

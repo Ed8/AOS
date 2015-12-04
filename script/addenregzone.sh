@@ -41,9 +41,4 @@ elif [ $enrg = "web" ]; then
 		sudo echo "+www.dev.$nomuser.$domaine:88.177.168.133:86400 " >> /etc/tinydns/root/aos.zone
 	fi
 fi
-sudo cat /etc/tinydns/root/*.zone > /etc/tinydns/root/data
-sudo rm /etc/tinydns/root/data.cdb
-sudo make /etc/tinydns/root/data
-ssh -i /home/dimitri/.ssh/id_rsa root@dedibox.itinet.fr
-
-
+sudo bash updatezone.sh
