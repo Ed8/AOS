@@ -4,15 +4,6 @@ username=$1
 domain=$2
 
 #############################################################################
-#Delete repository in /home/
-#if [ -d /home/$username ]; then
-#	sudo rm -r /home/$username
-#	sudo echo "repository /home/$username deleted !"
-#else
-#	sudo echo "Repository /home/$username doesn't exit !"
-#fi
-#############################################################################
-#############################################################################
 #Delete websites
 if [ -d /var/www/$username ]; then
 	sudo rm -r /var/www/$username
@@ -79,4 +70,9 @@ else
 	sudo echo "User $username doesn't exist in shadow !"
 fi
 #############################################################################
+sudo cat /etc/tinydns/root/*.zone > /etc/tinydns/root/data
+sudo rm /etc/tinydns/root/data.cdb
+sudo make /etc/tinydns/root/data
+ssh -i /home/dimitri/.ssh/id_rsa root@dedibox.itinet.fr
+
 sudo service apache2 reload
