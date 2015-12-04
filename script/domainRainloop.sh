@@ -4,7 +4,7 @@ domain=$1
 
 if [ ! -f "/var/www/rainloop/data/_data_/_default_/domains/$domain.ini" ];then
 	sudo touch /var/www/rainloop/data/_data_/_default_/domains/$domain.ini
-	sudo echo 'map_host = "localhost"
+	sudo echo 'imap_host = "localhost"
 imap_port = 143
 imap_secure = "None"
 imap_short_login = Off
