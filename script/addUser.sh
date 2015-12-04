@@ -13,4 +13,8 @@ else
 	
 	#changing to encrypted password
         sudo echo "$username:$pass" | sudo chpasswd
+	
+	#Set quota Web
+	sudo setquota -u $username 195312 244141 195312 244141 /dev/sda5 
+	sudo echo "Quota sets for $username to 250Mo !"
 fi
