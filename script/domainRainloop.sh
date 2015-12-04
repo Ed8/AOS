@@ -20,5 +20,7 @@ smtp_short_login = Off
 smtp_auth = Off
 smtp_php_mail = Off
 white_list = ""' >> /var/www/rainloop/data/_data_/_default_/domains/$domain.ini
+sudo chown www-data:www-data /var/www/rainloop/data/_data_/_default_/domains/$domain.ini
+sudo chmod 770 /var/www/rainloop/data/_data_/_default_/domains/$domain.ini
 fi
 
