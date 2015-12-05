@@ -35,7 +35,7 @@ do
 				read fqdn
 				sudo bash addRepositoryWebSites.sh $username
 				sudo bash addPublicWebSite.sh $username $fqdn
-				sudo bash addenregzone.sh $username $fqdn web 88.177.168.133 
+				sudo bash addenregzone.sh $username $fqdn fqdn 88.177.168.133 
 			elif [[ $addwebsite == *"2"* ]];then
 				sudo echo "Enter username :"
 				read username
@@ -43,7 +43,7 @@ do
 				read fqdn
 				sudo bash addRepositoryWebSites.sh $username
 				sudo bash addDevWebSite.sh $username $fqdn
-				sudo bash addenregzone.sh $username $fqdn web 88.177.168.133
+				sudo bash addenregzone.sh dev.$username $fqdn fqdn 88.177.168.133
 			else
 				sudo echo "Please enter a right choice !"
 			fi
@@ -137,7 +137,7 @@ do
 				sudo bash disablePublicWebSite.sh $username $fqdn
 				sudo bash deletePublicWebSite.sh $username $fqdn
 				sudo bash deletePublicDatabase.sh $username
-				sudo bash delzone.sh $username $fqdn web 88.177.168.133
+				sudo bash delzone.sh $username $fqdn fqdn 88.177.168.133
 			elif [[ $delwebsite == *"2"* ]];then
 				sudo echo "Enter Username :"
 				read username
@@ -146,7 +146,7 @@ do
 				sudo bash disableDevWebSite.sh $username $fqdn
 				sudo bash deleteDevWebSite.sh $username $fqdn
 				sudo bash deleteDevDatabase.sh $username
-				sudo bash delzone.sh dev.$username $fqdn web 88.177.168.133
+				sudo bash delzone.sh dev.$username $fqdn fqdn 88.177.168.133
 			else
 				sudo echo "Please enter a right choice !"
 			fi

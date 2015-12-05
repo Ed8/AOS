@@ -3,13 +3,13 @@ nomuser=$1
 domaine=$2 
 enrg=$3
 adresse=$4
-if [ $enrg = "mail" ]; then
-	if [ -e "/etc/tinydns/root/$nomuser.zone" ]; then
-		if sudo grep -q @$domaine /etc/tinydns/root/$nomuser.zone; then
-            		sudo echo "Ce mail existe deja!"
+if [ $enrg = "mx" ]; then
+	if [ -e "/etc/tinydns/root/$domaine.zone" ]; then
+		if sudo grep -q @$domaine /etc/tinydns/root/$domaine.zone; then
+            		sudo echo "Ce mx existe deja!"
          	else
 			if [ $adresse = "88.177.168.133" ]; then
-				sudo echo "@$domaine:$adresse::86400" >> /etc/tinydns/root/$nomuser.zone	
+				sudo echo "@$domaine:$adresse::86400" >> /etc/tinydns/root/$domaine.zone	
 				verification=`sudo grep $domaine /etc/postfix/main.cf`
 	   			if [ -z "$verification" ]; then
 	   				sudo sed -i '10 s/$/'\ $domaine'/g' /etc/postfix/main.cf
@@ -18,27 +18,29 @@ if [ $enrg = "mail" ]; then
 					sudo bash domainRainloop.sh $domaine
 				fi
 			else				
-				sudo echo "@$domaine:$adresse::86400" >> /etc/tinydns/root/$nomuser.zone				
+				sudo echo "@$domaine:$adresse::86400" >> /etc/tinydns/root/$domaine.zone				
            		fi
-					
 	    	fi	   		
 	else
 	   sudo echo "Veuillez creer un domaine!"
 	fi
-elif [ $enrg = "web" ]; then
-	if [ -e "/etc/tinydns/root/$nomuser.zone" ]; then
-		if sudo grep -q +www.$nomuser.$domaine /etc/tinydns/root/$nomuser.zone; then
-			sudo echo "Ce web existe deja!"
-		else
- 	   		sudo echo "+www.$nomuser.$domaine:$adresse::86400 " >> /etc/tinydns/root/$nomuser.zone
-			sudo echo "+www.dev.$nomuser.$domaine:$adresse::86400 " >> /etc/tinydns/root/$nomuser.zone
+elif [ $enrg = "fqdn" ]; then
+	if [ $domaine != "aos.itinet.fr" ]; then
+		if [ -e "/etc/tinydns/root/$domaine.zone" ]; then
+			if sudo grep -q =$nomuser.$domaine /etc/tinydns/root/$domaine.zone; then
+				sudo echo "Ce fqdn existe deja!"
+			else
+ 	   			sudo echo "=$nomuser.$domaine:$adresse:86400" >> /etc/tinydns/root/$domaine.zone
+			fi
 		fi
-
-	elif sudo grep -q "+www.$nomuser" "/etc/tinydns/root/aos.zone"; then
-  	   	sudo echo "Le web existe deja!"
 	else
-  	 	sudo echo "+www.$nomuser.$domaine:88.177.168.133::86400 " >> /etc/tinydns/root/aos.zone
-		sudo echo "+www.dev.$nomuser.$domaine:88.177.168.133::86400 " >> /etc/tinydns/root/aos.zone
+		if [ $domaine = "aos.itinet.fr" ]; then
+			if sudo grep -q "=$nomuser" /etc/tinydns/root/aos.itinet.fr.zone; then
+  	   			sudo echo "Ce fqdn existe deja!"
+			else
+  	 			sudo echo "=$nomuser.$domaine:88.177.168.133:86400" >> /etc/tinydns/root/aos.itinet.fr.zone
+			fi
+		fi
 	fi
 fi
 sudo bash updatezone.sh

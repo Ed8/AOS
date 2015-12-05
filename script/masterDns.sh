@@ -22,7 +22,7 @@ elif [ $reponse = "2" ]; then
 	read nomuser
 	sudo echo "Entrer votre domaine"
 	read domaine
-	sudo echo "Entrer votre enregistrement (MX,A)"
+	sudo echo "Entrer votre enregistrement (mx,fqdn)"
 	read enrg
 	sudo echo "Entrer l'adresse ip de l'enregistrement"
 	read adresse
@@ -33,7 +33,7 @@ elif [ $reponse = "3" ]; then
 	read nomuser
 	sudo echo "Entrer votre domaine"
 	read domaine
-	sudo echo "Entrer votre enregistrement (domaine,mail,web)"
+	sudo echo "Entrer votre enregistrement (domaine,mx,fqdn)"
 	read enrg
 	sudo echo "Entrer votre adresse ip du domaine ou de l'enregistrement"
 	read adresse
@@ -42,5 +42,3 @@ elif [ $reponse = "3" ]; then
 else 
 	sudo echo "Entrer un choix valide"
 fi
-	
-		

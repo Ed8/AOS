@@ -29,13 +29,12 @@ if [ -e /etc/apache2/sites-available/dev_$username.$domain.conf ]; then
 else
 	sudo touch /etc/apache2/sites-available/dev_$username.$domain.conf
 	sudo echo "<VirtualHost *:80>" >> /etc/apache2/sites-available/dev_$username.$domain.conf
-	sudo echo "	ServerName www.dev.$username.$domain" >> /etc/apache2/sites-available/dev_$username.$domain.conf
+	sudo echo "	ServerName dev.$username.$domain" >> /etc/apache2/sites-available/dev_$username.$domain.conf
 	sudo echo "	Documentroot /var/www/$username/dev_html" >> /etc/apache2/sites-available/dev_$username.$domain.conf
 	sudo echo "</VirtualHost>" >> /etc/apache2/sites-available/dev_$username.$domain.conf
 	sudo echo "File /sites-available/dev_$username.$domain.conf created !"
 fi
 sudo chown -R $username:www-data /var/www/$username
 sudo chmod -R 770 /var/www/$username
-
 sudo bash updatezone.sh
 sudo service apache2 reload
