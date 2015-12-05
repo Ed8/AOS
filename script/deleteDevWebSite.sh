@@ -19,5 +19,6 @@ else
 	sudo echo "Repository /www/$username/dev_html doesn't exit !"
 fi
 #############################################################################
+sudo bash delzone.sh dev.$username $domain fqdn 88.177.168.133
 sudo bash updatezone.sh
 sudo service apache2 reload

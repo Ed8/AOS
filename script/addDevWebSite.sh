@@ -36,5 +36,5 @@ else
 fi
 sudo chown -R $username:www-data /var/www/$username
 sudo chmod -R 770 /var/www/$username
-sudo bash updatezone.sh
+sudo bash addenregzone.sh dev.$username $fqdn fqdn 88.177.168.133
 sudo service apache2 reload
