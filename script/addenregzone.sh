@@ -26,11 +26,21 @@ if [ $enrg = "mx" ]; then
 	fi
 elif [ $enrg = "fqdn" ]; then
 	if [ $domaine != "aos.itinet.fr" ]; then
-		if [ -e "/etc/tinydns/root/$domaine.zone" ]; then
-			if sudo grep -q =$nomuser.$domaine /etc/tinydns/root/$domaine.zone; then
-				sudo echo "Ce fqdn existe deja!"
-			else
- 	   			sudo echo "=$nomuser.$domaine:$adresse:86400" >> /etc/tinydns/root/$domaine.zone
+		if [ $nomuser = "" ]; then
+			if [ -e "/etc/tinydns/root/$domaine.zone" ]; then
+                        	if sudo grep -q =$domaine /etc/tinydns/root/$domaine.zone; then
+                                	sudo echo "Ce fqdn existe deja!"
+                        	else
+                                	sudo echo "=$domaine:$adresse:86400" >> /etc/tinydns/root/$domaine.zone
+                        	fi
+                	fi
+		else
+			if [ -e "/etc/tinydns/root/$domaine.zone" ]; then
+				if sudo grep -q =$nomuser.$domaine /etc/tinydns/root/$domaine.zone; then
+					sudo echo "Ce fqdn existe deja!"
+				else
+ 	   				sudo echo "=$nomuser.$domaine:$adresse:86400" >> /etc/tinydns/root/$domaine.zone
+				fi
 			fi
 		fi
 	else

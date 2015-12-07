@@ -8,14 +8,12 @@ sudo echo "3 - Supprimer"
 read reponse
 
 if [ $reponse = "1" ]; then
-	sudo echo "Entrer votre nom d'utilisateur"
-	read nomuser
 	sudo echo "Entrer votre domaine"
 	read domaine
 	sudo echo "Entrer l'adresse ip du domaine"
 	read adresse
 	sudo echo "Patientez...."
-	sudo bash addfilezone.sh $nomuser $domaine $adresse
+	sudo bash addfilezone.sh $domaine $adresse
 	sudo echo "Votre domaine a bien été créé"
 elif [ $reponse = "2" ]; then
 	sudo echo "Entrer votre nom d'utilisateur"

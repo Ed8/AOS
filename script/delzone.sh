@@ -36,10 +36,18 @@ elif [ $enrg = "fqdn" -a $domaine = "aos.itinet.fr" ]; then
 		sudo echo "Ce fqdn est inconnu"
 	fi
 elif [ $enrg = "fqdn" -a $domaine != "aos.itinet.fr" ]; then	
-	if sudo grep -q =$nomuser.$domaine /etc/tinydns/root/$domaine.zone; then
-		sudo sed -i /"=$nomuser.$domaine"/d /etc/tinydns/root/$domaine.zone
+	if [ $nomuser = "" ]; then
+		if sudo grep -q =$domaine /etc/tinydns/root/$domaine.zone; then
+                	sudo sed -i /"=$domaine"/d /etc/tinydns/root/$domaine.zone
+        	else
+                	sudo echo "Ce fqdn est inconnu"
+        	fi
 	else
-		sudo echo "Ce fqdn est inconnu"
+		if sudo grep -q =$nomuser.$domaine /etc/tinydns/root/$domaine.zone; then
+			sudo sed -i /"=$nomuser.$domaine"/d /etc/tinydns/root/$domaine.zone
+		else
+			sudo echo "Ce fqdn est inconnu"
+		fi
 	fi
 fi
 
