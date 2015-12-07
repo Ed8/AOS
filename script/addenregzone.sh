@@ -26,9 +26,9 @@ if [ $enrg = "mx" ]; then
 	fi
 elif [ $enrg = "fqdn" ]; then
 	if [ $domaine != "aos.itinet.fr" ]; then
-		if [ -z $nomuser ]; then
+		if [ $nomuser == "0" ]; then
 			if [ -e "/etc/tinydns/root/$domaine.zone" ]; then
-                        	if sudo grep -q =$domaine /etc/tinydns/root/$domaine.zone; then
+				if sudo grep -q =$domaine /etc/tinydns/root/$domaine.zone; then
                                 	sudo echo "Ce fqdn existe deja!"
                         	else
                                 	sudo echo "=$domaine:$adresse:86400" >> /etc/tinydns/root/$domaine.zone
