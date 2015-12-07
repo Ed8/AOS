@@ -72,5 +72,4 @@ fi
 #############################################################################
 sudo bash delzone.sh $username $domain fqdn 88.177.168.133
 sudo bash delzone.sh dev.$username $domain fqdn 88.177.168.133
-sudo bash updatezone.sh
 sudo service apache2 reload
