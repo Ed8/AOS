@@ -36,7 +36,7 @@ elif [ $enrg = "fqdn" -a $domaine = "aos.itinet.fr" ]; then
 		sudo echo "Ce fqdn est inconnu"
 	fi
 elif [ $enrg = "fqdn" -a $domaine != "aos.itinet.fr" ]; then	
-	if [ $nomuser = "" ]; then
+	if [ -z $nomuser ]; then
 		if sudo grep -q =$domaine /etc/tinydns/root/$domaine.zone; then
                 	sudo sed -i /"=$domaine"/d /etc/tinydns/root/$domaine.zone
         	else
