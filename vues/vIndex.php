@@ -11,7 +11,7 @@
 
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Unika - Responsive One Page HTML5 Template</title>
+		<title>Aos</title>
 		<meta name="description" content="Unika - Responsive One Page HTML5 Template">
 		<meta name="keywords" content="HTML5, Bootsrtrap, One Page, Responsive, Template, Portfolio" />
 		<meta name="author" content="imransdesign.com">
@@ -72,7 +72,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand page-scroll" href="./vues/index.php">Admin Online Services</a>
+                      <a class="navbar-brand page-scroll" href="index.php">Admin Online Services</a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -92,26 +92,28 @@
 									<div class="modal-content">
 										<div class="modal-header">
 											<button type="button" class="close" data-dismiss="modal">&times;</button>
-											<h3 class="modal-title">Inscription</h3>
+                                            <h3 class="modal-title">Inscription</h3>
 										</div>
 										<div class="modal-body">
-											<form method="POST" action="index.php?p=inscription">
-												<label>Nom d'utilisateur :</label>
-												<input type="text" placeholder="votre nom d'utilisateur" name="nomUtilisateur" />
-												<br />
-												<label>Adresse mail :</label>
-												<input type="email" placeholder="votre mail" name="mail" />
-												<br />
-												<label>Confirmation adresse mail :</label>
-												<input type="email" placeholder="votre confirmation de mail" name="confMail" />
-												<br />
-												<label>Mot de passe :</label>
-												<input type="password" placeholder="votre mot de passe" name="motDePasse" />
-												<br />
-												<label>Confirmation du mot de passe :</label>
-												<input type="password" placeholder="votre confirmation de  mot de passe" name="confMotDePasse" />
-												<br />
-												<button type="submit" value="confInscription" name="confInscription">Valider votre inscription</button>
+											<form method="POST" id="inscription" action="index.php?p=index">
+                                            <div class="row">
+                                                <div class="col-md-6">
+												        <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="nomUtilisateur" />
+												        <br />
+												        <input type="email" class="form-control" placeholder="Votre mail" name="mail" />
+												        <br />
+												        <input type="email" class="form-control" placeholder="Votre confirmation de mail" name="confMail" />
+												        <br />
+												        <input type="password" class="form-control" placeholder="Votre mot de passe" name="motDePasse" />
+												        <br />
+												        <input type="password" class="form-control" placeholder="Votre confirmation de  mot de passe" name="confMotDePasse" />
+												        <br />
+                                                </div>
+                                            </div>
+                                        <div class="modal-footer">
+                                                        <button type="button" data-dismiss="modal" class="btn btn-primary">Fermer</button>
+                                                        <button type="submit" class="btn btn-success" value="confInscription" name="confInscription">Valider</button>
+                                        </div>
 											</form>
 											<?php
 												if(isset($erreur)){
@@ -132,14 +134,19 @@
 											<h3 class="modal-title">Connexion</h3>
 										</div>
 										<div class="modal-body">
-											<form method="POST" action="index.php?p=connexion">
-												<label>Nom d'utilisateur :</label>
-												<input type="text" placeholder="votre nom d'utilisateur" name="nomUtilisateur" />
-												<br />
-												<label>Mot de passe :</label>
-												<input type="password" placeholder="votre mot de passe" name="motDePasse" />
-												<br />
-												<button type="submit" value="confConnexion" name="confConnexion">Se connecter</button>
+											<form method="POST" id="connexion" action="index.php?p=connexion">
+											<div class="row">
+                                                <div class="col-md-6">
+												    <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="nomUtilisateur" />
+												    <br />
+												    <input type="password" class="form-control" placeholder="Votre mot de passe" name="motDePasse" />
+												    <br />
+                                                </div>
+                                            </div>
+                                        <div class="modal-footer">
+												    <button type="button" data-dismiss="modal" class="btn btn-primary">Fermer</button>
+                                                    <button type="submit" class="btn btn-success" value="confConnexion" name="confConnexion">Se connecter</button>
+                                        </div>
 											</form>
 										</div>
 									</div>
@@ -1119,7 +1126,7 @@
         
         
         <!-- Plugins JS -->
-		<script src="./vues/inc/jquery/jquery-1.11.1.min.js"></script>
+		<script src="./vues/inc/jquery/jquery-1.11.1.min.js"></script> 
 		<script src="./vues/inc/bootstrap/js/bootstrap.min.js"></script>
 		<script src="./vues/inc/owl-carousel/js/owl.carousel.min.js"></script>
 		<script src="./vues/inc/stellar/js/jquery.stellar.min.js"></script>
@@ -1130,6 +1137,10 @@
 		<script src="./vues/inc/jquery.easing.min.js"></script>
 		<script src="./vues/inc/jquery.counterup.min.js"></script>
 		<script src="./vues/inc/smoothscroll.js"></script>
+        <script src="./vues/js/inscription.js"></script>
+        <script src="./vues/js/connexion.js"></script>
+        <script src="./vues/js/jquery.validate.min.js"></script>
+
 
 		<!-- Theme JS -->
 		<script src="./vues/js/theme.js"></script>

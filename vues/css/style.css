@@ -1143,4 +1143,18 @@ p.subtitle {
 	-o-transform: rotate(-45deg);
 	transform: rotate(-45deg);
 }
+#inscription label.error {
+color:red;
+}
+
+#inscription input.error {
+border:1px solid red;
+}
+#connexion label.error {
+color:red;
+}
+
+#connexion input.error {
+border:1px solid red;
+}
 /* ===== End buttons ===== */
