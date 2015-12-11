@@ -24,20 +24,20 @@
 		<link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'> <!-- Navbar font -->
 
 		<!-- Libs and Plugins CSS -->
-		<link rel="stylesheet" href="inc/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="inc/animations/css/animate.min.css">
-		<link rel="stylesheet" href="inc/font-awesome/css/font-awesome.min.css"> <!-- Font Icons -->
-		<link rel="stylesheet" href="inc/owl-carousel/css/owl.carousel.css">
-		<link rel="stylesheet" href="inc/owl-carousel/css/owl.theme.css">
+		<link rel="stylesheet" href="./vues/inc/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="./vues/inc/animations/css/animate.min.css">
+		<link rel="stylesheet" href="./vues/inc/font-awesome/css/font-awesome.min.css"> <!-- Font Icons -->
+		<link rel="stylesheet" href="./vues/inc/owl-carousel/css/owl.carousel.css">
+		<link rel="stylesheet" href="./vues/inc/owl-carousel/css/owl.theme.css">
 
 		<!-- Theme CSS -->
-        <link rel="stylesheet" href="css/reset.css">
-		<link rel="stylesheet" href="css/style.css">
-		<link rel="stylesheet" href="css/mobile.css">
+        <link rel="stylesheet" href="./vues/css/reset.css">
+		<link rel="stylesheet" href="./vues/css/style.css">
+		<link rel="stylesheet" href="./vues/css/mobile.css">
 
 		<!-- Skin CSS -->
 		<!--<link rel="stylesheet" href="css/skin/cool-gray.css">-->
-        <link rel="stylesheet" href="css/skin/ice-blue.css">
+        <link rel="stylesheet" href="./vues/css/skin/ice-blue.css">
         <!-- <link rel="stylesheet" href="css/skin/summer-orange.css"> -->
         <!-- <link rel="stylesheet" href="css/skin/fresh-lime.css"> -->
         <!-- <link rel="stylesheet" href="css/skin/night-purple.css"> -->
@@ -72,7 +72,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand page-scroll" href="index.html">Admin Online Services</a>
+                      <a class="navbar-brand page-scroll" href="./vues/index.php">Admin Online Services</a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -160,7 +160,7 @@
                         
             
         	<!-- Begin text carousel intro section -->
-			<section id="text-carousel-intro-section" class="parallax" data-stellar-background-ratio="0.5" style="background-image: url(img/AOS-psl.png); background-size: 80% auto;";>
+			<section id="text-carousel-intro-section" class="parallax" data-stellar-background-ratio="0.5" style="background-image: url(./vues/img/AOS-psl.png); background-size: 80% auto;";>
 				
 				<!--<div class="container">
 					<div class="caption text-center text-white" data-stellar-ratio="0.7">
@@ -695,7 +695,7 @@
                                     <div class="team-item">
                                         <div class="team-triangle">
                                             <div class="content">
-                                                <img src="img/team/rodolphe.jpg" alt="title"/>
+                                                <img src="./vues/img/team/rodolphe.jpg" alt="title"/>
                                                 <div class="team-hover text-center">
                                                     <i class="fa fa-male"></i>
                                                     <p>Rodolphe Wachter</p>
@@ -710,7 +710,7 @@
                                     <div class="team-item">
                                         <div class="team-triangle">
                                             <div class="content">
-                                                <img src="img/team/dimitri.jpg" alt="title"/>
+                                                <img src="./vues/img/team/dimitri.jpg" alt="title"/>
                                                 <div class="team-hover text-center">
                                                     <i class="fa fa-male"></i>
                                                     <p>Dimitri Tchapmi</p>
@@ -725,7 +725,7 @@
                                     <div class="team-item">
                                         <div class="team-triangle">
                                             <div class="content">
-                                                <img src="img/team/ed.jpg" alt="title"/>
+                                                <img src="./vues/img/team/ed.jpg" alt="title"/>
                                                 <div class="team-hover text-center">
                                                     <i class="fa fa-male"></i>
                                                     <p>Edouard Ling</p>
@@ -1119,20 +1119,20 @@
         
         
         <!-- Plugins JS -->
-		<script src="inc/jquery/jquery-1.11.1.min.js"></script>
-		<script src="inc/bootstrap/js/bootstrap.min.js"></script>
-		<script src="inc/owl-carousel/js/owl.carousel.min.js"></script>
-		<script src="inc/stellar/js/jquery.stellar.min.js"></script>
-		<script src="inc/animations/js/wow.min.js"></script>
-        <script src="inc/waypoints.min.js"></script>
-		<script src="inc/isotope.pkgd.min.js"></script>
-		<script src="inc/classie.js"></script>
-		<script src="inc/jquery.easing.min.js"></script>
-		<script src="inc/jquery.counterup.min.js"></script>
-		<script src="inc/smoothscroll.js"></script>
+		<script src="./vues/inc/jquery/jquery-1.11.1.min.js"></script>
+		<script src="./vues/inc/bootstrap/js/bootstrap.min.js"></script>
+		<script src="./vues/inc/owl-carousel/js/owl.carousel.min.js"></script>
+		<script src="./vues/inc/stellar/js/jquery.stellar.min.js"></script>
+		<script src="./vues/inc/animations/js/wow.min.js"></script>
+        <script src="./vues/inc/waypoints.min.js"></script>
+		<script src="./vues/inc/isotope.pkgd.min.js"></script>
+		<script src="./vues/inc/classie.js"></script>
+		<script src="./vues/inc/jquery.easing.min.js"></script>
+		<script src="./vues/inc/jquery.counterup.min.js"></script>
+		<script src="./vues/inc/smoothscroll.js"></script>
 
 		<!-- Theme JS -->
-		<script src="js/theme.js"></script>
+		<script src="./vues/js/theme.js"></script>
 
     </body> 
         
