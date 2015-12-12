@@ -1,6 +1,7 @@
 <?php
 	require('connexionBdd.php');
-
+	$nomUtilisateur = htmlspecialchars(urldecode($_GET['utilisateur']));
+	echo $nomUtilisateur;
 	if(isset($_GET['utilisateur'], $_GET['cle']) AND !empty($_GET['utilisateur']) AND !empty($_GET['cle'])){
 		$nomUtilisateur = htmlspecialchars(urldecode($_GET['utilisateur']));
 		$cle = htmlspecialchars($_GET['cle']);
