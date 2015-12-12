@@ -29,7 +29,7 @@ if(isset($_POST['confInscription'])){
 						<html>
 							<body>
 								<div align="center">
-									<a href="">Confirmation du compte</a>
+									<a href="http://aos.itinet.fr/index.php?p=validation&pseudo='.urlencode($nomUtilisateur).'&cle='.cle.'">Confirmation du compte</a>
 								</div>
 							</body>
 						</html>
