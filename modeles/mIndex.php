@@ -17,9 +17,10 @@ if(isset($_POST['confInscription'])){
 						for($i=1; $i<$longueurCle; $i++){
 							$cle .= mt_rand(0,9);
 						}
+						$activation = "0";
 						require('connexionBdd.php');
-						$insertBDD = $bdd->prepare("INSERT INTO utilisateurs(nomUtilisateur,mdpUtilisateur,email,cleActivation) VALUES (?,?,?,?)");
-						$insertBDD->execute(array($nomUtilisateur,$motDePasse,$adresseMail,$cle));
+						$insertBDD = $bdd->prepare("INSERT INTO utilisateurs(nomUtilisateur,mdpUtilisateur,email,cleActivation,actif) VALUES (?,?,?,?,?)");
+						$insertBDD->execute(array($nomUtilisateur,$motDePasse,$adresseMail,$cle, $activation));
 						$header="MIME-Version: 1.0\r\n";
 						$header.='From:"aos.itinet.fr"<support@aos.itinet.fr>'."\n";
 						$header.='Content-Type:text/html; charset="utf-8"'."\n";
@@ -29,7 +30,7 @@ if(isset($_POST['confInscription'])){
 						<html>
 							<body>
 								<div align="center">
-									<a href="http://aos.itinet.fr/index.php?p=validation&pseudo='.urlencode($nomUtilisateur).'&cle='.$cle.'">Confirmation du compte</a>
+									<a href="http://aos.itinet.fr/index.php?p=validation&utilisateur='.urlencode($nomUtilisateur).'&cle='.$cle.'">Confirmation du compte</a>
 								</div>
 							</body>
 						</html>
