@@ -12,7 +12,7 @@
 		if ($utilisateursExist == 1){
 			$utilisateur1 = $utilisateursExist->fetch();
 			if($utilisateur1['actif'] == 0) {
-				$updateUtilisateur = $bdd->prepare("UPDATE utilisateurs set actif = 1 WHERE nomUtilisateur = ? AND cleActivation = ?");
+				$updateUtilisateur = $bdd->prepare("UPDATE utilisateurs SET actif = 1 WHERE nomUtilisateur = ? AND cleActivation = ?");
 				$updateUtilisateur->execute(array($nomUtilisateur, $cle));
 				echo "Votre compte a bien été confirmé";
 			} else {
