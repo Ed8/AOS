@@ -12,7 +12,7 @@ if(isset($_POST['confInscription'])){
 		if($nomUtilisateurLength <= 20){
 			if($adresseMail == $confMail){
 					if($motDePasse == $confMotDePasse){
-						$longueurCle = 12;
+						$longueurCle = 9;
 						$cle = "";
 						for($i=1; $i<$longueurCle; $i++){
 							$cle .= mt_rand(0,9);
