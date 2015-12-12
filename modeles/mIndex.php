@@ -35,7 +35,7 @@ if(isset($_POST['confInscription'])){
 						</html>
 						';
 
-						mail($mail, "Confirmation de compte", $message, $header);
+						mail($adresseMail, "Confirmation de compte", $message, $header);
 						$erreur = "Votre compte à bien été créer";
 					} else {
 						$erreur = "Vos mot de passe ne correspondent pas !";
