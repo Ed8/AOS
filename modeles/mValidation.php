@@ -11,7 +11,7 @@
 		$utilisateursExist = $req->rowCount();
 		echo $utilisateursExist;
 		if ($utilisateursExist == 1){
-			$utilisateur1 = $utilisateursExist->fetch();
+			$utilisateur1 = $req->fetch();
 			echo $utilisateur1;
 			if($utilisateur1['actif'] == 0) {
 				$updateUtilisateur = $bdd->prepare("UPDATE utilisateurs SET actif = 1 WHERE nomUtilisateur = ? AND cleActivation = ?");
