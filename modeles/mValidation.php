@@ -15,6 +15,7 @@
 				$updateUtilisateur = $bdd->prepare("UPDATE utilisateurs SET actif = 1 WHERE nomUtilisateur = ? AND cleActivation = ?");
 				$updateUtilisateur->execute(array($nomUtilisateur, $cle));
 				$erreur= "Votre compte a bien été confirmé";
+				header ("Refresh: 5;URL=index.php?p=index");
 			} else {
 				$erreur = "Votre compte a déjà été confirmé";
 			}
