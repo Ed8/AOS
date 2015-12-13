@@ -85,7 +85,7 @@
                             <li><a class="page-scroll" href="#team-section">L'équipe</a></li>                            
                             <li><a class="page-scroll" href="#prices-section">Offres</a></li>
 							
-							
+				<!- Formulaire d'inscription ->			
 							<li><a class="page-scroll" href="#modal-1" data-toggle="modal">inscription</a></li>
 							<div class="modal" id="modal-1">
 								<div class="modal-dialog">
@@ -124,7 +124,7 @@
 									</div>
 								</div>
 							</div>
-							
+				<!- Formulaire de connexion ->			
 							<li><a class="page-scroll" href="#modal-2" data-toggle="modal">connexion</a></li>
 							<div class="modal" id="modal-2">
 								<div class="modal-dialog">
@@ -134,7 +134,7 @@
 											<h3 class="modal-title">Connexion</h3>
 										</div>
 										<div class="modal-body">
-											<form method="POST" id="connexion" action="index.php?p=connexion">
+											<form method="POST" id="connexion" action="index.php?p=index">
 											<div class="row">
                                                 <div class="col-md-6">
 												    <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="nomUtilisateur" />
@@ -143,11 +143,16 @@
 												    <br />
                                                 </div>
                                             </div>
-                                        <div class="modal-footer">
+                                                <div class="modal-footer">
 												    <button type="button" data-dismiss="modal" class="btn btn-primary">Fermer</button>
                                                     <button type="submit" class="btn btn-success" value="confConnexion" name="confConnexion">Se connecter</button>
-                                        </div>
+                                                </div>
 											</form>
+                                            <?php
+                                                if(isset($erreur)){
+                                                    echo $erreur;
+                                                }
+                                            ?>
 										</div>
 									</div>
 								</div>
