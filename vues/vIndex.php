@@ -116,8 +116,8 @@
                                         </div>
 											</form>
 											<?php
-												if(isset($erreur)){
-													echo $erreur;
+												if(isset($erreurInscription)){
+													echo $erreurInscription;
 												}
 											?>
 										</div>
@@ -149,8 +149,8 @@
                                                 </div>
 											</form>
                                             <?php
-                                                if(isset($erreur)){
-                                                    echo $erreur;
+                                                if(isset($erreurConnexion)){
+                                                    echo $erreurConnexion;
                                                 }
                                             ?>
 										</div>
