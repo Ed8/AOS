@@ -79,12 +79,11 @@ if(isset($_POST['confConnexion'])){
 			$_SESSION['idUtilisateur'] = $utilisateurInfo['idUtilisateur'];
 			$_SESSION['nomUtilisateur'] = $utilisateurInfo['nomUtilisateur'];
 			header("Location: index.php?p=indexUtilisateur&id=".$_SESSION['idUtilisateur']);
-
 		} else {
 			$erreur = "Mauvais nom d'utilisateur ou mot de passe !";
 		}
 	} else {
-		$erreur = "Tous les champs doivent être complétés !":
+		$erreur = "Tous les champs doivent être complétés !";
 	}
 }
 ?>
