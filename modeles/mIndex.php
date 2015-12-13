@@ -69,7 +69,7 @@ if(isset($_POST['confConnexion'])){
 	$motDePasse = sha1($_POST['motDePasse']);
 	
 	if(!empty($nomUtilisateur) AND !empty($motDePasse)){
-		$reqUtilisateur = $bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtilisateur = ? AND motDePasse = ?");
+		$reqUtilisateur = $bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtilisateur = ? AND mdpUtilisateur = ?");
 		$reqUtilisateur->execute(array($nomUtilisateur, $motDePasse));
 		$utilisateurExist = $reqUtilisateur->rowCount();
 		
