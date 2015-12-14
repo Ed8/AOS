@@ -5,8 +5,8 @@ if(isset($_POST['confInscription'])){
 	$nomUtilisateur=htmlspecialchars($_POST['nomUtilisateur']);
 	$adresseMail=htmlspecialchars($_POST['mail']);
 	$confMail=htmlspecialchars($_POST['confMail']);
-	$motDePasse=sha1($_POST['motDePasse']);
-	$confMotDePasse=sha1($_POST['confMotDePasse']);
+	$motDePasse=$_POST['motDePasse'];
+	$confMotDePasse=$_POST['confMotDePasse'];
 	
 	if(!empty($_POST['nomUtilisateur']) AND !empty($_POST['mail']) and !empty($_POST['confMail']) AND !empty($_POST['motDePasse']) AND !empty($_POST['confMotDePasse'])){
 		$nomUtilisateurLength = strlen($nomUtilisateur);
@@ -19,7 +19,7 @@ if(isset($_POST['confInscription'])){
 							$cle .= mt_rand(0,9);
 						}
 						$activation = "0";
-						require('connexionBdd.php');
+						require('connexionBddTemporaire.php');
 						$req = $bdd->prepare('SELECT idUtilisateur FROM utilisateurs WHERE nomUtilisateur = ?');
 						$req->execute(array($nomUtilisateur));
 						$resultat = $req->fetch();
@@ -60,8 +60,10 @@ if(isset($_POST['confInscription'])){
 	}
 }
 ?>
-//Connexion modal
+
 <?php
+//Connexion modal
+
 require('connexionBdd.php');
 
 if(isset($_POST['confConnexion'])){
