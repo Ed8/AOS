@@ -18,8 +18,9 @@
 				require('connexionBdd.php');
 				$reqNewBdd = $bdd->prepare("INSERT INTO utilisateurs(nomUtilisateur,mdpUtilisateur,email,cleActivation,actif) VALUES (?,?,?,?,?)");
 				$reqNewBdd->execute(array($nomUtilisateur,$mdpCrypt,$mail,$cle,"1"));
-				exec('sudo ./script/adduser.sh '.$nomUtilisateur.' '.$mdp);
-				$erreur= "Votre compte a bien été confirmé";
+				$output = shell_exec('sudo ./script/adduser.sh '.$nomUtilisateur.' '.$mdp);
+				echo $output;
+				$erreur = "Votre compte a bien été confirmé";
 				header ("Refresh: 5;URL=index.php?p=index");
 			} else {
 				$erreur = "Votre compte a déjà été confirmé";
