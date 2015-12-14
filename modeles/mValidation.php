@@ -23,7 +23,7 @@
 			$reqNewBdd = $bdd->prepare("INSERT INTO utilisateurs(nomUtilisateur,mdpUtilisateur,email,cleActivation,actif) VALUES (?,?,?,?,?)");
 			$reqNewBdd->execute(array($nomUtilisateur,$mdpCrypt,$mail,$cle,$actif));
 			// Récupération des informations dans la nouvelle base
-			$reqNewBddActif = $bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtilisateur = ? AND cleActivation");
+			$reqNewBddActif = $bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtilisateur = ? AND cleActivation = ?");
 			$reqNewBddActif->execute(array($nomUtilisateur, $cle));
 			$actifVerification = $reqNewBddActif->fetch();
 			// Vérification si le compte à été activer dans la nouvelle base 
