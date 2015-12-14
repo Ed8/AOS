@@ -14,7 +14,7 @@
 
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Aos - mail</title>
+		<title>Aos - dns</title>
 		<meta name="description" content="Unika - Responsive One Page HTML5 Template">
 		<meta name="keywords" content="HTML5, Bootsrtrap, One Page, Responsive, Template, Portfolio" />
 		<meta name="author" content="imransdesign.com">
@@ -107,7 +107,7 @@
                 <div class="page-header-wrapper">
                     <div class="container">
                         <div class="page-header text-center wow fadeInDown" data-wow-delay="0.4s">
-                            <h2>MAIL</h2>
+                            <h2>DNS</h2>
                             <div class="devider"></div>
                             <p class="subtitle">Hébergement</p>
                         </div>
@@ -115,21 +115,39 @@
                 </div>
                 <!-- End page header-->
 			<div style="float: left; margin-left: 20%;">
-				<h1>Votre Domaine</h1>
+				<h1>Importer</h1>
 				<form method="post" action="#">
-					<input type="text" name="mail">
-					<input type="submit" class="btn btn-success" value="Créer">
+					<select>
+						<option>www.</option>
+						<option></option>
+					</select>
+					<input type="text" name="fqdn"></br>
+					<select>
+						<option>MX</option>
+						<option>A</option>
+					</select>
+					<input type="texte name="ip" placeholder="IP"><br/>
+					<input type="submit" class="btn btn-success" value="Enregistrer">
 				</form><br/>
-				<input type="button" class="btn btn-primary" value="Supprimer Boite Mail">
+				<input type="button" class="btn btn-primary" value="Supprimer Nom De Domaine">
 			</div>
 			
 			<div style="float: right; margin-right: 20%;";>
-				<h1>AOS Domaine</h1>
+				<h1>Créer</h1>
 				<form method="post" action="#">
-					<input type="text" name="mail">@aos.itinet.fr
+					<select>
+						<option>www.</option>
+						<option></option>
+					</select>
+					<input type="text" name="fqdn">.aos.itinet.fr<br/>
+					<select>
+						<option>MX</option>
+						<option>A</option>
+					</select>
+					<input type="texte name="ip" placeholder="IP"><br/>
 					<input type="submit" class="btn btn-success" value="Créer">
 				</form><br/>
-				<input type="button" class="btn btn-primary" value="Supprimer Boite Mail">
+				<input type="button" class="btn btn-primary" value="Supprimer Nom De Domaine">
 			</div>
 					
             </section>
@@ -149,10 +167,7 @@
             <a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a> <!-- Scroll to top button -->
                                               
         </div><!-- body ends -->
-        
-        
-        
-        
+		
         <!-- Plugins JS -->
 		<script src="./vues/inc/jquery/jquery-1.11.1.min.js"></script>
 		<script src="./vues/inc/bootstrap/js/bootstrap.min.js"></script>

@@ -14,7 +14,7 @@
 
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Aos - mail</title>
+		<title>Aos - web</title>
 		<meta name="description" content="Unika - Responsive One Page HTML5 Template">
 		<meta name="keywords" content="HTML5, Bootsrtrap, One Page, Responsive, Template, Portfolio" />
 		<meta name="author" content="imransdesign.com">
@@ -107,7 +107,7 @@
                 <div class="page-header-wrapper">
                     <div class="container">
                         <div class="page-header text-center wow fadeInDown" data-wow-delay="0.4s">
-                            <h2>MAIL</h2>
+                            <h2>Web</h2>
                             <div class="devider"></div>
                             <p class="subtitle">Hébergement</p>
                         </div>
@@ -115,21 +115,47 @@
                 </div>
                 <!-- End page header-->
 			<div style="float: left; margin-left: 20%;">
-				<h1>Votre Domaine</h1>
-				<form method="post" action="#">
-					<input type="text" name="mail">
-					<input type="submit" class="btn btn-success" value="Créer">
+				<h1>Site Web Public</h1>
+				<form method="post" action="verif.php">
+					<select>
+						<option>www.</option>
+						<option></option>
+					</select>
+					<input type="text" name="fqdn">.aos.itinet.fr
+					<input type="submit" value="Créer" name="create">
 				</form><br/>
-				<input type="button" class="btn btn-primary" value="Supprimer Boite Mail">
+				<form method="post" action="verif.php">
+					<input type="submit" value="Activer Site Web" name="enable">
+				</form><br/>
+				<form method="post" action="verif.php">
+					<input type="submit" value="Désactiver Site Web" name="disable">
+				</form><br/>
+				<form method="post" action="verif.php">
+					<input type="submit" value="Créer Base De Données" name="addbdd">
+				</form><br/>
+				<form method="post" action="verif.php">
+					<input type="submit" value="Supprimer Base De Données" name="rembdd">
+				</form><br/>
+				<form method="post" action="verif.php">
+					<input type="submit" value="Supprimer Site web" name="delweb">
+				</form>
 			</div>
 			
 			<div style="float: right; margin-right: 20%;";>
-				<h1>AOS Domaine</h1>
+				<h1>Site Web Privé</h1>
 				<form method="post" action="#">
-					<input type="text" name="mail">@aos.itinet.fr
-					<input type="submit" class="btn btn-success" value="Créer">
+					<select>
+						<option>www.</option>
+						<option></option>
+					</select>dev.
+					<input type="text" name="fqdn">.aos.itinet.fr
+					<input type="submit" value="Créer">
 				</form><br/>
-				<input type="button" class="btn btn-primary" value="Supprimer Boite Mail">
+				<input type="button" value="Activer Site Web"><br/><br/>
+				<input type="button" value="Désactiver Site Web"><br/><br/>
+				<input type="button" value="Créer Base De Données"><br/><br/>
+				<input type="button" value="Supprimer Base De Données"><br/><br/>
+				<input type="button" value="Supprimer Site web">
 			</div>
 					
             </section>
@@ -137,7 +163,7 @@
 
             <!-- Begin footer -->
             <footer class="text-off-white">
-                <div class="footer" style="margin-top: 12.1%;">
+                <div class="footer" style="margin-top: 4%;">
                     <div class="container text-center wow fadeIn" data-wow-delay="0.4s">
                         <p class="copyright" style="color: e7e7e7">Copyright &copy; 2015 - Designed By <a href="http://www.aos.itinet.fr" class="theme-author">Admin Online Services</a> &amp; Developed by <a href="http://www.aos.itinet.fr" class="theme-author">AOS</a></p>
                     </div>

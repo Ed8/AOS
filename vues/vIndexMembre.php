@@ -82,11 +82,11 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a class="page-scroll" href="body">Accueil</a></li>
-                            <li><a class="page-scroll" href="#">DNS</a></li>
-                            <li><a class="page-scroll" href="#">MAIL</a></li>                            
-                            <li><a class="page-scroll" href="#">WEB</a></li>
+                            <li><a class="page-scroll" href="index.php?p=dns">DNS</a></li>
+                            <li><a class="page-scroll" href="index.php?p=mail">MAIL</a></li>                            
+                            <li><a class="page-scroll" href="index.php?p=web">WEB</a></li>
 							<li><a class="page-scroll" href="#">Profil</a></li>
-							<li><a class="page-scroll" href="#">Déconnexion</a></li>
+							<li><a class="page-scroll" href="index.php?p=deconnexion">Déconnexion</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                   </div><!-- /.container -->
@@ -118,7 +118,7 @@
                     <div class="container" style="margin-left: 21%">
                         <div class="row">
                             <div class="col-md-3 col-sm-6">
-                                <a href="#" class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0">
+                                <a href="index.php?p=dns" class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0">
                                     <span class="rotate-box-icon"><i class="fa fa-globe"></i></span>
                                     <div class="rotate-box-info">
                                         <h4>Noms de domaines</h4>
@@ -127,7 +127,7 @@
                             </div>
             
                             <div class="col-md-3 col-sm-6">
-                                <a href="#" class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0.2s">
+                                <a href="index.php?p=mail" class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0.2s">
                                     <span class="rotate-box-icon"><i class="fa fa-envelope-o"></i></span>
                                     <div class="rotate-box-info">
                                         <h4>Boites mail</h4>
@@ -136,7 +136,7 @@
                             </div>
             
                             <div class="col-md-3 col-sm-6">
-                                <a href="#" class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0.4s">
+                                <a href="index.php?p=web" class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0.4s">
                                     <span class="rotate-box-icon"><i class="fa fa-file-code-o"></i></span>
                                     <div class="rotate-box-info">
                                         <h4>Sites web</h4>
