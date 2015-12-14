@@ -49,7 +49,7 @@
 				</html>
 				';
 				mail($mail, "Compte autorisé", $message, $header);
-				//header ("Refresh: 5;URL=index.php?p=index");
+				header ("Refresh: 5;URL=index.php?p=index");
 			} else {
 				$erreur = "Votre compte a déjà été confirmé";
 			}
