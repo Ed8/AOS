@@ -1,4 +1,38 @@
 <?php
+//Connexion modal
+
+require('connexionBdd.php');
+
+if(isset($_POST['confConnexion'])){
+	$nomUtilisateur = htmlspecialchars($_POST['nomUtilisateur']);
+	$motDePasse = sha1($_POST['motDePasse']);
+	
+	if(!empty($nomUtilisateur) AND !empty($motDePasse)){
+		$reqUtilisateur = $bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtilisateur = ? AND mdpUtilisateur = ?");
+		$reqUtilisateur->execute(array($nomUtilisateur, $motDePasse));
+		$utilisateurExist = $reqUtilisateur->rowCount();
+		
+		if($utilisateurExist == 1){
+			$utilisateurInfo = $reqUtilisateur->fetch();
+			if($utilisateurInfo['actif'] == 1){
+			session_start();
+			$_SESSION['idUtilisateur'] = $utilisateurInfo['idUtilisateur'];
+			$_SESSION['nomUtilisateur'] = $utilisateurInfo['nomUtilisateur'];
+			header("Location:index.php?p=indexMembre");
+			} else {
+				$erreurConnexion = "Veuillez confirmez votre compte";
+			}	
+		} else {
+			$erreurConnexion = "Mauvais nom d'utilisateur ou mot de passe !";
+		}
+	} else {
+		$erreurConnexion = "Tous les champs doivent être complétés !";
+	}
+}
+?>
+
+
+<?php
 //Inscription modal
 
 if(isset($_POST['confInscription'])){
@@ -57,35 +91,6 @@ if(isset($_POST['confInscription'])){
 		}	
 	} else {
 		$erreurInscription = "Tous les champs doivent être remplis";
-	}
-}
-?>
-
-<?php
-//Connexion modal
-
-require('connexionBdd.php');
-
-if(isset($_POST['confConnexion'])){
-	$nomUtilisateur = htmlspecialchars($_POST['nomUtilisateur']);
-	$motDePasse = sha1($_POST['motDePasse']);
-	
-	if(!empty($nomUtilisateur) AND !empty($motDePasse)){
-		$reqUtilisateur = $bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtilisateur = ? AND mdpUtilisateur = ?");
-		$reqUtilisateur->execute(array($nomUtilisateur, $motDePasse));
-		$utilisateurExist = $reqUtilisateur->rowCount();
-		
-		if($utilisateurExist == 1){
-			$utilisateurInfo = $reqUtilisateur->fetch();
-			session_start();
-			$_SESSION['idUtilisateur'] = $utilisateurInfo['idUtilisateur'];
-			$_SESSION['nomUtilisateur'] = $utilisateurInfo['nomUtilisateur'];
-			header("Location: index.php?p=indexUtilisateur&id=".$_SESSION['idUtilisateur']);
-		} else {
-			$erreurConnexion = "Mauvais nom d'utilisateur ou mot de passe !";
-		}
-	} else {
-		$erreurConnexion = "Tous les champs doivent être complétés !";
 	}
 }
 ?>
