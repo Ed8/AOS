@@ -1,14 +1,4 @@
 <!doctype html>
-<?php
-	session_start();
-?>
-<!--
-	Template:	 Unika - Responsive One Page HTML5 Template
-	Author:		 imransdesign.com
-	URL:		 http://imransdesign.com/
-    Designed By: https://www.behance.net/poljakova
-	Version:	1.0	
--->
 <html lang="en-US">
 	<head>
 
@@ -114,24 +104,50 @@
                     </div>
                 </div>
                 <!-- End page header-->
-			<div style="float: left; margin-left: 20%;">
-				<h1>Votre Domaine</h1>
-				<form method="post" action="#">
-					<input type="text" name="mail">
-					<input type="submit" class="btn btn-success" value="Créer">
-				</form><br/>
-				<input type="button" class="btn btn-primary" value="Supprimer Boite Mail">
-			</div>
-			
-			<div style="float: right; margin-right: 20%;";>
-				<h1>AOS Domaine</h1>
-				<form method="post" action="#">
-					<input type="text" name="mail">@aos.itinet.fr
-					<input type="submit" class="btn btn-success" value="Créer">
-				</form><br/>
-				<input type="button" class="btn btn-primary" value="Supprimer Boite Mail">
-			</div>
-					
+            <div style="margin-left: auto; margin-right: auto;";>
+    		    <h1>Créer votre boîte mail</h1>
+                </br>
+                <form method="POST" action="index.php?p=mail">
+    				<div class="form-group col-md-3 center">
+                        <input type="text" class="form-control" placeholder="Votre nom" name="mail" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/ig, '');" >
+                    </div>
+                        <?php
+                        $nb = count($tabDomaine);
+                        echo '<div class="form-group col-md-3 center">';
+                        echo '<select name="domaine" class="form-control">';
+                        for($i=0; $i<$nb; $i++) {
+                            echo '<option>'.$tabDomaine[$i].'</option>';
+                        }
+                        echo '</select>';
+                        echo '</div>';
+                        ?>
+                    <div class="form-group col-md-3 center">
+                        <input type="password" class="form-control" placeholder="Votre mot de passe" name="mdp"/>
+                    </div>
+                    <div class="form-group col-md-2 center">
+                        <input type="submit" class="btn btn-success" value="Créer votre boîte mail" name="creerMail">
+                    </div>
+                    <div class="form-group col-md-2 center">
+                        <input type="submit" class="btn btn-danger" value="Supprimer votre boîte mail" name="supprMail">
+                    </div>
+                    </br></br></br></br></br></br></br>
+                    <?php
+                        if(isset($messErreurMail)){
+                            echo '<div class="messErreurMail">';
+                            echo $messErreurMail;
+                            echo '</div>';
+                        }
+                        if(isset($messConfirmMail)){
+                            echo '<div class="messConfirmMail">';
+                            echo $messConfirmMail;
+                            echo '</div>';
+                        }
+                    ?>
+                    </br></br>
+    			</form>
+                <input type="button" onclick="document.location.href='http://mail.aos.itinet.fr'" class="btn btn-default" value="Accédez à votre boîte mail"/>
+                
+            </div> 
             </section>
             <!-- End Services -->
 

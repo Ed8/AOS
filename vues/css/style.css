@@ -1143,6 +1143,34 @@ p.subtitle {
 	-o-transform: rotate(-45deg);
 	transform: rotate(-45deg);
 }
+.messConfInscription {
+color:green;
+}
+
+.messErreurInscription {
+color:red;
+}
+
+.messErreurConnexion {
+color:red;
+}
+
+.messConfirmMail {
+color:green;
+}
+
+.messErreurMail {
+color:red;
+}
+
+.messConfValidation {
+color:green;
+}
+
+.messErreurValidation {
+color:red;
+}
+
 #inscription label.error {
 color:red;
 }
@@ -1153,7 +1181,6 @@ border:1px solid red;
 #connexion label.error {
 color:red;
 }
-
 #connexion input.error {
 border:1px solid red;
 }

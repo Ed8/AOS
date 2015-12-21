@@ -1,14 +1,7 @@
 <!doctype html>
 <?php
-	session_start();
+session_start();
 ?>
-<!--
-	Template:	 Unika - Responsive One Page HTML5 Template
-	Author:		 imransdesign.com
-	URL:		 http://imransdesign.com/
-    Designed By: https://www.behance.net/poljakova
-	Version:	1.0	
--->
 <html lang="en-US">
 	<head>
 

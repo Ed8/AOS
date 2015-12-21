@@ -20,13 +20,13 @@ if(isset($_POST['confConnexion'])){
 			$_SESSION['nomUtilisateur'] = $utilisateurInfo['nomUtilisateur'];
 			header("Location:index.php?p=indexMembre");
 			} else {
-				$erreurConnexion = "Veuillez confirmez votre compte";
+				$messErreurConnexion = "Veuillez confirmez votre compte !";
 			}	
 		} else {
-			$erreurConnexion = "Mauvais nom d'utilisateur ou mot de passe !";
+			$messErreurConnexion = "Mauvais nom d'utilisateur ou mot de passe !";
 		}
 	} else {
-		$erreurConnexion = "Tous les champs doivent être complétés !";
+		$messErreurConnexion = "Tous les champs doivent être complétés !";
 	}
 }
 ?>
@@ -76,21 +76,21 @@ if(isset($_POST['confInscription'])){
 							';
 
 							mail($adresseMail, "Confirmation de compte", $message, $header);
-							$erreurInscription = "Votre compte à bien été créer";
+							$messConfInscription = "Votre compte à bien été créer !";
 						} else {
-							$erreurInscription = "Votre nom d'utilisateur existe déjà";
+							$messErreurInscription = "Votre nom d'utilisateur existe déjà !";
 						}
 					} else {
-						$erreurInscription = "Vos mot de passe ne correspondent pas !";
+						$messErreurInscription = "Vos mot de passe ne correspondent pas !";
 					}
 			} else {
-				$erreurInscription = "Vos adresse email ne correspondent pas !";
+				$messErreurInscription = "Vos adresse email ne correspondent pas !";
 			}
 		} else {
-			$erreurInscription = "Votre pseudo ne doit pas dépasser 20 caractères";
+			$messErreurInscription = "Votre pseudo ne doit pas dépasser 20 caractères !";
 		}	
 	} else {
-		$erreurInscription = "Tous les champs doivent être remplis";
+		$messErreurInscription = "Tous les champs doivent être remplis !";
 	}
 }
 ?>

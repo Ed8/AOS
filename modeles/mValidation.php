@@ -19,42 +19,49 @@
 			$actif = $utilisateur1['actif'];
 			// Connexion à la base de donnée définitive
 			require('connexionBdd.php');
-			// Insert des informations dans la nouvelle base avec le mot de passe crypter
-			$reqNewBdd = $bdd->prepare("INSERT INTO utilisateurs(nomUtilisateur,mdpUtilisateur,email,cleActivation,actif) VALUES (?,?,?,?,?)");
-			$reqNewBdd->execute(array($nomUtilisateur,$mdpCrypt,$mail,$cle,$actif));
-			// Récupération des informations dans la nouvelle base
-			$reqNewBddActif = $bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtilisateur = ? AND cleActivation = ?");
-			$reqNewBddActif->execute(array($nomUtilisateur, $cle));
-			$actifVerification = $reqNewBddActif->fetch();
-			// Vérification si le compte à été activer dans la nouvelle base 
-			if($actifVerification['actif'] == 0) {	
-				$updateUtilisateur = $bdd->prepare("UPDATE utilisateurs SET actif = 1 WHERE nomUtilisateur = ? AND cleActivation = ?");
-				$updateUtilisateur->execute(array($nomUtilisateur, $cle));
-				$output = shell_exec('/var/www/aos/script/addUser.sh '.$nomUtilisateur.' '.$mdp);
-				$erreur = "Votre compte a bien été confirmé";
-				$header="MIME-Version: 1.0\r\n";
-				$header.='From:"aos.itinet.fr"<support@aos.itinet.fr>'."\n";
-				$header.='Content-Type:text/html; charset="utf-8"'."\n";
-				$header.='Content-Transfert-Encoding: 8bit';
+			//Vérification si l'utilisateur existe pour ne pas réécrire
+			$reqVerifUtilisateur = $bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtilisateur = ?");
+			$reqVerifUtilisateur->execute(array($nomUtilisateur));
+			$resultatVerif = $reqVerifUtilisateur->fetch();
+			//Si l'utilisateur n'existe pas alors :
+			if(!$resultatVerif['nomUtilisateur']) {
+				// Insert des informations dans la nouvelle base avec le mot de passe crypter
+				$reqNewBdd = $bdd->prepare("INSERT INTO utilisateurs(nomUtilisateur,mdpUtilisateur,email,cleActivation,actif) VALUES (?,?,?,?,?)");
+				$reqNewBdd->execute(array($nomUtilisateur,$mdpCrypt,$mail,$cle,$actif));
+				// Récupération des informations dans la nouvelle base
+				$reqNewBddActif = $bdd->prepare("SELECT * FROM utilisateurs WHERE nomUtilisateur = ? AND cleActivation = ?");
+				$reqNewBddActif->execute(array($nomUtilisateur, $cle));
+				$actifVerification = $reqNewBddActif->fetch();
+				// Vérification si le compte à été activer dans la nouvelle base 
+				if($actifVerification['actif'] == 0) {	
+					$updateUtilisateur = $bdd->prepare("UPDATE utilisateurs SET actif = 1 WHERE nomUtilisateur = ? AND cleActivation = ?");
+					$updateUtilisateur->execute(array($nomUtilisateur, $cle));
+					$output = shell_exec('/var/www/aos/script/addUser.sh '.$nomUtilisateur.' '.$mdp);
+					$messConfValidation = "Votre compte à bien été confirmé !";
+					$header="MIME-Version: 1.0\r\n";
+					$header.='From:"aos.itinet.fr"<support@aos.itinet.fr>'."\n";
+					$header.='Content-Type:text/html; charset="utf-8"'."\n";
+					$header.='Content-Transfert-Encoding: 8bit';
 
-				$message='
-				<html>
-					<body>
-						<div align="center">
-							<p>Vous trouverez ci-joint vos informations utiles à votre connexion :<p>
-							<p>Votre nom d\'utilisateur : '.$nomUtilisateur.' .<p>
-							<p>Votre mot de passe : '.$mdp.' .<p>
-						</div>
-					</body>
-				</html>
-				';
-				mail($mail, "Compte autorisé", $message, $header);
-				header ("Refresh: 5;URL=index.php?p=index");
+					$message='
+					<html>
+						<body>
+							<div align="center">
+								<p>Vous trouverez ci-joint vos informations utiles à votre connexion :<p>
+								<p>Votre nom d\'utilisateur : '.$nomUtilisateur.' .<p>
+								<p>Votre mot de passe : '.$mdp.' .<p>
+							</div>
+						</body>
+					</html>
+					';
+					mail($mail, "Compte autorisé", $message, $header);
+				}
 			} else {
-				$erreur = "Votre compte a déjà été confirmé";
+				$messErreurValidation = "Votre compte à déjà été confirmé !";
 			}
 		} else {
-			$erreur = "L'utilisateur n'existe pas !";
+			$messErreurValidation = "L'utilisateur n'existe pas !";
 		}
 	}
+	header ("Refresh: 5;URL=index.php?p=index");
 ?>
