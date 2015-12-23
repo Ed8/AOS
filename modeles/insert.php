@@ -1,7 +1,4 @@
 <?php
-	session_start();
-	include '../connexionBdd.php';
-	
 	if (isset($_POST['createpub'])) {
 		$_SESSION['fqdn'] = $_POST['fqdn'].".".$_POST['domaine'];
 		$fqdn = $_SESSION['fqdn'];
@@ -140,7 +137,4 @@
 		shell_exec('/var/www/aos/script/deleteDevWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$_SESSION['domaine'].'');
 		shell_exec('/var/www/aos/script/deleteDevDatabase.sh '.$_SESSION["nomUtilisateur"].'');
 	}
-	
-	
-	header('Location: ../index.php?p=web');
 ?>

@@ -95,7 +95,7 @@
 					<?php
 						if (isset($pub) && isset($dev) && $pub[0] == "1" && $dev[0] == "0") {
 							echo "<div><h1>Créer votre Site Web</h1>";
-							echo "<form method='post' action='../aos/modeles/insert.php'>dev.".$_SESSION['fqdn']." ";
+							echo "<form method='post' action='index.php?p=web'>dev.".$_SESSION['fqdn']." ";
 							echo "</select><input type='text' name='test' value='Developpement' readonly>
 									<select name='bdd'>
 										<option value='add'>Ajouter une base de données</option>
@@ -110,7 +110,7 @@
 						} else {
 							if (!isset($pub) || $pub[0] !== "1") {
 								echo "<div><h1>Créer votre Site Web</h1>";
-								echo "<form method='post' action='../aos/modeles/insert.php'>
+								echo "<form method='post' action='index.php?p=web'>
 											<input type='text' name='fqdn'>.
 											<select name='domaine'>";
 											$nb = count($domaine);
@@ -137,35 +137,35 @@
 								if ($pub[0] == "1") {
 									echo $_SESSION['nomEnreg']."<br/>";
 									if ($pub[1] == "0") {
-										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubactiverweb' value='Activer site web'></form>";
+										echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubactiverweb' value='Activer site web'></form>";
 									} else {
-										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubdesactiverweb' value='Désactiver site web'></form>";
+										echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverweb' value='Désactiver site web'></form>";
 									}
 									
 									if ($pub[2] == "0") {
-										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubactiverbdd' value='Ajouter base de données'></form>";
+										echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubactiverbdd' value='Ajouter base de données'></form>";
 									} else {
-										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubdesactiverbdd' value='Supprimer base données'></form>";
+										echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverbdd' value='Supprimer base données'></form>";
 									}
 									
 									if($dev[0] !== "1")
-									echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubsupweb' value='Supprimer site web'></form></br>";
+									echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubsupweb' value='Supprimer site web'></form></br>";
 								}
 								
 								if ($dev[0] == "1") {
 									echo "dev.".$_SESSION['nomEnreg']."<br/>";
 									if ($dev[1] == "0") {
-										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devactiverweb' value='Activer site web'></form>";
+										echo "<form method='post' action='index.php?p=web'><input type='submit' name='devactiverweb' value='Activer site web'></form>";
 									} else {
-										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devdesactiverweb' value='Désactiver site web'></form>";
+										echo "<form method='post' action='index.php?p=web'><input type='submit' name='devdesactiverweb' value='Désactiver site web'></form>";
 									}
 									
 									if ($dev[2] == "0") {
-										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devactiverbdd' value='Ajouter base de données'></form>";
+										echo "<form method='post' action='index.php?p=web'><input type='submit' name='devactiverbdd' value='Ajouter base de données'></form>";
 									} else {
-										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devdesactiverbdd' value='Supprimer base données'></form>";
+										echo "<form method='post' action='index.php?p=web'><input type='submit' name='devdesactiverbdd' value='Supprimer base données'></form>";
 									}
-									echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devsupweb' value='Supprimer site web'></form></br>";
+									echo "<form method='post' action='index.php?p=web'><input type='submit' name='devsupweb' value='Supprimer site web'></form></br>";
 								}
 							}
 						}
