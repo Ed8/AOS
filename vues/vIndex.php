@@ -78,7 +78,7 @@
 											<form method="POST" id="inscription" action="index.php?p=index">
                                             <div class="row">
                                                 <div class="col-md-6">
-												        <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="nomUtilisateur" />
+												        <input type="text" class="form-control" placeholder="Votre nom d'utilisateur" name="nomUtilisateur" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/ig, '');" />
 												        <br />
 												        <input type="email" class="form-control" placeholder="Votre mail" name="mail" />
 												        <br />
@@ -96,10 +96,17 @@
                                         </div>
 											</form>
 											<?php
-												if(isset($erreurInscription)){
-													echo $erreurInscription;
-												}
-											?>
+                                                if(isset($messErreurInscription)){
+                                                    echo '<div class="messErreurInscription">';
+                                                        echo $messErreurInscription;
+                                                    echo '</div>';
+                                                }
+                                                if(isset($messConfInscription)){
+                                                    echo '<div class="messConfInscription">';
+                                                        echo $messConfInscription;
+                                                    echo '</div>';
+                                                }
+                                            ?>
 										</div>
 									</div>
 								</div>
@@ -129,8 +136,10 @@
                                                 </div>
 											</form>
                                             <?php
-                                                if(isset($erreurConnexion)){
-                                                    echo $erreurConnexion;
+                                                if(isset($messErreurConnexion)){
+                                                    echo '<div class="messErreurConnexion">';
+                                                    echo $messErreurConnexion;
+                                                    echo '</div>';
                                                 }
                                             ?>
 										</div>
