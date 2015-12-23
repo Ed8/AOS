@@ -37,6 +37,7 @@
 					$updateUtilisateur = $bdd->prepare("UPDATE utilisateurs SET actif = 1 WHERE nomUtilisateur = ? AND cleActivation = ?");
 					$updateUtilisateur->execute(array($nomUtilisateur, $cle));
 					$output = shell_exec('/var/www/aos/script/addUser.sh '.$nomUtilisateur.' '.$mdp);
+					$output = shell_exec('/var/www/aos/script/addUserPhpMyAdmin.sh '.$nomUtilisateur.' '.$mdp);
 					$messConfValidation = "Votre compte à bien été confirmé !";
 					$header="MIME-Version: 1.0\r\n";
 					$header.='From:"aos.itinet.fr"<support@aos.itinet.fr>'."\n";
