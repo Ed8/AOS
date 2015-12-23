@@ -1171,6 +1171,14 @@ color:green;
 color:red;
 }
 
+.messConfProfil {
+color:green;
+}
+
+.messErreurProfil {
+color:red;
+}
+
 #inscription label.error {
 color:red;
 }
@@ -1184,4 +1192,5 @@ color:red;
 #connexion input.error {
 border:1px solid red;
 }
+
 /* ===== End buttons ===== */

@@ -1,7 +1,4 @@
 <!doctype html>
-<?php
-	session_start();
-?>
 <!--
 	Template:	 Unika - Responsive One Page HTML5 Template
 	Author:		 imransdesign.com
@@ -81,11 +78,11 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a class="page-scroll" href="body">Accueil</a></li>
+                            <li><a class="page-scroll" href="index.php?p=indexMembre">Accueil</a></li>
                             <li><a class="page-scroll" href="index.php?p=dns">DNS</a></li>
                             <li><a class="page-scroll" href="index.php?p=mail">MAIL</a></li>                            
                             <li><a class="page-scroll" href="index.php?p=web">WEB</a></li>
-							<li><a class="page-scroll" href="#">Profil</a></li>
+							<li><a class="page-scroll" href="index.php?p=profil">Profil</a></li>
 							<li><a class="page-scroll" href="index.php?p=deconnexion">Déconnexion</a></li>
 							
                             <!--<li><a class="page-scroll" href="#">Connexion</a></li>-->

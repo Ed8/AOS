@@ -1,13 +1,10 @@
 <!doctype html>
-<?php
-session_start();
-?>
 <html lang="en-US">
 	<head>
 
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Aos</title>
+		<title>Aos - Membre</title>
 		<meta name="description" content="Unika - Responsive One Page HTML5 Template">
 		<meta name="keywords" content="HTML5, Bootsrtrap, One Page, Responsive, Template, Portfolio" />
 		<meta name="author" content="imransdesign.com">
@@ -74,11 +71,11 @@ session_start();
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a class="page-scroll" href="body">Accueil</a></li>
+                            <li><a class="page-scroll" href="index.php?p=indexMembre">Accueil</a></li>
                             <li><a class="page-scroll" href="index.php?p=dns">DNS</a></li>
                             <li><a class="page-scroll" href="index.php?p=mail">MAIL</a></li>                            
                             <li><a class="page-scroll" href="index.php?p=web">WEB</a></li>
-							<li><a class="page-scroll" href="#">Profil</a></li>
+							<li><a class="page-scroll" href="index.php?p=profil">Profil</a></li>
 							<li><a class="page-scroll" href="index.php?p=deconnexion">Déconnexion</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
