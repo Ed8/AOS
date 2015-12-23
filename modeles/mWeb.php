@@ -36,10 +36,10 @@
 	
 	if (isset($_SESSION['idEnreg'])) {
 		//Requete Table servicesweb
-		$req = $bdd->prepare("SELECT * FROM servicesweb WHERE idEnreg = ".$_SESSION['idEnreg']."");
+		$req = $bdd->prepare("SELECT * FROM servicesWeb WHERE idEnreg = ".$_SESSION['idEnreg']."");
 		$req->execute();
 		while ($data = $req->fetch()) {
-			echo $data['idWeb'].$data['publicAvailable'].$data['publicEnabled'].$data['publicBdd'].$data['devAvailable'].$data['devEnabled'].$data['devBdd'].$data['idEnreg'];
+			//echo $data['idWeb'].$data['publicAvailable'].$data['publicEnabled'].$data['publicBdd'].$data['devAvailable'].$data['devEnabled'].$data['devBdd'].$data['idEnreg'];
 			$pub[] = $data['publicAvailable'];
 			$pub[] = $data['publicEnabled'];
 			$pub[] = $data['publicBdd'];
@@ -50,7 +50,7 @@
 	}
 	
 	if (isset($pub) && isset($dev) && $pub[0] == "0" && $dev[0] == "0") {
-		$req = $bdd->prepare("DELETE FROM servicesweb WHERE idEnreg = ".$_SESSION['idEnreg']."");
+		$req = $bdd->prepare("DELETE FROM servicesWeb WHERE idEnreg = ".$_SESSION['idEnreg']."");
 		$req->execute();
 		
 		$req = $bdd->prepare("DELETE FROM enregistrements WHERE idEnreg = ".$_SESSION['idEnreg']."");

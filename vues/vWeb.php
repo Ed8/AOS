@@ -131,7 +131,7 @@
 							}
 						}
 						
-						if (!empty($pub) && !empty($dev)) {
+						if (isset($pub) && isset($dev)) {
 							if ($pub[0] == "1" || $dev[0] == "1") {
 								echo "<div><h1>Vos Sites Web</h1>";
 								if ($pub[0] == "1") {
