@@ -29,19 +29,7 @@
 		<link rel="stylesheet" href="./vues/css/mobile.css">
 
 		<!-- Skin CSS -->
-		<!--<link rel="stylesheet" href="css/skin/cool-gray.css">-->
         <link rel="stylesheet" href="./vues/css/skin/ice-blue.css">
-        <!-- <link rel="stylesheet" href="css/skin/summer-orange.css"> -->
-        <!-- <link rel="stylesheet" href="css/skin/fresh-lime.css"> -->
-        <!-- <link rel="stylesheet" href="css/skin/night-purple.css"> -->
-
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
 
 	</head>
 
@@ -71,7 +59,7 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a class="page-scroll" href="index.php?p=indexMembre">Accueil</a></li>
+                            <li><a class="page-scroll" href="body">Accueil</a></li>
                             <li><a class="page-scroll" href="index.php?p=dns">DNS</a></li>
                             <li><a class="page-scroll" href="index.php?p=mail">MAIL</a></li>                            
                             <li><a class="page-scroll" href="index.php?p=web">WEB</a></li>
@@ -88,9 +76,7 @@
 
             </header>
             <!-- ========= END HEADER =========-->
-                        
-
-              
+			
             <!-- Begin Services -->
             <section id="services-section" class="page text-center" style="padding-top: 10%;">
                 <!-- Begin page header-->
@@ -104,50 +90,87 @@
                     </div>
                 </div>
                 <!-- End page header-->
-			<div style="float: left; margin-left: 20%;">
-				<h1>Site Web Public</h1>
-				<form method="post" action="verif.php">
-					<select>
-						<option>www.</option>
-						<option></option>
-					</select>
-					<input type="text" name="fqdn">.aos.itinet.fr
-					<input type="submit" value="Créer" name="create">
-				</form><br/>
-				<form method="post" action="verif.php">
-					<input type="submit" value="Activer Site Web" name="enable">
-				</form><br/>
-				<form method="post" action="verif.php">
-					<input type="submit" value="Désactiver Site Web" name="disable">
-				</form><br/>
-				<form method="post" action="verif.php">
-					<input type="submit" value="Créer Base De Données" name="addbdd">
-				</form><br/>
-				<form method="post" action="verif.php">
-					<input type="submit" value="Supprimer Base De Données" name="rembdd">
-				</form><br/>
-				<form method="post" action="verif.php">
-					<input type="submit" value="Supprimer Site web" name="delweb">
-				</form>
-			</div>
-			
-			<div style="float: right; margin-right: 20%;";>
-				<h1>Site Web Privé</h1>
-				<form method="post" action="#">
-					<select>
-						<option>www.</option>
-						<option></option>
-					</select>dev.
-					<input type="text" name="fqdn">.aos.itinet.fr
-					<input type="submit" value="Créer">
-				</form><br/>
-				<input type="button" value="Activer Site Web"><br/><br/>
-				<input type="button" value="Désactiver Site Web"><br/><br/>
-				<input type="button" value="Créer Base De Données"><br/><br/>
-				<input type="button" value="Supprimer Base De Données"><br/><br/>
-				<input type="button" value="Supprimer Site web">
-			</div>
-					
+
+				
+					<?php
+						if (isset($pub) && isset($dev) && $pub[0] == "1" && $dev[0] == "0") {
+							echo "<div><h1>Créer votre Site Web</h1>";
+							echo "<form method='post' action='../aos/modeles/insert.php'>dev.".$_SESSION['fqdn']." ";
+							echo "</select><input type='text' name='test' value='Developpement' readonly>
+									<select name='bdd'>
+										<option value='add'>Ajouter une base de données</option>
+										<option value='noadd'>N'ajouter pas une base de données</option>
+									</select>
+									<select name='activ'>
+										<option value='enabled'>Activer le site web</option>
+										<option value='noenabled'>N'activer pas le site web</option>
+									</select>
+									<input type='submit' value='Créer' name='createdev'>
+									</form></br></div>";
+						} else {
+							if (!isset($pub) || $pub[0] !== "1") {
+								echo "<div><h1>Créer votre Site Web</h1>";
+								echo "<form method='post' action='../aos/modeles/insert.php'>
+											<input type='text' name='fqdn'>.
+											<select name='domaine'>";
+											$nb = count($domaine);
+											for($i=0; $i<$nb; $i++) {
+												echo "<option value=".$domaine[$i].">".$domaine[$i]."</option>";
+											}
+								echo "</select><input type='text' name='test' value='Public' readonly>
+										<select name='bdd'>
+											<option value='add'>Ajouter une base de données</option>
+											<option value='noadd'>N'ajouter pas une base de données</option>
+										</select>
+										<select name='activ'>
+											<option value='enabled'>Activer le site web</option>
+											<option value='noenabled'>N'activer pas le site web</option>
+										</select>
+										<input type='submit' value='Créer' name='createpub'>
+									</form></br></div>";
+							}
+						}
+						
+						if (!empty($pub) && !empty($dev)) {
+							if ($pub[0] == "1" || $dev[0] == "1") {
+								echo "<div><h1>Vos Sites Web</h1>";
+								if ($pub[0] == "1") {
+									echo $_SESSION['nomEnreg']."<br/>";
+									if ($pub[1] == "0") {
+										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubactiverweb' value='Activer site web'></form>";
+									} else {
+										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubdesactiverweb' value='Désactiver site web'></form>";
+									}
+									
+									if ($pub[2] == "0") {
+										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubactiverbdd' value='Ajouter base de données'></form>";
+									} else {
+										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubdesactiverbdd' value='Supprimer base données'></form>";
+									}
+									
+									if($dev[0] !== "1")
+									echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='pubsupweb' value='Supprimer site web'></form></br>";
+								}
+								
+								if ($dev[0] == "1") {
+									echo "dev.".$_SESSION['nomEnreg']."<br/>";
+									if ($dev[1] == "0") {
+										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devactiverweb' value='Activer site web'></form>";
+									} else {
+										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devdesactiverweb' value='Désactiver site web'></form>";
+									}
+									
+									if ($dev[2] == "0") {
+										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devactiverbdd' value='Ajouter base de données'></form>";
+									} else {
+										echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devdesactiverbdd' value='Supprimer base données'></form>";
+									}
+									echo "<form method='post' action='../aos/modeles/insert.php'><input type='submit' name='devsupweb' value='Supprimer site web'></form></br>";
+								}
+							}
+						}
+					?>
+				
             </section>
             <!-- End Services -->
 
