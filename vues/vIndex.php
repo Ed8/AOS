@@ -178,9 +178,9 @@
             
                 <!-- Begin roatet box-2 -->
                 <div class="rotate-box-2-wrapper">
-                    <div class="container" style="margin-left: 21%">
+                    <div class="container">
                         <div class="row">
-                            <div class="col-md-3 col-sm-6">
+                            <div class="col-md-4 col-sm-6">
                                 <a class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0">
                                     <span class="rotate-box-icon"><i class="fa fa-globe"></i></span>
                                     <div class="rotate-box-info">
@@ -190,7 +190,7 @@
                                 </a>
                             </div>
             
-                            <div class="col-md-3 col-sm-6">
+                            <div class="col-md-4 col-sm-6">
                                 <a class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0.2s">
                                     <span class="rotate-box-icon"><i class="fa fa-envelope-o"></i></span>
                                     <div class="rotate-box-info">
@@ -200,7 +200,7 @@
                                 </a>
                             </div>
             
-                            <div class="col-md-3 col-sm-6">
+                            <div class="col-md-4 col-sm-6">
                                 <a class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0.4s">
                                     <span class="rotate-box-icon"><i class="fa fa-file-code-o"></i></span>
                                     <div class="rotate-box-info">
@@ -211,11 +211,6 @@
                             </div>
                         </div> <!-- /.row -->
                     </div> <!-- /.container -->
-                    
-                    <div class="container">
-                        <!-- Cta Button -->
-                        <div class="extra-space-l"></div>
-                    </div> <!-- /.container -->                       
                 </div>
                 <!-- End rotate-box-2 -->
             </section>
@@ -234,10 +229,10 @@
                     </div>
                 </div>
                 <!-- End page header-->
-                <div class="container" style="margin-left: 18%">
+                <div class="container">
                     <div class="row">
                         <div class="team-items">
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <div class="team-container wow bounceIn" data-wow-delay="0.2s">
                                     <div class="team-item">
                                         <div class="team-triangle">
@@ -252,7 +247,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <div class="team-container wow bounceIn" data-wow-delay="0.3s">
                                     <div class="team-item">
                                         <div class="team-triangle">
@@ -267,7 +262,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 <div class="team-container wow bounceIn" data-wow-delay="0.4s">
                                     <div class="team-item">
                                         <div class="team-triangle">
@@ -289,6 +284,11 @@
             </section>
             <!-- End team-->
 			
+			<div class="container">
+				<!-- Cta Button -->
+				<div class="extra-space-l"></div>
+			</div> <!-- /.container -->
+			
             <!-- Begin prices section -->
 			<section id="prices-section" class="page">
 
@@ -304,14 +304,12 @@
                 </div>
                 <!-- End page header-->
 
-				<div class="extra-space-l"></div>
-
 				<!-- Begin prices -->
 				<div class="prices">
-					<div class="container" style="margin-left: 21%">
+					<div class="container">
 						<div class="row">
 							
-							<div class="price-box col-sm-6 col-md-3 wow flipInY" data-wow-delay="0.3s">
+							<div class="price-box col-sm-6 col-md-4 wow flipInY" data-wow-delay="0.3s">
 								<div class="panel panel-default">
 									<div class="panel-heading text-center">
 										<i class="fa fa-globe fa-2x"></i>
@@ -332,7 +330,7 @@
 								</div>										
 							</div>
 
-							<div class="price-box col-sm-6 col-md-3 wow flipInY" data-wow-delay="0.5s">
+							<div class="price-box col-sm-6 col-md-4 wow flipInY" data-wow-delay="0.5s">
 								<div class="panel panel-default">
 									<div class="panel-heading text-center">
 										<i class="fa fa-envelope-o fa-2x"></i>
@@ -350,7 +348,7 @@
 								</div>										
 							</div>
 							
-							<div class="price-box col-sm-6 col-md-3 wow flipInY" data-wow-delay="0.9s">
+							<div class="price-box col-sm-6 col-md-4 wow flipInY" data-wow-delay="0.9s">
 								<div class="panel panel-default">
 									<div class="panel-heading text-center">
 										<i class="fa fa-file-code-o fa-2x"></i>
