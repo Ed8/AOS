@@ -127,9 +127,6 @@
                     <div class="form-group col-md-2 center">
                         <input type="submit" class="btn btn-success" value="Créer votre boîte mail" name="creerMail">
                     </div>
-                    <div class="form-group col-md-2 center">
-                        <input type="submit" class="btn btn-danger" value="Supprimer votre boîte mail" name="supprMail">
-                    </div>
                     </br></br></br></br></br></br></br>
                     <?php
                         if(isset($messErreurMail)){
@@ -146,7 +143,53 @@
                     </br></br>
     			</form>
                 <input type="button" onclick="document.location.href='http://mail.aos.itinet.fr'" class="btn btn-default" value="Accédez à votre boîte mail"/>
-                
+                </br></br>
+                <form method="POST" action="index.php?p=mail">
+                    <?php
+                        if($resultatAos['actifMail'] == 0){
+                            echo'<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-2">Activer votre boîte mail aos</button>';
+                            echo'<div class="modal" id="modal-2">';
+                                echo'<div class="modal-dialog">';
+                                    echo'<div class="modal-content">';
+                                        echo'<div class="modal-header">';
+                                            echo'<button type="button" class="close" data-dismiss="modal">&times;</button>';
+                                            echo'<h3 class="modal-title">Activation de votre boîte mail AOS</h3>';
+                                        echo'</div>';
+                                        echo'<div class="modal-body">';
+                                            echo'<form method="POST" id="connexion" action="index.php?p=mail">';
+                                            echo'<div class="row">';
+                                                echo'<div class="col-md-6">';
+                                                    echo'<input type="password" class="form-control" placeholder="Votre mot de passe" name="mdpAos" />';
+                                                    echo'<br />';
+                                                    echo'<input type="password" class="form-control" placeholder="Confirmation du mot de passe" name="mdpConfAos" />';
+                                                    echo'<br />';
+                                                echo'</div>';
+                                            echo'</div>';
+                                                echo'<div class="modal-footer">';
+                                                    echo'<button type="button" data-dismiss="modal" class="btn btn-primary">Fermer</button>';
+                                                    echo'<button type="submit" class="btn btn-success" name="activer">Valider</button>';
+                                                echo'</div>';
+                                            echo'</form>';
+                                        echo'</div>';
+                                    echo'</div>';
+                                echo'</div>';
+                            echo'</div>';
+                        } else {
+                            echo '<input type="submit" name="supprimer" class="btn btn-danger" value="Supprimer votre boîte mail aos">'; 
+                        }
+                    ?>
+                </form>
+                </br>
+                <?php
+                foreach($tabMail as $valeur){
+                    echo '<form action="index.php?p=mail" method="POST">';
+                    echo $valeur;
+                    echo '<input type="hidden" name="valeurMail" value="'.$valeur.'">';
+                    echo '<input type="submit" name="supprimerExterne" class="btn btn-danger" value="Supprimer">';
+                    echo '</form>';
+                    echo '</br></br>';
+                } 
+                ?>
             </div> 
             </section>
             <!-- End Services -->

@@ -1,5 +1,8 @@
 <?php
 	session_start();
+    if(!isset($_SESSION['idUtilisateur'])){
+        header('Location: index.php');
+    }
 	//Vérification si le formulaire été posté
 	if(isset($_POST['confMotdePasseForm'])){
 		if(!empty($_POST['ancienMotDePasse']) AND !empty($_POST['nouveauMotDePasse']) AND !empty($_POST['confMotDePasse'])) {
