@@ -90,9 +90,9 @@
 
               
             <!-- Begin Services -->
-            <section id="services-section" class="page text-center" style="padding-top: 10%;">
+            <section id="services-section" class="page text-center">
                 <!-- Begin page header-->
-                <div class="page-header-wrapper">
+                <div class="page-header-wrapper" style="padding-top: 5%;">
                     <div class="container">
                         <div class="page-header text-center wow fadeInDown" data-wow-delay="0.4s">
                             <h2>Gérer</h2>
@@ -105,9 +105,9 @@
             
                 <!-- Begin roatet box-2 -->
                 <div class="rotate-box-2-wrapper">
-                    <div class="container" style="margin-left: 21%">
+                    <div class="container">
                         <div class="row">
-                            <div class="col-md-3 col-sm-6">
+                            <div class="col-md-4 col-sm-6">
                                 <a href="index.php?p=dns" class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0">
                                     <span class="rotate-box-icon"><i class="fa fa-globe"></i></span>
                                     <div class="rotate-box-info">
@@ -116,7 +116,7 @@
                                 </a>
                             </div>
             
-                            <div class="col-md-3 col-sm-6">
+                            <div class="col-md-4 col-sm-6">
                                 <a href="index.php?p=mail" class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0.2s">
                                     <span class="rotate-box-icon"><i class="fa fa-envelope-o"></i></span>
                                     <div class="rotate-box-info">
@@ -125,7 +125,7 @@
                                 </a>
                             </div>
             
-                            <div class="col-md-3 col-sm-6">
+                            <div class="col-md-4 col-sm-6">
                                 <a href="index.php?p=web" class="rotate-box-2 square-icon text-center wow zoomIn" data-wow-delay="0.4s">
                                     <span class="rotate-box-icon"><i class="fa fa-file-code-o"></i></span>
                                     <div class="rotate-box-info">
@@ -152,7 +152,7 @@
 
             <!-- Begin footer -->
             <footer class="text-off-white">
-                <div class="footer" style="margin-top: 2.3%;">
+                <div class="footer" style="position: absolute; width: 100%; bottom: 0;">
                     <div class="container text-center wow fadeIn" data-wow-delay="0.4s">
                         <p class="copyright" style="color: e7e7e7">Copyright &copy; 2015 - Designed By <a href="http://www.aos.itinet.fr" class="theme-author">Admin Online Services</a> &amp; Developed by <a href="http://www.aos.itinet.fr" class="theme-author">AOS</a></p>
                     </div>

@@ -27,6 +27,7 @@
         <link rel="stylesheet" href="./vues/css/reset.css">
 		<link rel="stylesheet" href="./vues/css/style.css">
 		<link rel="stylesheet" href="./vues/css/mobile.css">
+		<link rel="stylesheet" href="./vues/css/web.css">
 
 		<!-- Skin CSS -->
         <link rel="stylesheet" href="./vues/css/skin/ice-blue.css">
@@ -59,11 +60,11 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a class="page-scroll" href="body">Accueil</a></li>
+                            <li><a class="page-scroll" href="index.php?p=indexMembre">Accueil</a></li>
                             <li><a class="page-scroll" href="index.php?p=dns">DNS</a></li>
                             <li><a class="page-scroll" href="index.php?p=mail">MAIL</a></li>                            
                             <li><a class="page-scroll" href="index.php?p=web">WEB</a></li>
-							<li><a class="page-scroll" href="#">Profil</a></li>
+							<li><a class="page-scroll" href="index.php?p=profil">Profil</a></li>
 							<li><a class="page-scroll" href="index.php?p=deconnexion">Déconnexion</a></li>
 							
                             <!--<li><a class="page-scroll" href="#">Connexion</a></li>-->
@@ -94,78 +95,104 @@
 				
 					<?php
 						if (isset($pub) && isset($dev) && $pub[0] == "1" && $dev[0] == "0") {
-							echo "<div><h1>Créer votre Site Web</h1>";
-							echo "<form method='post' action='index.php?p=web'>dev.".$_SESSION['fqdn']." ";
-							echo "</select><input type='text' name='test' value='Developpement' readonly>
-									<select name='bdd'>
-										<option value='add'>Ajouter une base de données</option>
-										<option value='noadd'>N'ajouter pas une base de données</option>
-									</select>
-									<select name='activ'>
-										<option value='enabled'>Activer le site web</option>
-										<option value='noenabled'>N'activer pas le site web</option>
-									</select>
-									<input type='submit' value='Créer' name='createdev'>
-									</form></br></div>";
+							echo "<h1>Créer votre Site Web</h1>
+									<form method='post' action='index.php?p=web'>
+										<b>dev.".$_SESSION['fqdn']."</b>
+										<input type='text' name='test' value='Developpement' class='formulaire readonly' readonly>
+										<br/>
+										<br/>
+										<table class='tableau'>
+											<tr>
+												<td>Activer une base de donnée ?</td>
+												<td><input type='radio' name='bdd' value='add'>Oui</td>
+												<td><input type='radio' name='bdd' value='noadd' checked='checked'>Non</td>
+											</tr>
+											<tr>
+												<td>Activer le site web ?</td>
+												<td><input type='radio' name='activ' value='enabled'>Oui</td>
+												<td><input type='radio' name='activ' value='noenabled' checked='checked'>Non</td>
+											</tr>
+										</table>
+										<br/>
+										<br/>
+										<input type='submit' value='Créer' name='createdev' class='btn btn-success' style='margin-bottom: 5%';>
+									</form>
+									<br/>";
 						} else {
 							if (!isset($pub) || $pub[0] !== "1") {
-								echo "<div><h1>Créer votre Site Web</h1>";
-								echo "<form method='post' action='index.php?p=web'>
-											<input type='text' name='fqdn'>.
-											<select name='domaine'>";
+								echo "<h1>Créer votre Site Web</h1>
+										<form method='post' action='index.php?p=web'>
+											<input type='text' name='fqdn' class='formulaire'>
+											<select name='domaine' class='formulaire'>";
 											$nb = count($domaine);
 											for($i=0; $i<$nb; $i++) {
-												echo "<option value=".$domaine[$i].">".$domaine[$i]."</option>";
+												echo "<option value=".$domaine[$i].">.".$domaine[$i]."</option>";
 											}
-								echo "</select><input type='text' name='test' value='Public' readonly>
-										<select name='bdd'>
-											<option value='add'>Ajouter une base de données</option>
-											<option value='noadd'>N'ajouter pas une base de données</option>
-										</select>
-										<select name='activ'>
-											<option value='enabled'>Activer le site web</option>
-											<option value='noenabled'>N'activer pas le site web</option>
-										</select>
-										<input type='submit' value='Créer' name='createpub'>
-									</form></br></div>";
+									echo "</select>
+											<input type='text' name='test' value='Public' class='formulaire readonly' readonly>
+											<br/>
+											<br/>
+											<table class='tableau'>
+												<tr>
+													<td>Activer une base de donnée ?</td>
+													<td><input type='radio' name='bdd' value='add'>Oui</td>
+													<td><input type='radio' name='bdd' value='noadd' checked='checked'>Non</td>
+												</tr>
+												<tr>
+													<td>Activer le site web ?</td>
+													<td><input type='radio' name='activ' value='enabled'>Oui</td>
+													<td><input type='radio' name='activ' value='noenabled' checked='checked'>Non</td>
+												</tr>
+											</table>
+											<br/>
+											<br/>
+											<input type='submit' value='Créer' name='createpub' class='btn btn-success'>
+										</form>
+										<br/>";
 							}
 						}
 						
-						if (!empty($pub) && !empty($dev)) {
+						if (isset($pub) && isset($dev)) {
 							if ($pub[0] == "1" || $dev[0] == "1") {
-								echo "<div><h1>Vos Sites Web</h1>";
+								echo "<h1>Vos Sites Web</h1><br/>";
 								if ($pub[0] == "1") {
-									echo $_SESSION['nomEnreg']."<br/>";
+									echo "<table style='width: 50%; margin-left: auto; margin-right: auto; margin-bottom: 100px;'><tr>";
+									echo"<td><b>".$_SESSION['nomEnreg']."</b></td>";
 									if ($pub[1] == "0") {
-										echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubactiverweb' value='Activer site web'></form>";
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubactiverweb' value='Activer site web' class='btn btn-success'></form></td>";
 									} else {
-										echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverweb' value='Désactiver site web'></form>";
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverweb' value='Désactiver site web' class='btn btn-danger'></form></td>";
 									}
 									
 									if ($pub[2] == "0") {
-										echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubactiverbdd' value='Ajouter base de données'></form>";
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubactiverbdd' value='Ajouter base de données' class='btn btn-success'></form></td>";
 									} else {
-										echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverbdd' value='Supprimer base données'></form>";
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverbdd' value='Supprimer base données' class='btn btn-danger'></form></td>";
 									}
 									
 									if($dev[0] !== "1")
-									echo "<form method='post' action='index.php?p=web'><input type='submit' name='pubsupweb' value='Supprimer site web'></form></br>";
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubsupweb' value='Supprimer site web' class='btn btn-danger'></form></td>";
+									echo "</tr>";
 								}
 								
+								// echo "<br/><br/>";
+								
 								if ($dev[0] == "1") {
-									echo "dev.".$_SESSION['nomEnreg']."<br/>";
+									echo "<td><b>dev.".$_SESSION['nomEnreg']."</b></td>";
 									if ($dev[1] == "0") {
-										echo "<form method='post' action='index.php?p=web'><input type='submit' name='devactiverweb' value='Activer site web'></form>";
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devactiverweb' value='Activer site web' class='btn btn-success'></form></td>";
 									} else {
-										echo "<form method='post' action='index.php?p=web'><input type='submit' name='devdesactiverweb' value='Désactiver site web'></form>";
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devdesactiverweb' value='Désactiver site web' class='btn btn-danger'></form></td>";
 									}
 									
 									if ($dev[2] == "0") {
-										echo "<form method='post' action='index.php?p=web'><input type='submit' name='devactiverbdd' value='Ajouter base de données'></form>";
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devactiverbdd' value='Ajouter base de données' class='btn btn-success'></form></td>";
 									} else {
-										echo "<form method='post' action='index.php?p=web'><input type='submit' name='devdesactiverbdd' value='Supprimer base données'></form>";
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devdesactiverbdd' value='Supprimer base données' class='btn btn-danger'></form></td>";
 									}
-									echo "<form method='post' action='index.php?p=web'><input type='submit' name='devsupweb' value='Supprimer site web'></form></br>";
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devsupweb' value='Supprimer site web' class='btn btn-danger'></form></td>";
+									echo "</tr>";
+									echo "</table>";
 								}
 							}
 						}
@@ -176,7 +203,7 @@
 
             <!-- Begin footer -->
             <footer class="text-off-white">
-                <div class="footer" style="margin-top: 4%;">
+                <div class="footer" style="position: absolute; bottom: 0; width: 100%;">
                     <div class="container text-center wow fadeIn" data-wow-delay="0.4s">
                         <p class="copyright" style="color: e7e7e7">Copyright &copy; 2015 - Designed By <a href="http://www.aos.itinet.fr" class="theme-author">Admin Online Services</a> &amp; Developed by <a href="http://www.aos.itinet.fr" class="theme-author">AOS</a></p>
                     </div>

@@ -1,0 +1,32 @@
+.formulaire {
+	box-shadow: none;
+	border: 1px solid #ccc;
+	font-family: "Robot", Helvetica,Arial,sans-serif;
+	width: 10%;
+	height: 35px;
+	text-align: center;
+	margin: 0.5%;
+}
+.formulaire:focus {
+	border-color: #66afe9;
+}
+.option {
+	font-family: "Robot", Helvetica,Arial,sans-serif;
+	padding: 1%;
+	width: 30%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.readonly {
+	background-color:#eee;
+	cursor: not-allowed;
+}
+td {
+	padding: 1%;
+}
+.tableau {
+	width: 20%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+}
