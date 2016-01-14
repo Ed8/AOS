@@ -1,6 +1,9 @@
 <?php
 	session_start();
 	$_SESSION["nomUtilisateur"];
+	if(!isset($_SESSION['idUtilisateur'])){
+        header('Location: index.php');
+    }
 	include './connexionBdd.php';
 	
 	//Requete Table utilisateurs

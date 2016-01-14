@@ -59,7 +59,7 @@
             if($mdpAos == $mdpConfAos){
                 $reqUpdateActif = $bdd->prepare('UPDATE utilisateurs SET actifMail = 1 WHERE idUtilisateur = ?');
                 $reqUpdateActif->execute(array($_SESSION['idUtilisateur']));
-                //$output = shell_exec('/var/www/aos/script/createUserMail.sh '.$_SESSION['nomUtilisateur'].' '.$domaine.' '.$mdpAos);
+                $output = shell_exec('/var/www/aos/script/createUserMail.sh '.$_SESSION['nomUtilisateur'].' '.$domaine.' '.$mdpAos);
                 
                 $messConfirmMail = 'Votre boîte mail aos à bien été activé !</br>Votre adresse mail est : '.$_SESSION['nomUtilisateur'].'@'.$domaine.' !';
                 
@@ -80,7 +80,7 @@
         $domaine = "aos.itinet.fr";
         $reqUpdateActif = $bdd->prepare('UPDATE utilisateurs SET actifMail = 0 WHERE idUtilisateur = ?');
         $reqUpdateActif->execute(array($_SESSION['idUtilisateur']));
-        //$output = shell_exec('/var/www/aos/script/deleteUserMail.sh '.$_SESSION['nomUtilisateur'].' '.$domaine);
+        $output = shell_exec('/var/www/aos/script/deleteUserMail.sh '.$_SESSION['nomUtilisateur'].' '.$domaine);
         
         $messConfirmMail = "Votre boîte mail aos à bien été supprimer !";
         
