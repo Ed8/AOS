@@ -55,6 +55,8 @@
         $type = htmlspecialchars($_POST['type']);
         $adresseIp = htmlspecialchars($_POST['ipEnregistrement']);
         $domaine = htmlspecialchars($_POST['domaine']);
+        $adresseIpItinet = "88.177.168.133";
+        $userFactise = "onsenfou";
         $fqdn = $nomEnregistrement.".".$domaine;
         
         if(!empty($nomEnregistrement) AND !empty($type) AND !empty($domaine)){
@@ -75,12 +77,14 @@
                         $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
                         $reqInsertEnregistrement->execute(array($nomEnregistrement, $type, "88.177.168.133", $resultatIdDomaine['idDomaine']));
                         $resultatInsert = $reqInsertEnregistrement->fetch();
+                        $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$userFactise.' '.$domaine.' '.$type.' '.$adresseIpItinet);
                         $messConfirmEnregistrement = "Votre enregistrement à bien été ajouté !";
                         
                     }else{
                         $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
                         $reqInsertEnregistrement->execute(array($fqdn, $type, "88.177.168.133", $resultatIdDomaine['idDomaine']));
                         $resultatInsert = $reqInsertEnregistrement->fetch();
+                        $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$nomEnregistrement.' '.$domaine.' '.$type.' '.$adresseIpItinet);
                         $messConfirmEnregistrement = "Votre enregistrement à bien été ajouté !"; 
                     }
                 }
@@ -106,11 +110,13 @@
                                 $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
                                 $reqInsertEnregistrement->execute(array($nomEnregistrement, $type, $adresseIp, $resultatIdDomaine['idDomaine']));
                                 $resultatInsert = $reqInsertEnregistrement->fetch();
+                                $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$userFactise.' '.$domaine.' '.$type.' '.$adresseIp);
                                 $messConfirmEnregistrement = "Votre enregistrement à bien été ajouté !";
                             } else {
                                 $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
                                 $reqInsertEnregistrement->execute(array($fqdn, $type, $adresseIp, $resultatIdDomaine['idDomaine']));
                                 $resultatInsert = $reqInsertEnregistrement->fetch();
+                                $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$nomEnregistrement.' '.$domaine.' '.$type.' '.$adresseIp);
                                 $messConfirmEnregistrement = "Votre enregistrement à bien été ajouté !";
                             }
                         }
@@ -128,8 +134,12 @@
     if(isset($_POST['supprimerEnregistrement'])){
         $nomEnregistrement=htmlspecialchars($_POST['valeurEnregistrement']);
 
+        $reqSelectEnregScript = $bdd->("SELECT * FROM enregistrements WHERE nomEnreg = ?");
+        $reqSelectEnregScript->execute(array($nomEnregistrement));
+        $resultatSelectEnregScript = $reqSelectEnregScript->fetch();
         $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE nomEnreg = ?");
         $reqSupprEnreg->execute(array($nomEnregistrement));
+        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrement.' '.$domaine.' '.$type.' '.$resultatSelectEnregScript['adresseIp']);
         $messConfirmEnregistrement = "Votre enregistrement à bien été supprimé !";
     }
     // Récupération des domaines de l'utilisateur
