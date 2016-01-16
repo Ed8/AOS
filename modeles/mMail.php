@@ -6,8 +6,8 @@
     require('connexionBdd.php');
     
     //Récupération des information pour le formulaire
-    $req = $bdd->prepare("SELECT * FROM utilisateurs INNER JOIN domaines ON utilisateurs.idUtilisateur = domaines.idUtilisateur INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE utilisateurs.idUtilisateur = ? AND adresseIp = ?");
-    $req->execute(array($_SESSION['idUtilisateur'], '88.177.168.133'));
+    $req = $bdd->prepare("SELECT * FROM utilisateurs INNER JOIN domaines ON utilisateurs.idUtilisateur = domaines.idUtilisateur INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE utilisateurs.idUtilisateur = ? AND adresseIp = ? AND typeEnreg = ?");
+    $req->execute(array($_SESSION['idUtilisateur'], '88.177.168.133', 'mx'));
     while($resultat = $req->fetch()){
         $tabDomaine[] = $resultat['domaine'];
     }

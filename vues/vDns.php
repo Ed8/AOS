@@ -1,11 +1,4 @@
 <!doctype html>
-<!--
-	Template:	 Unika - Responsive One Page HTML5 Template
-	Author:		 imransdesign.com
-	URL:		 http://imransdesign.com/
-    Designed By: https://www.behance.net/poljakova
-	Version:	1.0	
--->
 <html lang="en-US">
 	<head>
 
@@ -106,48 +99,164 @@
                         <div class="page-header text-center wow fadeInDown" data-wow-delay="0.4s">
                             <h2>DNS</h2>
                             <div class="devider"></div>
-                            <p class="subtitle">Hébergement</p>
+                            <p class="subtitle">Ajouter votre domaine</p>
                         </div>
                     </div>
                 </div>
-                <!-- End page header-->
-			<div style="float: left; margin-left: 20%;">
-				<h1>Importer</h1>
-				<form method="post" action="#">
-					<select>
-						<option>www.</option>
-						<option></option>
-					</select>
-					<input type="text" name="fqdn"></br>
-					<select>
-						<option>MX</option>
-						<option>A</option>
-					</select>
-					<input type="texte name="ip" placeholder="IP"><br/>
-					<input type="submit" class="btn btn-success" value="Enregistrer">
-				</form><br/>
-				<input type="button" class="btn btn-primary" value="Supprimer Nom De Domaine">
-			</div>
-			
-			<div style="float: right; margin-right: 20%;";>
-				<h1>Créer</h1>
-				<form method="post" action="#">
-					<select>
-						<option>www.</option>
-						<option></option>
-					</select>
-					<input type="text" name="fqdn">.aos.itinet.fr<br/>
-					<select>
-						<option>MX</option>
-						<option>A</option>
-					</select>
-					<input type="texte name="ip" placeholder="IP"><br/>
-					<input type="submit" class="btn btn-success" value="Créer">
-				</form><br/>
-				<input type="button" class="btn btn-primary" value="Supprimer Nom De Domaine">
-			</div>
-					
+            <div style="margin-left: 250px";>
+                <form method="POST" action="index.php?p=dns">
+    				<div class="form-group col-md-3 center">
+                        <input type="text" class="form-control" placeholder="Votre domaine" name="domaineNs">
+                    </div>
+                    <div class="form-group col-md-3 center">
+						  <select class="form-control" name="selectionTld">
+						    <option>.fr</option>
+						    <option>.com</option>
+						    <option>.org</option>
+						    <option>.net</option>
+						  </select>
+					</div>
+                    <div class="form-group col-md-2 center">
+                        <input type="submit" class="btn btn-success" value="Ajouter votre domaine" name="ajoutDomaine">
+                    </div>
+    			</form>
+    			</br></br></br></br>
+			</div>	
+            <?php
+                if(isset($messErreurDomaine)){
+                    echo '<div class="messErreurDomaine">';
+                    echo $messErreurDomaine;
+                    echo '</div>';
+                }
+                if(isset($messConfirmDomaine)){
+                    echo '<div class="messConfirmDomaine">';
+                    echo $messConfirmDomaine;
+                    echo '</div>';
+                }
+            ?>
+            </br></br>
+            <?php
+                echo '<table class="table table-bordered table-hover table-striped">';
+                echo '<thead>'; 
+                    echo '<tr>'; 
+                        echo '<td>Domaine</td>'; 
+                        echo '<td>Suppression</td>';
+                    echo '</tr>'; 
+                echo '</thead>';
+                foreach($tabDomaine as $valeur){
+                    echo '<form action="index.php?p=dns" method="POST">';
+                        echo '<tbody>'; 
+                            echo '<tr>';
+                                echo '<td>';
+                                    echo $valeur;
+                                    echo '<input type="hidden" name="valeurDns" value="'.$valeur.'">';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<input type="submit" name="supprimerExterne" class="btn btn-danger" value="Supprimer">';
+                                echo '</td>';
+                            echo '<tr>';
+                        echo '<tbody>';
+                    echo '</form>';                           
+                }
+                echo '</table>';      
+            ?>	
             </section>
+                <!-- Begin page header-->
+                <div class="page-header-wrapper">
+                    <div class="container">
+                        <div class="page-header text-center wow fadeInDown" data-wow-delay="0.7s">
+                            <h2>DNS</h2>
+                            <div class="devider"></div>
+                            <p class="subtitle">Ajouter des enregistrements</p>
+                        </div>
+                    </div>
+                </div>
+             <div style="margin-left: auto; margin-right: auto;";>
+                <form method="POST" action="index.php?p=dns">
+    				<div class="form-group col-md-3 center">
+                        <input type="text" class="form-control" placeholder="Nom de l'enregistrement" name="nomEnregistrement">
+                    </div>
+                    <?php
+                        $nb = count($tabDomaine);
+                        echo '<div class="form-group col-md-3 center">';
+                        echo '<select name="domaine" class="form-control">';
+                        for($i=0; $i<$nb; $i++) {
+                            echo '<option>'.$tabDomaine[$i].'</option>';
+                        }
+                        echo '</select>';
+                        echo '</div>';
+                        ?>
+                    <div class="form-group col-md-3 center">
+						  <select class="form-control" id="selectionTld" name="type">
+						    <option>mx</option>
+						    <option>fqdn</option>
+						  </select>
+					</div>
+					<div class="form-group col-md-3 center">
+                        <input type="text" class="form-control" placeholder="Adresse Ip" name="ipEnregistrement">
+                    </div>
+                        <?php
+                            if(isset($messErreurEnregistrement)){
+                                echo '<div class="messErreurEnregistrement">';
+                                echo $messErreurEnregistrement;
+                                echo '</div>';
+                            }
+                            if(isset($messConfirmEnregistrement)){
+                                echo '<div class="messConfirmEnregistrement">';
+                                echo $messConfirmEnregistrement;
+                                echo '</div>';
+                            }
+                        ?>
+                    </br></br>
+                    <div style="margin-left: 530px;";>
+                        <input type="submit" class="btn btn-success" value="Ajouter votre enregistrement" name="ajoutEnregistrement">
+                    </div>
+                    </br></br>
+    			</form>
+			</div>	
+            <?php
+                $nbDomaineEnreg = 0;
+                $nbType = 0;
+                $nbAdresseIp = 0;
+                echo '<table class="table table-bordered table-condensed table-hover table-striped">';
+                    echo '<thead>'; 
+                        echo '<tr>'; 
+                            echo '<td>Nom enregistrement</td>'; 
+                            echo '<td>Domaine</td>';
+                            echo '<td>Type</td>';
+                            echo '<td>Adresse ip</td>';
+                            echo '<td>Suppression</td>';
+                        echo '</tr>'; 
+                    echo '</thead>';
+                foreach($tabEnregistrement as $valeurEnregistrement){    
+                        echo '<form action="index.php?p=dns" method="POST">';
+                                echo '<tbody>'; 
+                                    echo '<tr>';
+                                        echo '<td>';
+                                            echo $valeurEnregistrement;
+                                            echo '<input type="hidden" name="valeurEnregistrement" value="'.$valeurEnregistrement.'">';
+                                        echo '</td>';
+                                        echo '<td>';
+                                            echo $tabDomaineEnreg[$nbDomaineEnreg];
+                                        echo '</td>';
+                                        echo '<td>';
+                                            echo $tabType[$nbType];
+                                        echo '</td>';
+                                        echo '<td>';
+                                            echo $tabAdresseIp[$nbAdresseIp];
+                                        echo '</td>';
+                                        echo '<td>';
+                                            echo '<input type="submit" name="supprimerEnregistrement" class="btn btn-danger" value="Supprimer">';   
+                                        echo '</td>';
+                                    echo '</tr>';         
+                                echo '</tbody>';
+                        echo '</form>';
+                $nbDomaineEnreg = $nbDomaineEnreg + 1;
+                $nbType = $nbType + 1;
+                $nbAdresseIp = $nbAdresseIp +1;      
+                }
+                echo '</table>';
+            ?> 	   
             <!-- End Services -->
 
             <!-- Begin footer -->

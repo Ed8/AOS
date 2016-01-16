@@ -1179,6 +1179,24 @@ color:green;
 color:red;
 }
 
+.messConfirmDomaine {
+color:green;
+}
+
+.messErreurDomaine {
+color:red;
+}
+
+.messConfirmEnregistrement {
+color:green;
+margin-left: 520px;
+}
+
+.messErreurEnregistrement {
+color:red;
+margin-left: 520px;
+}
+
 #inscription label.error {
 color:red;
 }
