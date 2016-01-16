@@ -22,7 +22,7 @@
             }else{
             	$reqInsert = $bdd->prepare("INSERT INTO domaines(domaine,idUtilisateur) VALUES(?,?)");
             	$reqInsert->execute(array($nomDomaine, $_SESSION['idUtilisateur']));
-            	//$output = shell_exec('sudo bash /var/www/aos/script/addfilezone.sh '.$nomDomaine.' '.$adresseIp);
+            	$output = shell_exec('sudo bash /var/www/aos/script/addfilezone.sh '.$nomDomaine.' '.$adresseIp);
                 $messConfirmDomaine = "Votre domaine à bien été ajouté !";
             }
         } else {
@@ -144,9 +144,9 @@
         $reqSelectEnregScript = $bdd->prepare("SELECT * FROM utilisateurs INNER JOIN domaines ON utilisateurs.idUtilisateur = domaines.idUtilisateur INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE utilisateurs.idUtilisateur = ? AND nomEnreg = ?");
         $reqSelectEnregScript->execute(array($_SESSION['idUtilisateur'], $nomEnregistrement));
         $resultatSelectEnregScript = $reqSelectEnregScript->fetch();
+        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrement.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
         $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE nomEnreg = ?");
         $reqSupprEnreg->execute(array($nomEnregistrement));
-        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrement.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
         $messConfirmEnregistrement = "Votre enregistrement à bien été supprimé !";
     }
     // Récupération des domaines de l'utilisateur
