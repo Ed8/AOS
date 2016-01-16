@@ -134,7 +134,7 @@
     if(isset($_POST['supprimerEnregistrement'])){
         $nomEnregistrement=htmlspecialchars($_POST['valeurEnregistrement']);
 
-        $reqSelectEnregScript = $bdd->("SELECT * FROM enregistrements WHERE nomEnreg = ?");
+        $reqSelectEnregScript = $bdd->prepare("SELECT * FROM enregistrements WHERE nomEnreg = ?");
         $reqSelectEnregScript->execute(array($nomEnregistrement));
         $resultatSelectEnregScript = $reqSelectEnregScript->fetch();
         $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE nomEnreg = ?");
