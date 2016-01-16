@@ -147,7 +147,7 @@
         $domaine = $resultatSelectEnregScript['domaine'];
         $resultatExplodeNomEnregistrement = explode('.'.$domaine, $nomEnregistrement);
         $nomEnregistrementExplode = $resultatExplodeNomEnregistrement[0];
-        //$output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrementExplode.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
+        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrementExplode.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
         $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE nomEnreg = ?");
         $reqSupprEnreg->execute(array($nomEnregistrement));
         $messConfirmEnregistrement = "Votre enregistrement à bien été supprimé !";

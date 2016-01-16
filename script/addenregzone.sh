@@ -18,7 +18,7 @@ if [ $enrg = "mx" ]; then
 					sudo bash /var/www/aos/script/domainRainloop.sh $domaine
 				fi
 			else				
-				sudo echo "@$domaine:$adresse::86400" >> /etc/tinydns/root/$domaine.zone				
+				sudo echo "@$nomuser.$domaine:$adresse::86400" >> /etc/tinydns/root/$domaine.zone				
            		fi
 	    	fi	   		
 	else
