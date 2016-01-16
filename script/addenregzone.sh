@@ -15,7 +15,7 @@ if [ $enrg = "mx" ]; then
 	   				sudo sed -i '10 s/$/'\ $domaine'/g' /etc/postfix/main.cf
 					sudo mkdir /var/mail/$domaine
 					sudo chown -R vmail:vmail /var/mail/$domaine 
-					sudo bash domainRainloop.sh $domaine
+					sudo bash /var/www/aos/script/domainRainloop.sh $domaine
 				fi
 			else				
 				sudo echo "@$domaine:$adresse::86400" >> /etc/tinydns/root/$domaine.zone				
