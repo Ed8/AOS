@@ -22,7 +22,7 @@
             }else{
             	$reqInsert = $bdd->prepare("INSERT INTO domaines(domaine,idUtilisateur) VALUES(?,?)");
             	$reqInsert->execute(array($nomDomaine, $_SESSION['idUtilisateur']));
-            	$output = shell_exec('sudo bash /var/www/aos/script/addfilezone.sh '.$nomDomaine.' '.$adresseIp);
+            	//$output = shell_exec('sudo bash /var/www/aos/script/addfilezone.sh '.$nomDomaine.' '.$adresseIp);
                 $messConfirmDomaine = "Votre domaine à bien été ajouté !";
             }
         } else {
@@ -56,8 +56,8 @@
         $adresseIp = htmlspecialchars($_POST['ipEnregistrement']);
         $domaine = htmlspecialchars($_POST['domaine']);
         $adresseIpItinet = "88.177.168.133";
-        $userFactise = "onsenfou";
         $fqdn = $nomEnregistrement.".".$domaine;
+        $mx = $nomEnregistrement.".".$domaine;
         
         if(!empty($nomEnregistrement) AND !empty($type) AND !empty($domaine)){
             $req = $bdd->prepare("SELECT * FROM domaines WHERE domaine = ? AND idUtilisateur = ?");
@@ -70,15 +70,22 @@
                 $req->execute(array($resultatIdDomaine['idDomaine']));
                 $resultatEnregistrement = $req->fetch();
                 
-                if($resultatEnregistrement['nomEnreg'] == $nomEnregistrement){
+                if($resultatEnregistrement['nomEnreg'] == $nomEnregistrement.'.'.$domaine){
                     $messErreurEnregistrement = "Vous possédez déjà cette enregistrement !";
                 } else {
                     if($type == "mx"){
-                        $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
-                        $reqInsertEnregistrement->execute(array($nomEnregistrement, $type, "88.177.168.133", $resultatIdDomaine['idDomaine']));
-                        $resultatInsert = $reqInsertEnregistrement->fetch();
-                        $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$userFactise.' '.$domaine.' '.$type.' '.$adresseIpItinet);
-                        $messConfirmEnregistrement = "Votre enregistrement à bien été ajouté !";
+                        $reqVerificationMx = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idUtilisateur = ? AND domaines.domaine = ? AND adresseIp = ? AND typeEnreg = ?");
+                        $reqVerificationMx->execute(array($_SESSION['idUtilisateur'], $domaine, "88.177.168.133", "mx"));
+                        $resultatReqVerificationMx = $reqVerificationMx->fetch();
+                        if(!$resultatReqVerificationMx){
+                            $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
+                            $reqInsertEnregistrement->execute(array($mx, $type, "88.177.168.133", $resultatIdDomaine['idDomaine']));
+                            $resultatInsert = $reqInsertEnregistrement->fetch();
+                            $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$nomEnregistrement.' '.$domaine.' '.$type.' '.$adresseIpItinet);
+                            $messConfirmEnregistrement = "Votre enregistrement à bien été ajouté !";
+                        } else {
+                            $messErreurEnregistrement = "Vous n'avez le droit qu'à un seul mx avec l'adresse ip de chez nous !";
+                        }
                         
                     }else{
                         $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
@@ -93,7 +100,7 @@
                 $req = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idDomaine = ?");
                 $req->execute(array($resultatIdDomaine['idDomaine']));
                 $resultatEnregistrement = $req->fetch();
-                if($resultatEnregistrement['nomEnreg'] == $nomEnregistrement){
+                if($resultatEnregistrement['nomEnreg'] == $nomEnregistrement.'.'.$domaine){
                     $messErreurEnregistrement = "Vous possédez déjà cette enregistrement";
                 } else {
                     $explodeAdresseIp = explode('.', $adresseIp);
@@ -108,9 +115,9 @@
                         } else {
                             if($type == "mx"){
                                 $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
-                                $reqInsertEnregistrement->execute(array($nomEnregistrement, $type, $adresseIp, $resultatIdDomaine['idDomaine']));
+                                $reqInsertEnregistrement->execute(array($mx, $type, $adresseIp, $resultatIdDomaine['idDomaine']));
                                 $resultatInsert = $reqInsertEnregistrement->fetch();
-                                $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$userFactise.' '.$domaine.' '.$type.' '.$adresseIp);
+                                $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$nomEnregistrement.' '.$domaine.' '.$type.' '.$adresseIp);
                                 $messConfirmEnregistrement = "Votre enregistrement à bien été ajouté !";
                             } else {
                                 $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
@@ -134,12 +141,12 @@
     if(isset($_POST['supprimerEnregistrement'])){
         $nomEnregistrement=htmlspecialchars($_POST['valeurEnregistrement']);
 
-        $reqSelectEnregScript = $bdd->prepare("SELECT * FROM enregistrements WHERE nomEnreg = ?");
-        $reqSelectEnregScript->execute(array($nomEnregistrement));
+        $reqSelectEnregScript = $bdd->prepare("SELECT * FROM utilisateurs INNER JOIN domaines ON utilisateurs.idUtilisateur = domaines.idUtilisateur INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE utilisateurs.idUtilisateur = ? AND nomEnreg = ?");
+        $reqSelectEnregScript->execute(array($_SESSION['idUtilisateur'], $nomEnregistrement));
         $resultatSelectEnregScript = $reqSelectEnregScript->fetch();
         $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE nomEnreg = ?");
         $reqSupprEnreg->execute(array($nomEnregistrement));
-        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrement.' '.$domaine.' '.$type.' '.$resultatSelectEnregScript['adresseIp']);
+        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrement.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
         $messConfirmEnregistrement = "Votre enregistrement à bien été supprimé !";
     }
     // Récupération des domaines de l'utilisateur

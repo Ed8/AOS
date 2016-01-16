@@ -9,7 +9,7 @@ if [ $enrg = "mx" ]; then
             		sudo echo "Ce mx existe deja!"
          	else
 			if [ $adresse = "88.177.168.133" ]; then
-				sudo echo "@$domaine:$adresse::86400" >> /etc/tinydns/root/$domaine.zone	
+				sudo echo "@$nomuser.$domaine:$adresse::86400" >> /etc/tinydns/root/$domaine.zone	
 				verification=`sudo grep $domaine /etc/postfix/main.cf`
 	   			if [ -z "$verification" ]; then
 	   				sudo sed -i '10 s/$/'\ $domaine'/g' /etc/postfix/main.cf
