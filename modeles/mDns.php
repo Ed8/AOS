@@ -144,7 +144,10 @@
         $reqSelectEnregScript = $bdd->prepare("SELECT * FROM utilisateurs INNER JOIN domaines ON utilisateurs.idUtilisateur = domaines.idUtilisateur INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE utilisateurs.idUtilisateur = ? AND nomEnreg = ?");
         $reqSelectEnregScript->execute(array($_SESSION['idUtilisateur'], $nomEnregistrement));
         $resultatSelectEnregScript = $reqSelectEnregScript->fetch();
-        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrement.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
+        $domaine = $resultatSelectEnregScript['domaine'];
+        $resultatExplodeNomEnregistrement = explode('.'.$domaine, $nomEnregistrement);
+        $nomEnregistrementExplode = $resultatExplodeNomEnregistrement[0];
+        //$output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrementExplode.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
         $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE nomEnreg = ?");
         $reqSupprEnreg->execute(array($nomEnregistrement));
         $messConfirmEnregistrement = "Votre enregistrement à bien été supprimé !";
