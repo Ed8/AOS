@@ -161,6 +161,9 @@
         $fqdn = htmlspecialchars($_POST['fqdnAos']);
         $fqdnComplet = $fqdn.".aos.itinet.fr";
         $fqdnCompletDev = "dev.".$fqdn.".aos.itinet.fr";
+        $fqdnDev = "dev.".$fqdn;
+        $domaine = "aos.itinet.fr";
+        $type = "fqdn";
         
         $reqAosFqdn = $bdd->prepare("SELECT * FROM utilisateurs WHERE fqdn = ?");
         $reqAosFqdn->execute(array($fqdnComplet));
@@ -169,9 +172,11 @@
         if(!$resultatReqAosFqdn['fqdn'] == $fqdnComplet){
             $reqAosInsert = $bdd->prepare("UPDATE utilisateurs SET fqdn = '$fqdnComplet' WHERE idUtilisateur = ?");
             $reqAosInsert->execute(array($_SESSION['idUtilisateur']));
+            $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$fqdn.' '.$domaine.' '.$type);
 
             $reqAosInsert = $bdd->prepare("UPDATE utilisateurs SET fqdnDev = '$fqdnCompletDev' WHERE idUtilisateur = ?");
             $reqAosInsert->execute(array($_SESSION['idUtilisateur']));
+            $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$fqdnDev.' '.$domaine.' '.$type);
 
             $reqAosInsertActif = $bdd->prepare("UPDATE utilisateurs SET actiffqdn = 1 WHERE idUtilisateur = ?");
             $reqAosInsertActif->execute(array($_SESSION['idUtilisateur']));
@@ -187,11 +192,26 @@
     }
     //Suppression de son fqdn pour aos
     if(isset($_POST['supprimerAos'])){
+        $reqAosSelectUtil = $bdd->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
+        $reqAosSelectUtil->execute(array($_SESSION['idUtilisateur']));
+        $resultatAosSelectUtil = $reqAosSelectUtil->fetch();
+        
+        $fqdn = $resultatAosSelectUtil['fqdn'];
+        $fqdnDev = $resultatAosSelectUtil['fqdnDev'];
+        $type = "fqdn";
+        $domaine = "aos.itinet.fr";
+        $resultatExplodefqdn = explode('.'.$domaine, $fqdn);
+        $resultatExplodeFqdnDev = explode('.'.$domaine, $fqdnDev);
+        $fqdnFinal = $resultatExplodefqdn[0];
+        $fqdnDevFinal = $resultatExplodeFqdnDev[0];
+
         $reqAosInsert = $bdd->prepare("UPDATE utilisateurs SET fqdn = NULL WHERE idUtilisateur = ?");
         $reqAosInsert->execute(array($_SESSION['idUtilisateur']));
+        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$fqdnFinal.' '.$domaine.' '.$type);
 
         $reqAosInsert = $bdd->prepare("UPDATE utilisateurs SET fqdnDev = NULL WHERE idUtilisateur = ?");
         $reqAosInsert->execute(array($_SESSION['idUtilisateur']));
+        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$fqdnDevFinal.' '.$domaine.' '.$type);
 
         $reqAosInsertActif = $bdd->prepare("UPDATE utilisateurs SET actiffqdn = 0 WHERE idUtilisateur = ?");
         $reqAosInsertActif->execute(array($_SESSION['idUtilisateur']));
