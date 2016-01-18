@@ -51,4 +51,4 @@ elif [ $enrg = "fqdn" -a $domaine != "aos.itinet.fr" ]; then
 	fi
 fi
 
-sudo bash updatezone.sh
+sudo bash /var/www/aos/script/updatezone.sh

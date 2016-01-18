@@ -36,7 +36,7 @@
             } else {
                 $reqEnregistrementExterne = $bdd->prepare("INSERT INTO mail(adresseMail,mdp,idDomaine) VALUES(?,?,?)");
                 $reqEnregistrementExterne->execute(array($adresseMailC, $mdpCrypt, $resultatIdDomaine['idDomaine']));
-                //$output = shell_exec('/var/www/aos/script/createUserMail.sh '.$adresseMail.' '.$domaine.' '.$mdp);
+                $output = shell_exec('sudo bash /var/www/aos/script/createUserMail.sh '.$adresseMail.' '.$domaine.' '.$mdp);
                 $messConfirmMail = "Votre boîte mail à bien été créer !";
             }
         } else {
@@ -59,7 +59,7 @@
             if($mdpAos == $mdpConfAos){
                 $reqUpdateActif = $bdd->prepare('UPDATE utilisateurs SET actifMail = 1 WHERE idUtilisateur = ?');
                 $reqUpdateActif->execute(array($_SESSION['idUtilisateur']));
-                $output = shell_exec('/var/www/aos/script/createUserMail.sh '.$_SESSION['nomUtilisateur'].' '.$domaine.' '.$mdpAos);
+                $output = shell_exec('sudo bash /var/www/aos/script/createUserMail.sh '.$_SESSION['nomUtilisateur'].' '.$domaine.' '.$mdpAos);
                 
                 $messConfirmMail = 'Votre boîte mail aos à bien été activé !</br>Votre adresse mail est : '.$_SESSION['nomUtilisateur'].'@'.$domaine.' !';
                 
@@ -80,7 +80,7 @@
         $domaine = "aos.itinet.fr";
         $reqUpdateActif = $bdd->prepare('UPDATE utilisateurs SET actifMail = 0 WHERE idUtilisateur = ?');
         $reqUpdateActif->execute(array($_SESSION['idUtilisateur']));
-        $output = shell_exec('/var/www/aos/script/deleteUserMail.sh '.$_SESSION['nomUtilisateur'].' '.$domaine);
+        $output = shell_exec('sudo bash /var/www/aos/script/deleteUserMail.sh '.$_SESSION['nomUtilisateur'].' '.$domaine);
         
         $messConfirmMail = "Votre boîte mail aos à bien été supprimer !";
         
@@ -104,7 +104,7 @@
         $explodeAdresseMail = explode('@', $adresseMail);
         $nomUtilisateur = $explodeAdresseMail[0];
         $domaine = $explodeAdresseMail[1];
-        //$output = shell_exec('/var/www/aos/script/deleteUserMail.sh '.$nomUtilisateur.' '.$domaine);
+        $output = shell_exec('sudo bash /var/www/aos/script/deleteUserMail.sh '.$nomUtilisateur.' '.$domaine);
     }
 
     //Lister les mails qu'il possède

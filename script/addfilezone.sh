@@ -10,4 +10,4 @@ if  [ "$domaine" != "aos.itinet.fr" ]; then
        		sudo echo ".$domaine:$adresse::259200" >> /etc/tinydns/root/$domaine.zone
     	fi
 fi
-sudo bash updatezone.sh
+sudo bash /var/www/aos/script/updatezone.sh

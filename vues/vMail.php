@@ -142,7 +142,7 @@
                     ?>
                     </br></br>
     			</form>
-                <input type="button" onclick="document.location.href='http://mail.aos.itinet.fr'" class="btn btn-default" value="Accédez à votre boîte mail"/>
+                <input type="button" onclick="window.open('http://mail.aos.itinet.fr');" class="btn btn-default" value="Accédez à votre boîte mail"/>
                 </br></br>
                 <form method="POST" action="index.php?p=mail">
                     <?php
@@ -180,16 +180,35 @@
                     ?>
                 </form>
                 </br>
+                
                 <?php
-                foreach($tabMail as $valeur){
-                    echo '<form action="index.php?p=mail" method="POST">';
-                    echo $valeur;
-                    echo '<input type="hidden" name="valeurMail" value="'.$valeur.'">';
-                    echo '<input type="submit" name="supprimerExterne" class="btn btn-danger" value="Supprimer">';
-                    echo '</form>';
-                    echo '</br></br>';
-                } 
-                ?>
+                    if($tabMail){
+                        echo '<table class="table table-bordered table-hover table-striped">';
+                        echo '<thead>'; 
+                            echo '<tr>'; 
+                                echo '<td>Adresse mail</td>'; 
+                                echo '<td>Suppression</td>';
+                            echo '</tr>'; 
+                        echo '</thead>';
+                        foreach($tabMail as $valeur){
+                            echo '<form action="index.php?p=mail" method="POST">';
+                                echo '<tbody>'; 
+                                    echo '<tr>';
+                                        echo '<td>';
+                                            echo $valeur;
+                                            echo '<input type="hidden" name="valeurMail" value="'.$valeur.'">';
+                                        echo '</td>';
+                                        echo '<td>';
+                                            echo '<input type="submit" name="supprimerExterne" class="btn btn-danger" value="Supprimer">';
+                                        echo '</td>';
+                                    echo '<tr>';
+                                echo '<tbody>';
+                            echo '</form>';                           
+                        }
+                        echo '</table>';
+                    }    
+                ?>  
+            
             </div> 
             </section>
             <!-- End Services -->

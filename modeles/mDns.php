@@ -152,12 +152,62 @@
         $reqSupprEnreg->execute(array($nomEnregistrement));
         $messConfirmEnregistrement = "Votre enregistrement à bien été supprimé !";
     }
+    
+    $reqAosFqdn = $bdd->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
+    $reqAosFqdn->execute(array($_SESSION['idUtilisateur']));
+    $resultatReqAosFqdn = $reqAosFqdn->fetch();
+    //Création de son fqdn pour aos
+    if(isset($_POST['activerAos'])){
+        $fqdn = htmlspecialchars($_POST['fqdnAos']);
+        $fqdnComplet = $fqdn.".aos.itinet.fr";
+        $fqdnCompletDev = "dev.".$fqdn.".aos.itinet.fr";
+        
+        $reqAosFqdn = $bdd->prepare("SELECT * FROM utilisateurs WHERE fqdn = ?");
+        $reqAosFqdn->execute(array($fqdnComplet));
+        $resultatReqAosFqdn = $reqAosFqdn->fetch();
+        
+        if(!$resultatReqAosFqdn['fqdn'] == $fqdnComplet){
+            $reqAosInsert = $bdd->prepare("UPDATE utilisateurs SET fqdn = '$fqdnComplet' WHERE idUtilisateur = ?");
+            $reqAosInsert->execute(array($_SESSION['idUtilisateur']));
+
+            $reqAosInsert = $bdd->prepare("UPDATE utilisateurs SET fqdnDev = '$fqdnCompletDev' WHERE idUtilisateur = ?");
+            $reqAosInsert->execute(array($_SESSION['idUtilisateur']));
+
+            $reqAosInsertActif = $bdd->prepare("UPDATE utilisateurs SET actiffqdn = 1 WHERE idUtilisateur = ?");
+            $reqAosInsertActif->execute(array($_SESSION['idUtilisateur']));
+
+            $reqAosFqdn = $bdd->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
+            $reqAosFqdn->execute(array($_SESSION['idUtilisateur']));
+            $resultatReqAosFqdn = $reqAosFqdn->fetch();
+            
+            $messConfirmEnregistrement = "Votre fqdn à bien été ajouter !";
+        } else {
+            $messErreurEnregistrement = "Ce fqdn existe déjà !";
+        }
+    }
+    //Suppression de son fqdn pour aos
+    if(isset($_POST['supprimerAos'])){
+        $reqAosInsert = $bdd->prepare("UPDATE utilisateurs SET fqdn = NULL WHERE idUtilisateur = ?");
+        $reqAosInsert->execute(array($_SESSION['idUtilisateur']));
+
+        $reqAosInsert = $bdd->prepare("UPDATE utilisateurs SET fqdnDev = NULL WHERE idUtilisateur = ?");
+        $reqAosInsert->execute(array($_SESSION['idUtilisateur']));
+
+        $reqAosInsertActif = $bdd->prepare("UPDATE utilisateurs SET actiffqdn = 0 WHERE idUtilisateur = ?");
+        $reqAosInsertActif->execute(array($_SESSION['idUtilisateur']));
+        $messConfirmEnregistrement = "Votre fqdn à bien été supprimer !";
+
+        $reqAosFqdn = $bdd->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
+        $reqAosFqdn->execute(array($_SESSION['idUtilisateur']));
+        $resultatReqAosFqdn = $reqAosFqdn->fetch();
+    }
     // Récupération des domaines de l'utilisateur
     $recupDomaine = $bdd->prepare('SELECT * FROM utilisateurs INNER JOIN domaines ON utilisateurs.idUtilisateur = domaines.idUtilisateur WHERE utilisateurs.idUtilisateur = ?');
     $recupDomaine->execute(array($_SESSION['idUtilisateur']));
     while($resultatRecupDomaine = $recupDomaine->fetch()){
         $tabDomaine[] = $resultatRecupDomaine['domaine'];
     }
+    $resultatRecupeDomaineAff = $recupDomaine->fetch();
     // Récupération des enregistrements de l'utilisateur
     $recupEnregistrement = $bdd->prepare('SELECT * FROM utilisateurs INNER JOIN domaines ON utilisateurs.idUtilisateur = domaines.idUtilisateur INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE utilisateurs.idUtilisateur = ?');
     $recupEnregistrement->execute(array($_SESSION['idUtilisateur']));

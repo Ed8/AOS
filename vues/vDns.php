@@ -136,29 +136,31 @@
             ?>
             </br></br>
             <?php
-                echo '<table class="table table-bordered table-hover table-striped">';
-                echo '<thead>'; 
-                    echo '<tr>'; 
-                        echo '<td>Domaine</td>'; 
-                        echo '<td>Suppression</td>';
-                    echo '</tr>'; 
-                echo '</thead>';
-                foreach($tabDomaine as $valeur){
-                    echo '<form action="index.php?p=dns" method="POST">';
-                        echo '<tbody>'; 
-                            echo '<tr>';
-                                echo '<td>';
-                                    echo $valeur;
-                                    echo '<input type="hidden" name="valeurDns" value="'.$valeur.'">';
-                                echo '</td>';
-                                echo '<td>';
-                                    echo '<input type="submit" name="supprimerExterne" class="btn btn-danger" value="Supprimer">';
-                                echo '</td>';
-                            echo '<tr>';
-                        echo '<tbody>';
-                    echo '</form>';                           
-                }
-                echo '</table>';      
+                if($tabDomaine){
+                    echo '<table class="table table-bordered table-hover table-striped">';
+                    echo '<thead>'; 
+                        echo '<tr>'; 
+                            echo '<td>Domaine</td>'; 
+                            echo '<td>Suppression</td>';
+                        echo '</tr>'; 
+                    echo '</thead>';
+                    foreach($tabDomaine as $valeur){
+                        echo '<form action="index.php?p=dns" method="POST">';
+                            echo '<tbody>'; 
+                                echo '<tr>';
+                                    echo '<td>';
+                                        echo $valeur;
+                                        echo '<input type="hidden" name="valeurDns" value="'.$valeur.'">';
+                                    echo '</td>';
+                                    echo '<td>';
+                                        echo '<input type="submit" name="supprimerExterne" class="btn btn-danger" value="Supprimer">';
+                                    echo '</td>';
+                                echo '<tr>';
+                            echo '<tbody>';
+                        echo '</form>';                           
+                    }
+                    echo '</table>';  
+                }    
             ?>	
             </section>
                 <!-- Begin page header-->
@@ -211,52 +213,96 @@
                     <div style="margin-left: 530px;";>
                         <input type="submit" class="btn btn-success" value="Ajouter votre enregistrement" name="ajoutEnregistrement">
                     </div>
-                    </br></br>
+                    </br>
     			</form>
-			</div>	
-            <?php
-                $nbDomaineEnreg = 0;
-                $nbType = 0;
-                $nbAdresseIp = 0;
-                echo '<table class="table table-bordered table-condensed table-hover table-striped">';
-                    echo '<thead>'; 
-                        echo '<tr>'; 
-                            echo '<td>Nom enregistrement</td>'; 
-                            echo '<td>Domaine</td>';
-                            echo '<td>Type</td>';
-                            echo '<td>Adresse ip</td>';
-                            echo '<td>Suppression</td>';
-                        echo '</tr>'; 
-                    echo '</thead>';
-                foreach($tabEnregistrement as $valeurEnregistrement){    
-                        echo '<form action="index.php?p=dns" method="POST">';
-                                echo '<tbody>'; 
-                                    echo '<tr>';
-                                        echo '<td>';
-                                            echo $valeurEnregistrement;
-                                            echo '<input type="hidden" name="valeurEnregistrement" value="'.$valeurEnregistrement.'">';
-                                        echo '</td>';
-                                        echo '<td>';
-                                            echo $tabDomaineEnreg[$nbDomaineEnreg];
-                                        echo '</td>';
-                                        echo '<td>';
-                                            echo $tabType[$nbType];
-                                        echo '</td>';
-                                        echo '<td>';
-                                            echo $tabAdresseIp[$nbAdresseIp];
-                                        echo '</td>';
-                                        echo '<td>';
-                                            echo '<input type="submit" name="supprimerEnregistrement" class="btn btn-danger" value="Supprimer">';   
-                                        echo '</td>';
-                                    echo '</tr>';         
-                                echo '</tbody>';
-                        echo '</form>';
-                $nbDomaineEnreg = $nbDomaineEnreg + 1;
-                $nbType = $nbType + 1;
-                $nbAdresseIp = $nbAdresseIp +1;      
-                }
-                echo '</table>';
-            ?> 	   
+			</div>
+            <style>
+            #modal-dns {
+            margin-top: 210px;
+            }
+            </style>	
+            <form method="POST" action="index.php?p=dns">
+                    <?php
+                        if($resultatReqAosFqdn['actifFqdn'] == 0){
+                            echo'<div style="margin-left: 537px;">';
+                            echo'<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-2">Activer votre fqdn pour aos</button>';
+                            echo'</div>';
+                            echo'<div class="modal" id="modal-2">';
+                                echo'<div class="modal-dialog" id="modal-dns">';
+                                    echo'<div class="modal-content">';
+                                        echo'<div class="modal-header">';
+                                            echo'<button type="button" class="close" data-dismiss="modal">&times;</button>';
+                                            echo'<h3 class="modal-title">Activation de votre fqdn pour AOS</h3>';
+                                        echo'</div>';
+                                        echo'<div class="modal-body">';
+                                            echo'<form method="POST" id="connexion" action="index.php?p=dns">';
+                                            echo'<div class="row">';
+                                                echo'<div class="col-md-6">';
+                                                    echo'<input type="text" class="form-control" placeholder="Votre fqdn" name="fqdnAos" />';
+                                                echo'</div>';
+                                            echo'</div>';
+                                                echo'<div class="modal-footer">';
+                                                    echo'<button type="button" data-dismiss="modal" class="btn btn-primary">Fermer</button>';
+                                                    echo'<button type="submit" class="btn btn-success" name="activerAos">Valider</button>';
+                                                echo'</div>';
+                                            echo'</form>';
+                                        echo'</div>';
+                                    echo'</div>';
+                                echo'</div>';
+                            echo'</div>';
+                        } else {
+                            echo '<div style="margin-left: 545px;">';
+                            echo '<input type="submit" name="supprimerAos" class="btn btn-danger" value="Supprimer votre fqdn aos">'; 
+                            echo '</div>';       
+                        }
+                    ?>
+                </form>
+                </br></br>
+                <?php
+                    if($tabEnregistrement){
+                        $nbDomaineEnreg = 0;
+                        $nbType = 0;
+                        $nbAdresseIp = 0;
+                        echo '<table class="table table-bordered table-condensed table-hover table-striped">';
+                            echo '<thead>'; 
+                                echo '<tr>'; 
+                                    echo '<td>Nom enregistrement</td>'; 
+                                    echo '<td>Domaine</td>';
+                                    echo '<td>Type</td>';
+                                    echo '<td>Adresse ip</td>';
+                                    echo '<td>Suppression</td>';
+                                echo '</tr>'; 
+                            echo '</thead>';
+                        foreach($tabEnregistrement as $valeurEnregistrement){    
+                                echo '<form action="index.php?p=dns" method="POST">';
+                                        echo '<tbody>'; 
+                                            echo '<tr>';
+                                                echo '<td>';
+                                                    echo $valeurEnregistrement;
+                                                    echo '<input type="hidden" name="valeurEnregistrement" value="'.$valeurEnregistrement.'">';
+                                                echo '</td>';
+                                                echo '<td>';
+                                                    echo $tabDomaineEnreg[$nbDomaineEnreg];
+                                                echo '</td>';
+                                                echo '<td>';
+                                                    echo $tabType[$nbType];
+                                                echo '</td>';
+                                                echo '<td>';
+                                                    echo $tabAdresseIp[$nbAdresseIp];
+                                                echo '</td>';
+                                                echo '<td>';
+                                                    echo '<input type="submit" name="supprimerEnregistrement" class="btn btn-danger" value="Supprimer">';   
+                                                echo '</td>';
+                                            echo '</tr>';         
+                                        echo '</tbody>';
+                                echo '</form>';
+                        $nbDomaineEnreg = $nbDomaineEnreg + 1;
+                        $nbType = $nbType + 1;
+                        $nbAdresseIp = $nbAdresseIp +1;      
+                        }
+                        echo '</table>';
+                    }
+                ?> 	   
             <!-- End Services -->
 
             <!-- Begin footer -->

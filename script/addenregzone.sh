@@ -53,4 +53,4 @@ elif [ $enrg = "fqdn" ]; then
 		fi
 	fi
 fi
-sudo bash updatezone.sh
+sudo bash /var/www/aos/script/updatezone.sh
