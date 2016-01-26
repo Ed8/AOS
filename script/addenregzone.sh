@@ -5,11 +5,11 @@ enrg=$3
 adresse=$4
 if [ $enrg = "mx" ]; then
 	if [ -e "/etc/tinydns/root/$domaine.zone" ]; then
-		if sudo grep -q @$domaine /etc/tinydns/root/$domaine.zone; then
+		if sudo grep -q @$domaine:$adresse:$nomuser.$domaine /etc/tinydns/root/$domaine.zone; then
             		sudo echo "Ce mx existe deja!"
          	else
 			if [ $adresse = "88.177.168.133" ]; then
-				sudo echo "@$nomuser.$domaine:$adresse::86400" >> /etc/tinydns/root/$domaine.zone	
+				sudo echo "@$domaine:$adresse:$nomuser.$domaine:86400" >> /etc/tinydns/root/$domaine.zone	
 				verification=`sudo grep $domaine /etc/postfix/main.cf`
 	   			if [ -z "$verification" ]; then
 	   				sudo sed -i '10 s/$/'\ $domaine'/g' /etc/postfix/main.cf
@@ -18,7 +18,7 @@ if [ $enrg = "mx" ]; then
 					sudo bash /var/www/aos/script/domainRainloop.sh $domaine
 				fi
 			else				
-				sudo echo "@$nomuser.$domaine:$adresse::86400" >> /etc/tinydns/root/$domaine.zone				
+				sudo echo "@$domaine:$adresse:$nomuser.$domaine:86400" >> /etc/tinydns/root/$domaine.zone				
            		fi
 	    	fi	   		
 	else

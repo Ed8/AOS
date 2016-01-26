@@ -197,6 +197,10 @@
 					<div class="form-group col-md-3 center">
                         <input type="text" class="form-control" placeholder="Adresse Ip" name="ipEnregistrement">
                     </div>
+                    <div style= "text-align: justify; color: red; margin-left: 970px;">
+                    <p>Attention : Si vous ne remplissez pas ce champs,</p>                    
+                    <p>il sera automatiquement rempli par l'adresse ip de notre serveur !</p>
+                    </div>
                         <?php
                             if(isset($messErreurEnregistrement)){
                                 echo '<div class="messErreurEnregistrement">';
@@ -216,47 +220,7 @@
                     </br>
     			</form>
 			</div>
-            <style>
-            #modal-dns {
-            margin-top: 210px;
-            }
-            </style>	
-            <form method="POST" action="index.php?p=dns">
-                    <?php
-                        if($resultatReqAosFqdn['actifFqdn'] == 0){
-                            echo'<div style="margin-left: 537px;">';
-                            echo'<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-2">Activer votre fqdn pour aos</button>';
-                            echo'</div>';
-                            echo'<div class="modal" id="modal-2">';
-                                echo'<div class="modal-dialog" id="modal-dns">';
-                                    echo'<div class="modal-content">';
-                                        echo'<div class="modal-header">';
-                                            echo'<button type="button" class="close" data-dismiss="modal">&times;</button>';
-                                            echo'<h3 class="modal-title">Activation de votre fqdn pour AOS</h3>';
-                                        echo'</div>';
-                                        echo'<div class="modal-body">';
-                                            echo'<form method="POST" id="connexion" action="index.php?p=dns">';
-                                            echo'<div class="row">';
-                                                echo'<div class="col-md-6">';
-                                                    echo'<input type="text" class="form-control" placeholder="Votre fqdn" name="fqdnAos" />';
-                                                echo'</div>';
-                                            echo'</div>';
-                                                echo'<div class="modal-footer">';
-                                                    echo'<button type="button" data-dismiss="modal" class="btn btn-primary">Fermer</button>';
-                                                    echo'<button type="submit" class="btn btn-success" name="activerAos">Valider</button>';
-                                                echo'</div>';
-                                            echo'</form>';
-                                        echo'</div>';
-                                    echo'</div>';
-                                echo'</div>';
-                            echo'</div>';
-                        } else {
-                            echo '<div style="margin-left: 545px;">';
-                            echo '<input type="submit" name="supprimerAos" class="btn btn-danger" value="Supprimer votre fqdn aos">'; 
-                            echo '</div>';       
-                        }
-                    ?>
-                </form>
+            
                 </br></br>
                 <?php
                     if($tabEnregistrement){
@@ -302,7 +266,7 @@
                         }
                         echo '</table>';
                     }
-                ?> 	   
+                ?>  	   
             <!-- End Services -->
 
             <!-- Begin footer -->

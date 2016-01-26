@@ -40,13 +40,18 @@
         $reqSelectDomaine->execute(array($domaine, $_SESSION['idUtilisateur']));
         $resultatSelectDomaine = $reqSelectDomaine->fetch();
 
-        $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE idDomaine = ?");
-        $reqSupprEnreg->execute(array($resultatSelectDomaine['idDomaine']));
-        
-        $reqSupprDomaine = $bdd->prepare("DELETE FROM domaines WHERE domaine = ? AND idUtilisateur = ?");
-        $reqSupprDomaine->execute(array($domaine, $_SESSION['idUtilisateur']));
-        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$user.' '.$domaine.' '.$type.' '.$adresseIp);
-        $messConfirmDomaine = "Votre domaine à bien été supprimé !";
+        $reqSelectEnreg = $bdd->prepare("SELECT * FROM enregistrements WHERE idDomaine = ?");
+        $reqSelectEnreg->execute(array($resultatSelectDomaine['idDomaine']));
+        $resultatSelectEnreg = $reqSelectEnreg->fetch();
+
+        if($resultatSelectEnreg){
+            $messErreurDomaine = "Supprimez vos enregistrements avant de supprimer votre domaine !";
+        } else {
+            $reqSupprDomaine = $bdd->prepare("DELETE FROM domaines WHERE domaine = ? AND idUtilisateur = ?");
+            $reqSupprDomaine->execute(array($domaine, $_SESSION['idUtilisateur']));
+            $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$user.' '.$domaine.' '.$type.' '.$adresseIp);
+            $messConfirmDomaine = "Votre domaine à bien été supprimé !";
+        }
     }
 
     //Ajouter un enregistrement
@@ -66,8 +71,8 @@
             
             //Insertion de l'enregistrement et ajout de l'ip automatiquement si elle n'a pas été remplis
             if($adresseIp == ""){
-                $req = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idDomaine = ?");
-                $req->execute(array($resultatIdDomaine['idDomaine']));
+                $req = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idDomaine = ? AND typeEnreg = ?");
+                $req->execute(array($resultatIdDomaine['idDomaine'], $type));
                 $resultatEnregistrement = $req->fetch();
                 
                 if($resultatEnregistrement['nomEnreg'] == $nomEnregistrement.'.'.$domaine){
@@ -92,7 +97,7 @@
                         $reqInsertEnregistrement->execute(array($fqdn, $type, "88.177.168.133", $resultatIdDomaine['idDomaine']));
                         $resultatInsert = $reqInsertEnregistrement->fetch();
                         $output = shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$nomEnregistrement.' '.$domaine.' '.$type.' '.$adresseIpItinet);
-                        $messConfirmEnregistrement = "Votre enregistrement à bien été ajouté !"; 
+                        $messConfirmEnregistrement = "Votre enregistrement à bien été ajouté !";
                     }
                 }
             //Insertion de l'enregistrement avec une ip entrée par l'utilisateur
@@ -147,10 +152,17 @@
         $domaine = $resultatSelectEnregScript['domaine'];
         $resultatExplodeNomEnregistrement = explode('.'.$domaine, $nomEnregistrement);
         $nomEnregistrementExplode = $resultatExplodeNomEnregistrement[0];
-        $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrementExplode.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
-        $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE nomEnreg = ?");
-        $reqSupprEnreg->execute(array($nomEnregistrement));
-        $messConfirmEnregistrement = "Votre enregistrement à bien été supprimé !";
+        if($resultatSelectEnregScript['typeEnreg'] == "mx"){
+            $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrementExplode.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
+            $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE nomEnreg = ? AND typeEnreg = ?");
+            $reqSupprEnreg->execute(array($nomEnregistrement, "mx"));
+            $messConfirmEnregistrement = "Votre enregistrement à bien été supprimé !";
+        } else {
+            $output = shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$nomEnregistrementExplode.' '.$resultatSelectEnregScript['domaine'].' '.$resultatSelectEnregScript['typeEnreg'].' '.$resultatSelectEnregScript['adresseIp']);
+            $reqSupprEnreg = $bdd->prepare("DELETE FROM enregistrements WHERE nomEnreg = ? AND typeEnreg = ?");
+            $reqSupprEnreg->execute(array($nomEnregistrement, "fqdn"));
+            $messConfirmEnregistrement = "Votre enregistrement à bien été supprimé !";
+        }
     }
     
     $reqAosFqdn = $bdd->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
@@ -257,6 +269,10 @@
         echo $tabAdresseIp[$z].'/';
         $explosionAdresseIp = explode('.', $tabAdresseIp);
     }
+
+    $recupEnregistrementAos = $bdd->prepare('SELECT * FROM utilisateurs WHERE idUtilisateur = ?');
+    $recupEnregistrementAos->execute(array($_SESSION['idUtilisateur']));
+    $resultatSelectEnreg = $recupEnregistrementAos->fetch();
 
     
 ?>
