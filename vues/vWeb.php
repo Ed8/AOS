@@ -31,7 +31,6 @@
 
 		<!-- Skin CSS -->
         <link rel="stylesheet" href="./vues/css/skin/ice-blue.css">
-
 	</head>
 
     <body data-spy="scroll" data-target="#main-navbar">
@@ -42,7 +41,7 @@
             <header id="header" class="header-main">
 
                 <!-- Begin Navbar -->
-                <nav id="main-navbar" class="navbar navbar-default navbar-fixed-top" role="navigation"> <!-- Classes: navbar-default, navbar-inverse, navbar-fixed-top, navbar-fixed-bottom, navbar-transparent. Note: If you use non-transparent navbar, set "height: 98px;" to #header -->
+               <nav id="main-navbar" class="navbar navbar-default navbar-fixed-top" role="navigation"> <!-- Classes: navbar-default, navbar-inverse, navbar-fixed-top, navbar-fixed-bottom, navbar-transparent. Note: If you use non-transparent navbar, set "height: 98px;" to #header -->
 
                   <div class="container">
 
@@ -71,10 +70,7 @@
                         </ul>
                     </div><!-- /.navbar-collapse -->
                   </div><!-- /.container -->
-                </nav>
-                <!-- End Navbar -->
-				
-
+                </nav><!-- End Navbar -->
             </header>
             <!-- ========= END HEADER =========-->
 			
@@ -91,101 +87,234 @@
                     </div>
                 </div>
                 <!-- End page header-->
-
 				
-					<?php
-						if (isset($pub) && isset($dev) && $pub[0] == "1" && $dev[0] == "0") {
-							echo "<h1>Créer votre Site Web</h1>
-									<form method='post' action='index.php?p=web'>
-										<b>dev.".$_SESSION['fqdn']."</b>
-										<input type='text' name='test' value='Developpement' class='formulaire readonly' readonly>
-										<br/>
-										<br/>
-										<table class='tableau'>
-											<tr>
-												<td>Activer une base de donnée ?</td>
-												<td><input type='radio' name='bdd' value='add'>Oui</td>
-												<td><input type='radio' name='bdd' value='noadd' checked='checked'>Non</td>
-											</tr>
-											<tr>
-												<td>Activer le site web ?</td>
-												<td><input type='radio' name='activ' value='enabled'>Oui</td>
-												<td><input type='radio' name='activ' value='noenabled' checked='checked'>Non</td>
-											</tr>
-										</table>
-										<br/>
-										<br/>
-										<input type='submit' value='Créer' name='createdev' class='btn btn-success' style='margin-bottom: 5%';>
-									</form>
-									<br/>";
-						} else {
-							if (!isset($pub) || $pub[0] !== "1") {
-								echo "<h1>Créer votre Site Web</h1>
-										<form method='post' action='index.php?p=web'>
-											<input type='text' name='fqdn' class='formulaire'>
-											<select name='domaine' class='formulaire'>";
-											$nb = count($domaine);
-											for($i=0; $i<$nb; $i++) {
-												echo "<option value=".$domaine[$i].">.".$domaine[$i]."</option>";
-											}
-									echo "</select>
-											<input type='text' name='test' value='Public' class='formulaire readonly' readonly>
+				<div class="modal" id="aosPublic">
+					<div class="modal-dialog">
+						<div class="modal-content" style="margin-top: 20%">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h3 class="modal-title">Création de votre site web</h3>
+							</div>
+							<div class="modal-body">
+								<form method="post" action="index.php?p=web">
+									<div class="row">
+										<div class="col-md-12">
+											<?php
+												if ($actifFqdn !== "1") {
+													echo "<b>Entrez le nom de votre site web</b>
+													<br/>
+													<br/>
+													<input type='text' class='formulaire' placeholder='Nom' name='aosFqdn'/>
+													<b>.aos.itinet.fr</b>";
+												} elseif ($actifFqdn == "1" && $publicAvailableAos !== "1") {
+													echo "<br/>
+													<br/>
+													<b>".$fqdnAos."</b>";
+												}
+											?>
+											Activer une base de données
+											<input type='checkbox' name='aosBdd' value='add'>
 											<br/>
 											<br/>
-											<table class='tableau'>
-												<tr>
-													<td>Activer une base de donnée ?</td>
-													<td><input type='radio' name='bdd' value='add'>Oui</td>
-													<td><input type='radio' name='bdd' value='noadd' checked='checked'>Non</td>
-												</tr>
-												<tr>
-													<td>Activer le site web ?</td>
-													<td><input type='radio' name='activ' value='enabled'>Oui</td>
-													<td><input type='radio' name='activ' value='noenabled' checked='checked'>Non</td>
-												</tr>
-											</table>
-											<br/>
-											<br/>
-											<input type='submit' value='Créer' name='createpub' class='btn btn-success'>
-										</form>
-										<br/>";
-							}
-						}
-						
-						if (isset($pub) && isset($dev)) {
-							if ($pub[0] == "1" || $dev[0] == "1") {
-								echo "<h1>Vos Sites Web</h1><br/>";
-								if ($pub[0] == "1") {
-									echo "<table style='width: 50%; margin-left: auto; margin-right: auto; margin-bottom: 100px;'><tr>";
-									echo"<td><b>".$_SESSION['nomEnreg']."</b></td>";
-									if ($pub[1] == "0") {
-										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubactiverweb' value='Activer site web' class='btn btn-success'></form></td>";
-									} else {
-										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverweb' value='Désactiver site web' class='btn btn-danger'></form></td>";
-									}
-									
-									if ($pub[2] == "0") {
-										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubactiverbdd' value='Ajouter base de données' class='btn btn-success'></form></td>";
-									} else {
-										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverbdd' value='Supprimer base données' class='btn btn-danger'></form></td>";
-									}
-									
-									if($dev[0] !== "1")
-									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubsupweb' value='Supprimer site web' class='btn btn-danger'></form></td>";
-									echo "</tr>";
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Fermer</button>
+										<input type="submit" value="Créer" name="createAos" class="btn btn-success">
+										<!--data-toggle="modal" data-dismiss="modal" class="btn btn-success" data-target="#webModal2" name="nameWeb" value="Suivant"/>-->
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal" id="externePublic">
+					<div class="modal-dialog">
+						<div class="modal-content" style="margin-top: 20%">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h3 class="modal-title">Création de votre site web</h3>
+							</div>
+							<div class="modal-body">
+								<form method="post" action="index.php?p=web">
+									<div class="row">
+										<div class="col-md-12">
+											<?php
+												if (isset($nomEnreg) && $nomEnreg[0] !== "null" && $domaine[0] !== "0") {
+													echo "<b>Choisissez le nom de votre site web</b>
+													<br/>
+													<br/>										
+													<select name='domaine' class='formulaire'>";
+													$nb = count($nomEnreg);
+													echo $nb;
+													for($i=0; $i<$nb; $i++) {
+														echo "<option value=".$nomEnreg[$i].">".$nomEnreg[$i]."</option>";
+													}
+												} elseif (empty($nomEnreg[0]) && $domaine[0] !== "0") {
+													echo "<b>Entrer le nom de votre site web et Choisissez votre domaine</b>
+													<br/>
+													<br/>
+													<input type='text' name='fqdnDomaine' placeholder='Nom'>
+													<select name='domaine' class='formulaire'>";
+													$nb = count($domaine);
+													for($i=0; $i<$nb; $i++) {
+														echo "<option value=".$domaine[$i].">".$domaine[$i]."</option>";
+													}
+												}
+											?>
+											</select>
+											Activer une base de données
+											<input type='checkbox' name='domaineBdd' value='add'>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Fermer</button>
+										<input type="submit" value="Créer" name="createDomaine" class="btn btn-success">
+										<!--data-toggle="modal" data-dismiss="modal" class="btn btn-success" data-target="#webModal2" name="nameWeb" value="Suivant"/>-->
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal" id="devAos">
+					<div class="modal-dialog">
+						<div class="modal-content" style="margin-top: 20%">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h3 class="modal-title">Création de votre site web</h3>
+							</div>
+							<div class="modal-body">
+								<form method="post" action="index.php?p=web">
+									<div class="row">
+										<div class="col-md-12">
+											<b><?php echo "dev.".$fqdnAos;?><b>
+											Activer une base de données
+											<input type='checkbox' name='aosDevBdd' value='add'>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Fermer</button>
+										<input type="submit" value="Créer" name="createDevAos" class="btn btn-success">
+										<!--data-toggle="modal" data-dismiss="modal" class="btn btn-success" data-target="#webModal2" name="nameWeb" value="Suivant"/>-->
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal" id="dev">
+					<div class="modal-dialog">
+						<div class="modal-content" style="margin-top: 20%">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h3 class="modal-title">Création de votre site web</h3>
+							</div>
+							<div class="modal-body">
+								<form method="post" action="index.php?p=web">
+									<div class="row">
+										<div class="col-md-12">
+											<b><?php echo "dev.".$fqdn;?><b>
+											Activer une base de données
+											<input type='checkbox' name='DevBdd' value='add'>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Fermer</button>
+										<input type="submit" value="Créer" name="createDev" class="btn btn-success">
+										<!--data-toggle="modal" data-dismiss="modal" class="btn btn-success" data-target="#webModal2" name="nameWeb" value="Suivant"/>-->
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<?php
+				//isset($publicAvailableAos) || isset($pubAvailable) && 
+					if (!empty($publicAvailableAos) || !empty($pubAvailable)) {
+						if ($publicAvailableAos == "1" || $pubAvailable == "1") {
+							echo "<h1>Vos sites web</h1>";
+							if ($publicAvailableAos == "1") {
+								echo "<table style='width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 100px;'><tr>";
+								echo"<td><b>".$fqdnAos."</b></td>";
+								if ($publicEnabledAos == "0" || $publicEnabledAos == "") {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubActiverWebAos' value='Activer site web' class='btn btn-success'></form></td>";
+								} else {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubDesactiverWebAos' value='Désactiver site web' class='btn btn-danger'></form></td>";
 								}
 								
-								// echo "<br/><br/>";
+								if ($publicBddAos == "0" || $publicBddAos == "") {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubActiverBddAos' value='Ajouter base de données' class='btn btn-success'></form></td>";
+								} else {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubDesactiverBddAos' value='Supprimer base données' class='btn btn-danger'></form></td>";
+								}
 								
-								if ($dev[0] == "1") {
-									echo "<td><b>dev.".$_SESSION['nomEnreg']."</b></td>";
-									if ($dev[1] == "0") {
+								// if($devAvailableAos !== "1") {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubSupWebAos' value='Supprimer site web' class='btn btn-danger'></form></td>";
+								// }
+								
+								if($devAvailableAos == "0" || $devAvailableAos == "") {
+									echo "<td><button class='btn btn-primary' data-toggle='modal' data-target='#devAos'>Créer site Web Développement</button></td>";
+								}
+								echo "</tr>";
+								
+								if ($devAvailableAos == "1") {
+									echo "<tr><td><b>dev.".$fqdnAos."</b></td>";
+									if ($devEnabledAos == "0" || $devEnabledAos == "") {
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devActiverWebAos' value='Activer site web' class='btn btn-success'></form></td>";
+									} else {
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devDesactiverWebAos' value='Désactiver site web' class='btn btn-danger'></form></td>";
+									}
+									
+									if ($devBddAos == "0" || $devBddAos == "") {
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devActiverBddAos' value='Ajouter base de données' class='btn btn-success'></form></td>";
+									} else {
+										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devDesactiverBddAos' value='Supprimer base données' class='btn btn-danger'></form></td>";
+									}
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devSupWebAos' value='Supprimer site web' class='btn btn-danger'></form></td>";
+									echo "</tr>";
+									echo "</table>";
+								}
+								
+								
+								
+							} elseif ($pubAvailable == "1") {
+								echo "<table style='width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 100px;'><tr>";
+								echo"<td><b>".$fqdn."</b></td>";
+								if ($pubEnabled == "0" || $pubEnabled == "") {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubactiverweb' value='Activer site web' class='btn btn-success'></form></td>";
+								} else {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverweb' value='Désactiver site web' class='btn btn-danger'></form></td>";
+								}
+								
+								if ($pubBdd == "0" || $pubBdd == "") {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubactiverbdd' value='Ajouter base de données' class='btn btn-success'></form></td>";
+								} else {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubdesactiverbdd' value='Supprimer base données' class='btn btn-danger'></form></td>";
+								}
+								
+								//if($devAvailable !== "1") {
+									echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubsupweb' value='Supprimer site web' class='btn btn-danger'></form></td>";
+								//}
+								
+								if($devAvailable == "0" || $devAvailable == "") {
+									echo "<td><button class='btn btn-primary' data-toggle='modal' data-target='#dev'>Créer site Web Développement</button></td>";
+								}
+								echo "</tr>";
+								
+								if ($devAvailable == "1") {
+									echo "<tr><td><b>dev.".$fqdn."</b></td>";
+									if ($devEnabled == "0" || $devEnabled == "") {
 										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devactiverweb' value='Activer site web' class='btn btn-success'></form></td>";
 									} else {
 										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devdesactiverweb' value='Désactiver site web' class='btn btn-danger'></form></td>";
 									}
 									
-									if ($dev[2] == "0") {
+									if ($devBdd == "0" || $devBdd == "") {
 										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devactiverbdd' value='Ajouter base de données' class='btn btn-success'></form></td>";
 									} else {
 										echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devdesactiverbdd' value='Supprimer base données' class='btn btn-danger'></form></td>";
@@ -195,8 +324,20 @@
 									echo "</table>";
 								}
 							}
+						} 
+					} else {
+						echo "<h1>Créer votre Site Web</h1>";
+						echo "<table style='margin-left: auto; margin-right: auto;'>";
+						echo "<tr>";
+						echo "<td><button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#aosPublic'>Dans AOS</button></td>";
+						if (!empty($domaine[0])) {
+							echo "<td><button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#externePublic'>Dans votre domaine</button></td>";
 						}
-					?>
+						echo "</tr>";
+						echo "</table>";
+					}
+					//}
+				?>
 				
             </section>
             <!-- End Services -->
