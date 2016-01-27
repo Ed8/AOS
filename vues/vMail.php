@@ -99,14 +99,12 @@
                         <div class="page-header text-center wow fadeInDown" data-wow-delay="0.4s">
                             <h2>MAIL</h2>
                             <div class="devider"></div>
-                            <p class="subtitle">Hébergement</p>
+                            <p class="subtitle">Créer votre boîte mail</p>
                         </div>
                     </div>
                 </div>
                 <!-- End page header-->
             <div style="margin-left: auto; margin-right: auto;";>
-    		    <h1>Créer votre boîte mail</h1>
-                </br>
                 <form method="POST" action="index.php?p=mail">
     				<div class="form-group col-md-3 center">
                         <input type="text" class="form-control" placeholder="Votre nom" name="mail" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/ig, '');" >

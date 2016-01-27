@@ -66,7 +66,7 @@
                             <li><a class="page-scroll" href="#prices-section">Offres</a></li>
 							
 							<!-- Formulaire d'inscription -->			
-							<li><a class="page-scroll" href="#modal-1" data-toggle="modal">inscription</a></li>
+                            <li><a class="page-scroll" href="#modal-1" data-toggle="modal">inscription</a></li>
 							<div class="modal" id="modal-1">
 								<div class="modal-dialog">
 									<div class="modal-content">

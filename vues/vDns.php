@@ -103,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-            <div style="margin-left: 250px";>
+                <div class=" col-md-8 col-md-push-3">
                 <form method="POST" action="index.php?p=dns">
     				<div class="form-group col-md-3 center">
                         <input type="text" class="form-control" placeholder="Votre domaine" name="domaineNs">
@@ -120,21 +120,21 @@
                         <input type="submit" class="btn btn-success" value="Ajouter votre domaine" name="ajoutDomaine">
                     </div>
     			</form>
+                </div>
     			</br></br></br></br>
-			</div>	
-            <?php
-                if(isset($messErreurDomaine)){
-                    echo '<div class="messErreurDomaine">';
-                    echo $messErreurDomaine;
-                    echo '</div>';
-                }
-                if(isset($messConfirmDomaine)){
-                    echo '<div class="messConfirmDomaine">';
-                    echo $messConfirmDomaine;
-                    echo '</div>';
-                }
-            ?>
-            </br></br>
+                <?php
+                    if(isset($messErreurDomaine)){
+                        echo '<div style= color:red;>';
+                        echo '<p class="text-center">'.$messErreurDomaine.'</p>';
+                        echo '</div>';
+                    }
+                    if(isset($messConfirmDomaine)){
+                        echo '<div style= color:green;>';
+                        echo '<p class="text-center">'.$messConfirmDomaine.'</p>';
+                        echo '</div>';
+                    }
+                ?>
+                </br>
             <?php
                 if($tabDomaine){
                     echo '<table class="table table-bordered table-hover table-striped">';
@@ -173,7 +173,21 @@
                         </div>
                     </div>
                 </div>
-             <div style="margin-left: auto; margin-right: auto;";>
+            <div class="form-group">
+                <label class="col-md-5 control-label" for="singlebutton"></label>
+                <div class="col-md-2">
+                    <a id="singlebutton" class="btn btn-info center-block" href="#MonCollapse" data-toggle="collapse" aria-expanded="false" aria-controls="MonCollapse">Informations</a>
+                </div>
+            </div>
+            </br></br>
+            <section id="MonCollapse" class="collapse">
+                <div class="well" style="color: red;">
+                    <p class="text-center">Attention : Si vous ne remplissez pas le champs Nom de l'enregistrement, votre fqdn sera le nom de votre domaine !</p>
+                    <p class="text-center">Attention : Si vous ne remplissez pas le champs Adresse ip, il sera automatiquement rempli par l'adresse ip de notre serveur !</p>
+                </div>
+            </section>
+            </br>
+            <div style="margin-left: auto; margin-right: auto;";>
                 <form method="POST" action="index.php?p=dns">
     				<div class="form-group col-md-3 center">
                         <input type="text" class="form-control" placeholder="Nom de l'enregistrement" name="nomEnregistrement">
@@ -197,30 +211,28 @@
 					<div class="form-group col-md-3 center">
                         <input type="text" class="form-control" placeholder="Adresse Ip" name="ipEnregistrement">
                     </div>
-                    <div style= "text-align: justify; color: red; margin-left: 970px;">
-                    <p>Attention : Si vous ne remplissez pas ce champs,</p>                    
-                    <p>il sera automatiquement rempli par l'adresse ip de notre serveur !</p>
-                    </div>
                         <?php
                             if(isset($messErreurEnregistrement)){
-                                echo '<div class="messErreurEnregistrement">';
-                                echo $messErreurEnregistrement;
+                                echo '<div style= color:red;>';
+                                echo '<p class="text-center">'.$messErreurEnregistrement.'</p>';
                                 echo '</div>';
                             }
                             if(isset($messConfirmEnregistrement)){
-                                echo '<div class="messConfirmEnregistrement">';
-                                echo $messConfirmEnregistrement;
+                                echo '<div style= color:green;>';
+                                echo '<p class="text-center">'.$messConfirmEnregistrement.'</p>';
                                 echo '</div>';
                             }
                         ?>
                     </br></br>
-                    <div style="margin-left: 530px;";>
-                        <input type="submit" class="btn btn-success" value="Ajouter votre enregistrement" name="ajoutEnregistrement">
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="ajoutEnregistrement"></label>
+                        <div class="col-md-4">
+                            <input type="submit" id="ajoutEnregistrement" class="btn btn-success center-block" value="Ajouter votre enregistrement" name="ajoutEnregistrement">
+                        </div>
                     </div>
-                    </br>
+                    </br></br>
     			</form>
 			</div>
-            
                 </br></br>
                 <?php
                     if($tabEnregistrement){
