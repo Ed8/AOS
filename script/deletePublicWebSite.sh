@@ -1,24 +1,23 @@
 #!/bin/bash
 #Delete public website
 username=$1
-domain=$2
+fqdn=$2
+domain=$3
 
 #############################################################################
 #Delete pub website available conf
-if [ -e /etc/apache2/sites-available/$username.$domain.conf ]; then
-	sudo rm /etc/apache2/sites-available/$username.$domain.conf
-	sudo echo "File /sites-available/$username.$domain.conf deleted !"
+if [ -e /etc/apache2/sites-available/$fqdn.$domain.conf ]; then
+	sudo rm /etc/apache2/sites-available/$fqdn.$domain.conf
+	sudo echo "File /sites-available/$fqdn.$domain.conf deleted !"
 else
-	sudo echo "File /sites-available/$username.$domain.conf doesn't exist !"
+	sudo echo "File /sites-available/$fqdn.$domain.conf doesn't exist !"
 fi
 
-if [ -d /var/www/$username/public_html ]; then
-	sudo rm -r /var/www/$username/public_html
-	sudo echo "Repository /www/$username/public_html deleted !"
+if [ -d /var/www/$username/$fqdn.$domain_public_html ]; then
+	sudo rm -r /var/www/$username/$fqdn.$domain_public_html
+	sudo echo "Repository /www/$username/$fqdn.$domain_public_html deleted !"
 else
-	sudo echo "Repository /www/$username/public_html doesn't exit !"
+	sudo echo "Repository /www/$username/$fqdn.$domain_public_html doesn't exit !"
 fi
 #############################################################################
-sudo bash delzone.sh $username $domain fqdn 88.177.168.133
-sudo bash updatezone.sh
 sudo service apache2 reload
