@@ -13,8 +13,8 @@ else
 	sudo echo "File /sites-available/dev_$fqdn.$domain.conf doesn't exist !"
 fi
 	
-if [ -d /var/www/$username/$fqdn.$domain_dev_html ]; then
-	sudo rm -r /var/www/$username/$fqdn.$domain_dev_html
+if [ -d /var/www/$username/$fqdn.${domain}_dev_html ]; then
+	sudo rm -r /var/www/$username/$fqdn.${domain}_dev_html
 	sudo echo "Repository /www/$username/$fqdn.$domain_dev_html deleted !"
 else
 	sudo echo "Repository /www/$username/$fqdn.$domain_dev_html doesn't exit !"

@@ -6,21 +6,21 @@ domain=$3
 
 #Dev_________________________________________________________________________
 #Create repository dev_html
-if [ -d /var/www/$username/$fqdn.$domain_dev_html ]; then
+if [ -d /var/www/$username/$fqdn.${domain}_dev_html ]; then
 	echo "Repository /$username/$fqdn.$domain_dev_html already exist !"
 else
-	sudo mkdir /var/www/$username/$fqdn.$domain_dev_html
-	sudo chown $username /var/www/$username/$fqdn.$domain_dev_html
+	sudo mkdir /var/www/$username/$fqdn.${domain}_dev_html
+	sudo chown $username /var/www/$username/$fqdn.${domain}_dev_html
 	sudo echo "Repository /var/www/$username/$fqdn.$domain_dev_html created !"
 fi
 
 #Creating dev web page for dev_html
-if [ -e /var/www/$username/$fqdn.$domain_dev_html/index.php ]; then
+if [ -e /var/www/$username/$fqdn.${domain}_dev_html/index.php ]; then
 	echo "File /$username/$fqdn.$domain_dev_html/index.php already exist !"
 else
-	sudo touch /var/www/$username/$fqdn.$domain_dev_html/index.php
-	sudo echo "Bienvenue sur dev.$fqdn.$domain !" | sudo tee /var/www/$username/$fqdn.$domain_dev_html/index.php
-	sudo chown $username /var/www/$username/$fqdn.$domain_dev_html/index.php
+	sudo touch /var/www/$username/$fqdn.${domain}_dev_html/index.php
+	sudo echo "Bienvenue sur dev.$fqdn.$domain !" | sudo tee /var/www/$username/$fqdn.${domain}_dev_html/index.php
+	sudo chown $username /var/www/$username/$fqdn.${domain}_dev_html/index.php
 	sudo echo "File /$fqdn.$domaine_dev_html/index.php created !"
 fi
 
@@ -31,7 +31,7 @@ else
 	sudo touch /etc/apache2/sites-available/dev_$fqdn.$domain.conf
 	sudo echo "<VirtualHost *:80>" | sudo tee /etc/apache2/sites-available/dev_$fqdn.$domain.conf
 	sudo echo "	ServerName dev.$fqdn.$domain" | sudo tee -a /etc/apache2/sites-available/dev_$fqdn.$domain.conf
-	sudo echo "	Documentroot /var/www/$username/$fqdn.$domain_dev_html" | sudo tee -a /etc/apache2/sites-available/dev_$fqdn.$domain.conf
+	sudo echo "	Documentroot /var/www/$username/$fqdn.${domain}_dev_html" | sudo tee -a /etc/apache2/sites-available/dev_$fqdn.$domain.conf
 	sudo echo "</VirtualHost>" | sudo tee -a /etc/apache2/sites-available/dev_$fqdn.$domain.conf
 	sudo echo "File /sites-available/dev_$fqdn.$domain.conf created !"
 fi
