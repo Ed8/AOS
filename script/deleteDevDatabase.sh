@@ -1,8 +1,9 @@
 #!/bin/bash
 #Delete public database
-username=$1
+fqdn=$1
+domain=$2
 
 #############################################################################
 #Remove database
-sudo mysql -u root -p"sshi94" -e "DROP DATABASE IF EXISTS dev_$username;"
+sudo mysql -u root -p"sshi94" -e "DROP DATABASE IF EXISTS dev_$fqdn.$domain;"
 #############################################################################
