@@ -72,8 +72,8 @@
             
             //Insertion de l'enregistrement et ajout de l'ip automatiquement si elle n'a pas été remplis
             if($adresseIp == ""){
-                $req = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idDomaine = ? AND typeEnreg = ?");
-                $req->execute(array($resultatIdDomaine['idDomaine'], $type));
+                $req = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idDomaine = ? AND typeEnreg = ? AND nomEnreg = ?");
+                $req->execute(array($resultatIdDomaine['idDomaine'], $type, $fqdn));
                 $resultatEnregistrement = $req->fetch();
                 
                 if($resultatEnregistrement['nomEnreg'] == $nomEnregistrement.'.'.$domaine){
@@ -98,6 +98,10 @@
                         }   
                     }else{
                         if($nomEnregistrement == ""){
+                            $req = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idDomaine = ? AND typeEnreg = ? AND nomEnreg = ?");
+                            $req->execute(array($resultatIdDomaine['idDomaine'], $type, $domaine));
+                            $resultatEnregistrement = $req->fetch();
+                            
                             if($resultatEnregistrement['nomEnreg'] == $domaine){
                                 $messErreurEnregistrement = "Vous possédez déjà cette enregistrement !";
                             } else {
@@ -118,11 +122,11 @@
                 }
             //Insertion de l'enregistrement avec une ip entrée par l'utilisateur
             }else{
-                $req = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idDomaine = ?");
-                $req->execute(array($resultatIdDomaine['idDomaine']));
+                $req = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idDomaine = ? AND nomEnreg = ?");
+                $req->execute(array($resultatIdDomaine['idDomaine'], $fqdn));
                 $resultatEnregistrement = $req->fetch();
                 if($resultatEnregistrement['nomEnreg'] == $nomEnregistrement.'.'.$domaine){
-                    $messErreurEnregistrement = "Vous possédez déjà cette enregistrement";
+                    $messErreurEnregistrement = "Vous possédez déjà cette enregistrement !";
                 } else {
                     $explodeAdresseIp = explode('.', $adresseIp);
                     $premierChamps = $explodeAdresseIp[0];
@@ -146,8 +150,12 @@
                                 }
                             } else {
                                 if($nomEnregistrement == ""){
+                                    $req = $bdd->prepare("SELECT * FROM domaines INNER JOIN enregistrements ON domaines.idDomaine = enregistrements.idDomaine WHERE domaines.idDomaine = ? AND typeEnreg = ? AND nomEnreg = ?");
+                                    $req->execute(array($resultatIdDomaine['idDomaine'], $type, $domaine));
+                                    $resultatEnregistrement = $req->fetch();
+                                    
                                     if($resultatEnregistrement['nomEnreg'] == $domaine){
-                                        $messErreurEnregistrement = "Vous possédez déjà cette enregistrement";
+                                        $messErreurEnregistrement = "Vous possédez déjà cette enregistrement !";
                                     } else {
                                         $reqInsertEnregistrement = $bdd->prepare("INSERT INTO enregistrements(nomEnreg,typeEnreg,adresseIp,idDomaine) VALUES(?,?,?,?)");
                                         $reqInsertEnregistrement->execute(array($domaine, $type, $adresseIp, $resultatIdDomaine['idDomaine']));
@@ -197,7 +205,7 @@
         }
     }
     
-    $reqAosFqdn = $bdd->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
+    /*$reqAosFqdn = $bdd->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
     $reqAosFqdn->execute(array($_SESSION['idUtilisateur']));
     $resultatReqAosFqdn = $reqAosFqdn->fetch();
     //Création de son fqdn pour aos
@@ -264,7 +272,7 @@
         $reqAosFqdn = $bdd->prepare("SELECT * FROM utilisateurs WHERE idUtilisateur = ?");
         $reqAosFqdn->execute(array($_SESSION['idUtilisateur']));
         $resultatReqAosFqdn = $reqAosFqdn->fetch();
-    }
+    } */
     // Récupération des domaines de l'utilisateur
     $recupDomaine = $bdd->prepare('SELECT * FROM utilisateurs INNER JOIN domaines ON utilisateurs.idUtilisateur = domaines.idUtilisateur WHERE utilisateurs.idUtilisateur = ?');
     $recupDomaine->execute(array($_SESSION['idUtilisateur']));
