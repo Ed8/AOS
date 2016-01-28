@@ -121,7 +121,6 @@
 	if (empty($fqdnAos) && empty($fqdnDev) && $actifFqdn == 1 ) {
 		$req = $bdd->prepare("UPDATE utilisateurs SET actifFqdn = 0 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
-		
 		header('Location: index.php?p=web');
 	}
 	//#################################################################################################################
@@ -152,6 +151,9 @@
 			$req = $bdd->prepare("UPDATE utilisateurs SET actifFqdn = 1, fqdn = '".$aosFqdn."', publicAvailableAos = 1, publicEnabledAos = 1, publicBddAos = '".$publicBddAos."' WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 			$req->execute();
 			
+			//ok
+			// echo $aosfqdnchars."<br/>";
+			
 			shell_exec('/var/www/aos/script/addRepositoryWebSites.sh '.$_SESSION["nomUtilisateur"].'');
 			shell_exec('/var/www/aos/script/addPublicWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$aosfqdnchars.' aos.itinet.fr');
 			shell_exec('/var/www/aos/script/enablePublicWebSite.sh '.$aosfqdnchars.' aos.itinet.fr');
@@ -168,6 +170,15 @@
 		$devFqdnAos = "dev.".$fqdnAos;
 		$verifAosFqdn = verifAosFqdn($devFqdnAos);
 		
+		//ok
+		// echo $verifAosFqdn;
+		
+		$plode = explode(".", $verifAosFqdn, 2);
+		
+		//ok
+		// echo $plode[0]."<br/>";
+		// echo $plode[1]."<br/>";
+		
 		if (isset($_POST["aosDevBdd"]) && $_POST["aosDevBdd"] == "add") {
 			$devBdd = '1';
 			 shell_exec('/var/www/aos/script/addDevDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$verifAosFqdn.' aos.itinet.fr');
@@ -178,9 +189,9 @@
 		$req = $bdd->prepare("UPDATE utilisateurs SET fqdnDev = '".$devFqdnAos."', devAvailableAos = 1, devBddAos = ".$devBdd.", devEnabledAos = 1  WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
 		
-		shell_exec('/var/www/aos/script/addDevWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$verifAosFqdn.' aos.itinet.fr');
-		shell_exec('/var/www/aos/script/enableDevWebSite.sh '.$verifAosFqdn.' aos.itinet.fr');
-		shell_exec('sudo bash /var/www/aos/script/addenregzone.sh dev.'.$verifAosFqdn.' aos.itinet.fr fqdn 88.177.168.133');
+		shell_exec('/var/www/aos/script/addDevWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$plode[1].' aos.itinet.fr');
+		shell_exec('/var/www/aos/script/enableDevWebSite.sh '.$plode[1].' aos.itinet.fr');
+		shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$verifAosFqdn.' aos.itinet.fr fqdn 88.177.168.133');
 		
 		header('Location: index.php?p=web');
 		
@@ -198,9 +209,10 @@
 				$ex[1] = $_POST['domaine'];
 		}
 		
-		/*echo $fqdnDomaine."<br/>";
-		echo $ex[0]."<br/>";
-		echo $ex[1]."<br/>";*/
+		// ok
+		/*echo $fqdnDomaine."<br/>";*/
+		// echo $ex[0]."<br/>";
+		// echo $ex[1]."<br/>";
 		
 		$req = $bdd->prepare("SELECT nomEnreg FROM enregistrements WHERE nomEnreg = '".$fqdnDomaine."'");
 		$req->execute();
@@ -214,7 +226,7 @@
 			
 			if (isset($_POST['domaineBdd']) && $_POST['domaineBdd'] == "add") {
 				$publicBdd = '1';
-				// shell_exec('/var/www/aos/script/addDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$ex[0].' '.$ex[1].'');
+				shell_exec('/var/www/aos/script/addDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$ex[0].' '.$ex[1].'');
 			} elseif (!isset($_POST['domaineBdd'])) {
 				$publicBdd = '0';
 			}
@@ -247,6 +259,11 @@
 			} else {
 				$ex[0] = $fqdndomainechars;
 			}
+			
+			//ok all
+			// echo $ex[0]."<br/>";
+			// echo $ex[1]."<br/>";
+			
 			shell_exec('sudo bash /var/www/aos/script/addenregzone.sh '.$ex[0].' '.$ex[1].' fqdn 88.177.168.133');
 			header('Location: index.php?p=web');
 			
@@ -258,6 +275,9 @@
 		
 		if (isset($fqdnDev)) {
 			$verifAosFqdn = verifAosFqdn($fqdnDev);
+			$xpl = explode('.', $verifAosFqdn, 2);
+			$verifAosFqdn = $xpl[1];
+			
 			$backFqdn = explode('.', $fqdnDev, 2);
 			$fqdnAos = $backFqdn[1];
 		}
@@ -265,6 +285,10 @@
 		// $ex = explode(".", $fqdnAos, 2);
 		/*echo $ex[0]."<br/>";
 		echo $ex[1]."<br/>";*/
+		
+		//ok
+		// echo $verifAosFqdn."<br/>";
+		// echo $fqdnAos."<br/>";
 		
 		if (isset($_POST["aosBdd"]) && $_POST["aosBdd"] == "add") {
 			$devBdd = '1';
@@ -295,6 +319,10 @@
 		$verifAosFqdn = verifAosFqdn($fqdnAos);
 		$req = $bdd->prepare("UPDATE utilisateurs SET publicEnabledAos = 1 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
+		
+		//ok
+		// echo $verifAosFqdn."<br/>";
+		
 		shell_exec('/var/www/aos/script/enablePublicWebSite.sh '.$verifAosFqdn.' aos.itinet.fr');
 		header('Location: index.php?p=web');
 	}
@@ -304,6 +332,10 @@
 		$verifAosFqdn = verifAosFqdn($fqdnAos);
 		$req = $bdd->prepare("UPDATE utilisateurs SET publicEnabledAos = 0 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
+		
+		//ok
+		// echo $verifAosFqdn."<br/>";
+		
 		shell_exec('/var/www/aos/script/disablePublicWebSite.sh '.$verifAosFqdn.' aos.itinet.fr');
 		header('Location: index.php?p=web');
 	}
@@ -313,7 +345,11 @@
 		$verifAosFqdn = verifAosFqdn($fqdnAos);
 		$req = $bdd->prepare("UPDATE utilisateurs SET publicBddAos = 1 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
-		shell_exec('/var/www/aos/script/addPublicDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$verifAosFqdn.' aos.itinet.fr');
+		
+		//ok
+		// echo $verifAosFqdn."<br/>";
+		
+		shell_exec('sudo bash /var/www/aos/script/addPublicDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$verifAosFqdn.' aos.itinet.fr');
 		header('Location: index.php?p=web');
 	}
 	
@@ -322,6 +358,10 @@
 		$verifAosFqdn = verifAosFqdn($fqdnAos);
 		$req = $bdd->prepare("UPDATE utilisateurs SET publicBddAos = 0 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
+		
+		//ok
+		// echo $verifAosFqdn."<br/>";
+		
 		shell_exec('/var/www/aos/script/deletePublicDatabase.sh '.$verifAosFqdn.' aos.itinet.fr');
 		header('Location: index.php?p=web');
 	}
@@ -331,6 +371,10 @@
 		$verifAosFqdn = verifAosFqdn($fqdnAos);
 		$req = $bdd->prepare("UPDATE utilisateurs SET fqdn = NULL, publicAvailableAos = 0, publicEnabledAos = 0, publicBddAos = 0 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
+		
+		//ok
+		// echo $verifAosFqdn."<br/>";
+		
 		shell_exec('/var/www/aos/script/deletePublicDatabase.sh '.$verifAosFqdn.' aos.itinet.fr');
 		shell_exec('/var/www/aos/script/disablePublicWebSite.sh '.$verifAosFqdn.' aos.itinet.fr');
 		shell_exec('/var/www/aos/script/deletePublicWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$verifAosFqdn.' aos.itinet.fr');
@@ -344,7 +388,11 @@
 		$exDev = explode(".", $verifAosFqdn, 2);
 		$req = $bdd->prepare("UPDATE utilisateurs SET devEnabledAos = 1 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
-		shell_exec('/var/www/aos/script/enableDevWebSite.sh '.$exDev[0].' aos.itinet.fr');
+		
+		//ok
+		// echo $exDev[1]."<br/>";
+		
+		shell_exec('/var/www/aos/script/enableDevWebSite.sh '.$exDev[1].' aos.itinet.fr');
 		header('Location: index.php?p=web');
 	}
 	
@@ -353,7 +401,11 @@
 		$exDev = explode(".", $verifAosFqdn, 2);
 		$req = $bdd->prepare("UPDATE utilisateurs SET devEnabledAos = 0 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
-		shell_exec('/var/www/aos/script/disableDevWebSite.sh '.$exDev[0].' aos.itinet.fr');
+		
+		//ok
+		// echo $exDev[1]."<br/>";
+		
+		shell_exec('/var/www/aos/script/disableDevWebSite.sh '.$exDev[1].' aos.itinet.fr');
 		header('Location: index.php?p=web');
 	}
 	
@@ -362,7 +414,11 @@
 		$exDev = explode(".", $verifAosFqdn, 2);
 		$req = $bdd->prepare("UPDATE utilisateurs SET devBddAos = 1 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
-		shell_exec('/var/www/aos/script/addDevDatabase.sh '.$_SESSION['nomUtilisateur'].' '.$exDev[0].' aos.itinet.fr');
+		
+		//ok
+		// echo $exDev[1]."<br/>";
+		
+		shell_exec('/var/www/aos/script/addDevDatabase.sh '.$_SESSION['nomUtilisateur'].' '.$exDev[1].' aos.itinet.fr');
 		header('Location: index.php?p=web');
 	}
 	
@@ -371,7 +427,11 @@
 		$exDev = explode(".", $verifAosFqdn, 2);
 		$req = $bdd->prepare("UPDATE utilisateurs SET devBddAos = 0 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
-		shell_exec('/var/www/aos/script/deleteDevDatabase.sh '.$exDev[0].' aos.itinet.fr');
+		
+		//ok
+		// echo $exDev[1]."<br/>";
+		
+		shell_exec('/var/www/aos/script/deleteDevDatabase.sh '.$exDev[1].' aos.itinet.fr');
 		header('Location: index.php?p=web');
 	}
 	
@@ -380,10 +440,14 @@
 		$exDev = explode(".", $verifAosFqdn, 2);
 		$req = $bdd->prepare("UPDATE utilisateurs SET fqdnDev = NULL, devAvailableAos = 0, devEnabledAos = 0, devBddAos = 0 WHERE nomUtilisateur = '".$_SESSION['nomUtilisateur']."'");
 		$req->execute();
-		shell_exec('/var/www/aos/script/deleteDevDatabase.sh '.$exDev[0].' aos.itinet.fr');
-		shell_exec('/var/www/aos/script/disableDevWebSite.sh '.$exDev[0].' aos.itinet.fr');
-		shell_exec('/var/www/aos/script/deleteDevWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$exDev[0].' aos.itinet.fr');
-		shell_exec('sudo bash /var/www/aos/script/delzone.sh dev.'.$exDev[0].' aos.itinet.fr fqdn 88.177.168.133');
+		
+		//ok
+		// echo $exDev[1]."<br/>";
+		
+		shell_exec('/var/www/aos/script/deleteDevDatabase.sh '.$exDev[1].' aos.itinet.fr');
+		shell_exec('/var/www/aos/script/disableDevWebSite.sh '.$exDev[1].' aos.itinet.fr');
+		shell_exec('/var/www/aos/script/deleteDevWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$exDev[1].' aos.itinet.fr');
+		shell_exec('sudo bash /var/www/aos/script/delzone.sh dev.'.$exDev[1].' aos.itinet.fr fqdn 88.177.168.133');
 		header('Location: index.php?p=web');
 	}
 	
@@ -406,6 +470,11 @@
 				
 				$req = $bdd->prepare("UPDATE servicesWeb SET enabled = 1 WHERE idEnreg = '".$idEnreg[$i]."'");
 				$req->execute();
+				
+				//ok all
+				// echo $verifFqdn[0]."<br/>";
+				// echo $verifFqdn[1]."<br/>";
+				
 				shell_exec('/var/www/aos/script/enableWebSite.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
 				header('Location: index.php?p=web');
 			}
@@ -413,6 +482,11 @@
 			if (isset($_POST['pubdesactiverweb'.$i.''])) {
 				$req = $bdd->prepare("UPDATE servicesWeb SET enabled = 0 WHERE idEnreg = '".$idEnreg[$i]."'");
 				$req->execute();
+				
+				//ok all
+				// echo $verifFqdn[0]."<br/>";
+				// echo $verifFqdn[1]."<br/>";
+				
 				shell_exec('/var/www/aos/script/disableWebSite.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
 				header('Location: index.php?p=web');
 			}
@@ -420,6 +494,11 @@
 			if (isset($_POST['pubactiverbdd'.$i.''])) {
 				$req = $bdd->prepare("UPDATE servicesWeb SET bdd = 1 WHERE idEnreg = '".$idEnreg[$i]."'");
 				$req->execute();
+				
+				// ok all
+				// echo $verifFqdn[0]."<br/>";
+				// echo $verifFqdn[1]."<br/>";
+				
 				shell_exec('/var/www/aos/script/addDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$verifFqdn[0].'. '.$verifFqdn[1].'');
 				header('Location: index.php?p=web');
 			}
@@ -427,6 +506,11 @@
 			if (isset($_POST['pubdesactiverbdd'.$i.''])) {
 				$req = $bdd->prepare("UPDATE servicesWeb SET bdd = 0 WHERE idEnreg = '".$idEnreg[$i]."'");
 				$req->execute();
+				
+				// ok all
+				// echo $verifFqdn[0]."<br/>";
+				// echo $verifFqdn[1]."<br/>";
+				
 				shell_exec('/var/www/aos/script/deleteDatabase.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
 				header('Location: index.php?p=web');
 			}
@@ -438,13 +522,25 @@
 				
 				$req = $bdd->prepare("DELETE FROM enregistrements WHERE idEnreg = '".$idEnreg[$i]."'");
 				$req->execute();
+				
+				// echo $verifFqdn[0]."<br/>";
+				// echo $verifFqdn[1]."<br/>";
+				
 				shell_exec('/var/www/aos/script/deleteDatabase.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
 				shell_exec('/var/www/aos/script/disableWebSite.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
 				shell_exec('/var/www/aos/script/deleteWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$verifFqdn[0].'. '.$verifFqdn[1].'');
 				
 				if ($verifFqdn[0] == "") {
 					$verifFqdn[0] = 0;
+				} else {
+					$lode = explode(".",$verifFqdn[0], 2);
+					$verifFqdn[0] = $lode[0];
 				}
+				
+				// ok all
+				// echo $verifFqdn[0]."<br/>";
+				// echo $verifFqdn[1]."<br/>";
+					
 					
 				shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$verifFqdn[0].' '.$verifFqdn[1].' fqdn 88.177.168.133');
 				
@@ -469,6 +565,10 @@
 				$req = $bdd->prepare("INSERT INTO servicesWeb(available, enabled, bdd, idEnreg) VALUES(?,?,?,?)");
 				$req->execute(array("1", "1", "0", $idEnregistrementWeb[$i]));
 				
+				//ok all
+				// echo $verifFqdn[0]."<br/>";
+				// echo $verifFqdn[1]."<br/>";
+				
 				shell_exec('/var/www/aos/script/addRepositoryWebSites.sh '.$_SESSION["nomUtilisateur"].'');
 				shell_exec('/var/www/aos/script/addWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$verifFqdn[0].'. '.$verifFqdn[1].'');
 				shell_exec('/var/www/aos/script/enableWebSite.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
@@ -481,7 +581,13 @@
 				
 				if ($verifFqdn[0] == "") {
 					$verifFqdn[0] = 0;
+				} else {
+					$lod = explode(".",$verifFqdn[0], 2);
+					$verifFqdn[0] = $lod[0];
 				}
+				//ok all
+				// echo $verifFqdn[0]."<br/>";
+				// echo $verifFqdn[1]."<br/>";
 				
 				shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$verifFqdn[0].' '.$verifFqdn[1].' fqdn 88.177.168.133');
 				header('Location: index.php?p=web');

@@ -87,9 +87,8 @@
                         </div>
                     </div>
                 </div>
-			</section>
+			<!--</section>-->
                 <!-- End page header-->
-				
 				<div class="modal" id="aosPublic">
 					<div class="modal-dialog">
 						<div class="modal-content" style="margin-top: 20%">
@@ -195,6 +194,8 @@
 											<br/>
 											Activer une base de données
 											<input type='checkbox' name='aosDevBdd' value='add'>
+											<br/>
+											<br/>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -247,6 +248,7 @@
 						</div>
 					</div>
 				</div>
+				</section>
 				
 				<div class="page-header-wrapper">
                     <div class="container">
@@ -274,9 +276,6 @@
 					
 					
 					<div class="col-md-3" style="margin: 0 4%;">
-					<?php
-						disk_free_space("C:");
-					?>
 						<div class="progress" style="margin-top: 1%; margin-bottom: 1%;">
 							<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:60%">
 								<span class="sr-only">70% Complete</span>
@@ -284,7 +283,8 @@
 							
 						</div>
 						<?php
-								echo disk_total_space("/var/www/".$_SESSION['nomUtilisateur']."")." Mo sur 250 Mo d'espace utilisé";
+								$space = disk_free_space("/var/www/".$_SESSION['nomUtilisateur']."");
+								echo $space." Mo sur 250 Mo d'espace utilisé";
 						?>
 					</div>
 				</div>
@@ -303,7 +303,7 @@
 					</div>
 				</section>
 				
-				
+				<section id="services-section" class="page text-center">
 				<?php
 					if (isset($errorDomaine) && !empty($errorDomaine)) {
 						echo "<br/>";
@@ -319,10 +319,11 @@
 					echo "<br/>";
 					echo "<hr>";
 					echo "<br/>";
+				echo "</section>";
 					
 					
 					echo "<div class='h4' align='left'>";
-					echo "Domaine aos.itinet.fr ";
+					echo "Vos sites web dans aos.itinet.fr ";
 					if ($actifFqdn == 0) {
 						echo "<button data-target='#aosPublic' data-toggle='modal' class='btn btn-primary glyphicon glyphicon-plus' type='button' title='Cliquez pour créer un site web dans aos.itinet.fr'></button>";
 					}
@@ -399,7 +400,7 @@
 					
 					if (!empty($domaine[0])) {
 						echo "<div class='h4' align='left'>";
-						echo "Votre domaine ";
+						echo "Vos sites web personnalisés ";
 						echo "<button data-target='#externePublic' data-toggle='modal' class='btn btn-primary glyphicon glyphicon-plus' type='button' title='Cliquez pour créer un site web dans votre domaine'></button>";
 						echo "</div>";
 					}
@@ -449,10 +450,10 @@
 						$nbWeb = count($nomEnregWeb);
 						echo "<div class='h4' align='left'>";
 						if ($nbWeb == 1) {
-							echo "Site web à activer";
+							echo "Votre site web à activer";
 							$enreg = "Enregistrement";
 						} elseif ($nbWeb > 1) {
-							echo "Sites web à activer";
+							echo "Vos sites web à activer";
 							$enreg = "Enregistrements";
 						}
 						echo "</div>";
