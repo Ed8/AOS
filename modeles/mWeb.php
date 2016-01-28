@@ -349,7 +349,7 @@
 		//ok
 		// echo $verifAosFqdn."<br/>";
 		
-		shell_exec('sudo bash /var/www/aos/script/addPublicDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$verifAosFqdn.' aos.itinet.fr');
+		shell_exec('/var/www/aos/script/addPublicDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$verifAosFqdn.' aos.itinet.fr');
 		header('Location: index.php?p=web');
 	}
 	
@@ -456,7 +456,6 @@
 	//###########################################################################
 	
 	if (isset($pubAvailable)) {
-		// var_dump($fqdn);
 		$nb = count($pubAvailable);
 		
 		for ($i = 0; $i < $nb; $i++) {
@@ -464,6 +463,8 @@
 			
 			if ($verifFqdn[0] !== "") {
 				$verifFqdn[0] = $verifFqdn[0].".";
+			} else {
+				$verifFqdn[0] = 0;
 			}
 			
 			if (isset($_POST['pubactiverweb'.$i.''])) {
@@ -475,7 +476,7 @@
 				// echo $verifFqdn[0]."<br/>";
 				// echo $verifFqdn[1]."<br/>";
 				
-				shell_exec('/var/www/aos/script/enableWebSite.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
+				shell_exec('/var/www/aos/script/enableWebSite.sh '.$verifFqdn[0].' '.$verifFqdn[1].'');
 				header('Location: index.php?p=web');
 			}
 			
@@ -487,7 +488,7 @@
 				// echo $verifFqdn[0]."<br/>";
 				// echo $verifFqdn[1]."<br/>";
 				
-				shell_exec('/var/www/aos/script/disableWebSite.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
+				shell_exec('/var/www/aos/script/disableWebSite.sh '.$verifFqdn[0].' '.$verifFqdn[1].'');
 				header('Location: index.php?p=web');
 			}
 			
@@ -499,7 +500,7 @@
 				// echo $verifFqdn[0]."<br/>";
 				// echo $verifFqdn[1]."<br/>";
 				
-				shell_exec('/var/www/aos/script/addDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$verifFqdn[0].'. '.$verifFqdn[1].'');
+				shell_exec('/var/www/aos/script/addDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$verifFqdn[0].' '.$verifFqdn[1].'');
 				header('Location: index.php?p=web');
 			}
 			
@@ -511,7 +512,7 @@
 				// echo $verifFqdn[0]."<br/>";
 				// echo $verifFqdn[1]."<br/>";
 				
-				shell_exec('/var/www/aos/script/deleteDatabase.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
+				shell_exec('/var/www/aos/script/deleteDatabase.sh '.$verifFqdn[0].' '.$verifFqdn[1].'');
 				header('Location: index.php?p=web');
 			}
 	
@@ -526,9 +527,9 @@
 				// echo $verifFqdn[0]."<br/>";
 				// echo $verifFqdn[1]."<br/>";
 				
-				shell_exec('/var/www/aos/script/deleteDatabase.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
-				shell_exec('/var/www/aos/script/disableWebSite.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
-				shell_exec('/var/www/aos/script/deleteWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$verifFqdn[0].'. '.$verifFqdn[1].'');
+				shell_exec('/var/www/aos/script/deleteDatabase.sh '.$verifFqdn[0].' '.$verifFqdn[1].'');
+				shell_exec('/var/www/aos/script/disableWebSite.sh '.$verifFqdn[0].' '.$verifFqdn[1].'');
+				shell_exec('/var/www/aos/script/deleteWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$verifFqdn[0].' '.$verifFqdn[1].'');
 				
 				if ($verifFqdn[0] == "") {
 					$verifFqdn[0] = 0;
@@ -556,6 +557,8 @@
 			$verifFqdn = verifFqdn($nomEnregWeb[$i]);
 			if ($verifFqdn[0] !== "") {
 				$verifFqdn[0] = $verifFqdn[0].".";
+			} else {
+				$verifFqdn[0] = 0;
 			}
 			
 			if (isset($_POST['activerWeb'.$i.''])) {
@@ -570,8 +573,8 @@
 				// echo $verifFqdn[1]."<br/>";
 				
 				shell_exec('/var/www/aos/script/addRepositoryWebSites.sh '.$_SESSION["nomUtilisateur"].'');
-				shell_exec('/var/www/aos/script/addWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$verifFqdn[0].'. '.$verifFqdn[1].'');
-				shell_exec('/var/www/aos/script/enableWebSite.sh '.$verifFqdn[0].'. '.$verifFqdn[1].'');
+				shell_exec('/var/www/aos/script/addWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$verifFqdn[0].' '.$verifFqdn[1].'');
+				shell_exec('/var/www/aos/script/enableWebSite.sh '.$verifFqdn[0].' '.$verifFqdn[1].'');
 				
 				header('Location: index.php?p=web');
 			}

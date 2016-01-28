@@ -4,20 +4,25 @@ username=$1
 fqdn=$2
 domain=$3
 
-#Delete pub website available conf
-if [ -e /etc/apache2/sites-available/$fqdn$domain.conf ]; then
-        sudo rm /etc/apache2/sites-available/$fqdn$domain.conf
-        sudo echo "File /sites-available/$fqdn$domain.conf deleted !"
+
+if [ $fqdn == "0" ]; then
+        url=$domain
 else
-        sudo echo "File /sites-available/$fqdn$domain.conf doesn't exist !"
+        url=$fqdn$domain
 fi
 
-if [ -d /var/www/$username/$fqdn$domain ]; then
-        sudo rm -r /var/www/$username/$fqdn$domain
-        sudo echo "Repository /www/$username/$fqdn$domain deleted !"
+
+if [ -e /etc/apache2/sites-available/$url.conf ]; then
+        sudo rm /etc/apache2/sites-available/$url.conf
+        sudo echo "File /sites-available/$url.conf deleted !"
 else
-        sudo echo "Repository /www/$username/$fqdn$domain doesn't exit !"
+        sudo echo "File /sites-available/$url.conf doesn't exist !"
 fi
-#############################################################################
+
+if [ -d /var/www/$username/$url ]; then
+        sudo rm -r /var/www/$username/$url
+        sudo echo "Repository /www/$username/$url deleted !"
+else
+        sudo echo "Repository /www/$username/$url doesn't exit !"
+fi
 sudo service apache2 reload
-

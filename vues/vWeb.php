@@ -331,7 +331,7 @@
 					echo "<table class='table table-bordered table-condensed table-hover table-striped'><tr>";
 					
 					if ($publicAvailableAos == "1" || $devAvailableAos == "1") {
-						echo "<tr><td><b>Enregistrements<b></td><td><b>Activer/Désactiver<b></td><td><b>Base de données<b></td><td><b>Supprimer<b></td>";
+						echo "<tr><td><b>Liens<b></td><td><b>Activer/Désactiver<b></td><td><b>Base de données<b></td><td><b>Supprimer<b></td>";
 						if($devAvailableAos == "0" || $devAvailableAos == "") {
 							echo "<td><b>Développement<b></td>";
 						} elseif ($publicAvailableAos == "0" || $publicAvailableAos == "") {
@@ -408,9 +408,9 @@
 					if (isset($pubAvailable) && $pubAvailable[0] == "1") {
 						$nb = count($pubAvailable);
 						if ($nb == 1) {
-							$enreg = "Enregistrement";
+							$enreg = "Lien";
 						} elseif ($nb > 1) {
-							$enreg = "Enregistrements";
+							$enreg = "Liens";
 						}
 						/*echo "<button data-target='#aosPublic' data-toggle='modal' class='btn btn-primary glyphicon glyphicon-plus' type='button' title='Cliquez pour créer un site web dans votre domaine'></button>";
 						echo "</div>";*/
@@ -451,10 +451,10 @@
 						echo "<div class='h4' align='left'>";
 						if ($nbWeb == 1) {
 							echo "Votre site web à activer";
-							$enreg = "Enregistrement";
+							$enreg = "Lien";
 						} elseif ($nbWeb > 1) {
 							echo "Vos sites web à activer";
-							$enreg = "Enregistrements";
+							$enreg = "Liens";
 						}
 						echo "</div>";
 						

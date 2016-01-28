@@ -3,7 +3,6 @@
 fqdn=$1
 domain=$2
 
-#############################################################################
 #Activate public web conf____________________________________________________
 #Create symbolic link for public in sites-available/enabled
 if [ -e /etc/apache2/sites-available/$fqdn.$domain.conf ]; then
@@ -12,5 +11,4 @@ if [ -e /etc/apache2/sites-available/$fqdn.$domain.conf ]; then
 else
 	sudo echo "File $fqdn.$domain.conf doesn't exist !"
 fi
-#############################################################################
 sudo service apache2 reload
