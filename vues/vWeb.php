@@ -5,9 +5,8 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Aos - web</title>
-		<meta name="description" content="Unika - Responsive One Page HTML5 Template">
-		<meta name="keywords" content="HTML5, Bootsrtrap, One Page, Responsive, Template, Portfolio" />
-		<meta name="author" content="imransdesign.com">
+		<meta name="description" content="Aos - Admin Online Services">
+		<meta name="keywords" content="Aos, Admin Online Services" />
 
 		<!-- Mobile Metas -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +36,7 @@
     <body data-spy="scroll" data-target="#main-navbar">
         <!--<div class="page-loader"></div>  <!-- Display loading image while page loads -->
 		
-    	<div class="body" style="width: 90%; margin:auto">
+    	<div class="body" style="width: 90%; margin-left:auto; margin-right: auto;">
         
             <!--========== BEGIN HEADER ==========-->
             <header id="header" class="header-main">
@@ -77,7 +76,7 @@
             <!-- ========= END HEADER =========-->
 			
             <!-- Begin Services -->
-            <section id="services-section" class="page text-center" style="padding-top: 10%;">
+            <section id="services-section" class="page text-center" style="margin-top: 6%;">
                 <!-- Begin page header-->
                 <div class="page-header-wrapper">
                     <div class="container">
@@ -88,6 +87,7 @@
                         </div>
                     </div>
                 </div>
+			</section>
                 <!-- End page header-->
 				
 				<div class="modal" id="aosPublic">
@@ -247,7 +247,14 @@
 						</div>
 					</div>
 				</div>
-				<h4>Administration des services web</h4>
+				
+				<div class="page-header-wrapper">
+                    <div class="container">
+						<div class="page-header text-center wow fadeInDown" data-wow-delay="0.7s">
+							<h4>Administration des services web</h4>
+						</div>
+					</div>
+				</div>
 				<br/>
 				<!--<div class="md-2">
 					<input type="button" value="Accéder à PhpMyAdmin" class="btn btn-default" onclick="window.open('http://phpmyadmin.aos.itinet.fr');">
@@ -464,14 +471,14 @@
 					}
 					
 				?>
-            </section>
+            <!--</section>
             <!-- End Services -->
 		</div><!-- body ends -->
 
 		<!-- Begin footer -->
 		<footer class="text-off-white">
-			<!--<div class="footer" style="position: absolute; bottom: 0; width: 100%;">-->
-			<div class="footer">
+			<!--<div class="footer" style="position: relative; bottom: 0; width: 100%;">-->
+			<div class="footer" style="margin-top: 40%;">
 				<div class="container text-center wow fadeIn" data-wow-delay="0.4s">
 					<p class="copyright" style="color: e7e7e7">Copyright &copy; 2015 - Designed By <a href="http://www.aos.itinet.fr" class="theme-author">Admin Online Services</a> &amp; Developed by <a href="http://www.aos.itinet.fr" class="theme-author">AOS</a></p>
 				</div>
