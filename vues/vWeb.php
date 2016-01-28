@@ -31,12 +31,13 @@
 
 		<!-- Skin CSS -->
         <link rel="stylesheet" href="./vues/css/skin/ice-blue.css">
+		
 	</head>
 
     <body data-spy="scroll" data-target="#main-navbar">
         <!--<div class="page-loader"></div>  <!-- Display loading image while page loads -->
 		
-    	<div class="body">
+    	<div class="body" style="width: 90%; margin:auto">
         
             <!--========== BEGIN HEADER ==========-->
             <header id="header" class="header-main">
@@ -103,7 +104,7 @@
 											<b>Entrez le nom de votre site web</b>
 											<br/>
 											<br/>
-											<input type='text' class='formulaire' placeholder='Nom' name='aosFqdn' onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/ig, '');"/>
+											<input type='text' class='formulaire' placeholder='Nom' name='aosFqdn' onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9.]/ig, '');"/>
 											<b>.aos.itinet.fr</b>
 											<br/>
 											<br/>
@@ -112,17 +113,16 @@
 											<br/>
 											<br/>
 											<?php
-												if (isset($error) && !empty($error)) {
+												/*if (isset($error) && !empty($error)) {
 													echo "<b>".$error."</b>";
 													echo "<br/><br/><br/>";
-												}
+												}*/
 											?>
 										</div>
 									</div>
 									<div class="modal-footer">
 										<button type="button" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Fermer</button>
 										<input type="submit" value="Créer" name="createAos" class="btn btn-success">
-										<!--data-toggle="modal" data-dismiss="modal" class="btn btn-success" data-target="#webModal2" name="nameWeb" value="Suivant"/>-->
 									</div>
 								</form>
 							</div>
@@ -144,7 +144,7 @@
 											<b>Entrer le nom de votre site web et Choisissez votre domaine</b>
 											<br/>
 											<br/>
-											<input type="text" name="fqdnDomaine" placeholder="Nom" class="formulaire" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9]/ig, '');">
+											<input type="text" name="fqdnDomaine" placeholder="Nom" class="formulaire" onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9.]/ig, '');">
 											<select name='domaine' class='formulaire'>";
 											<?php
 												$nb = count($domaine);
@@ -161,10 +161,10 @@
 											<br/>
 											<br/>
 											<?php
-												if (isset($errorDomaine) && !empty($errorDomaine)) {
+												/*if (isset($errorDomaine) && !empty($errorDomaine)) {
 													echo "<b>".$errorDomaine."</b>";
 													echo "<br/><br/><br/>";
-												}
+												}*/
 											?>
 										</div>
 									</div>
@@ -247,27 +247,96 @@
 						</div>
 					</div>
 				</div>
+				<h4>Administration des services web</h4>
+				<br/>
+				<!--<div class="md-2">
+					<input type="button" value="Accéder à PhpMyAdmin" class="btn btn-default" onclick="window.open('http://phpmyadmin.aos.itinet.fr');">
+				</div>-->
+				<br/>
+				<br/>
+				<div class="form-group">
+					<!--<label for="singlebutton" class="col-md-5 control-label"></label>-->
+					<!--<div class="col-md-2" style="margin: 0 6%;">-->
+					<div class="col-md-3" style="margin: 0 4%;">
+						<input type="button" value="Accéder à PhpMyAdmin" class="btn btn-default" onclick="window.open('http://phpmyadmin.aos.itinet.fr');" style="width: 100%;">
+					</div>
+					<!--<div class="col-md-2" style="margin: 0 6%;">-->
+					<div class="col-md-3" style="margin: 0 4%;">
+						<a aria-controls="MonCollapse" aria-expanded="false" data-toggle="collapse" href="#MonCollapse" class="btn btn-info center-block" id="singlebutton">Informations</a>
+					</div>
+					
+					
+					<div class="col-md-3" style="margin: 0 4%;">
+					<?php
+						disk_free_space("C:");
+					?>
+						<div class="progress" style="margin-top: 1%; margin-bottom: 1%;">
+							<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:60%">
+								<span class="sr-only">70% Complete</span>
+							</div>
+							
+						</div>
+						<?php
+								echo disk_total_space("/var/www/".$_SESSION['nomUtilisateur']."")." Mo sur 250 Mo d'espace utilisé";
+						?>
+					</div>
+				</div>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<section class="collapse" id="MonCollapse">
+					<div style="color: red;" class="well">
+						<p class="text-center">Pour vous connectez à PhpMyAdmin, utilisez les identifiants de votre compte !</p>
+						<p class="text-center">Pour accéder à votre espace de stockage utilisez un client SFTP !</p>
+						<p class="text-center">Hôte : sftp://aos.itinet.fr</p>
+						<p class="text-center">Login : votre nom de compte</p>
+						<p class="text-center">Mdp : votre mot de pass</p>
+						<p class="text-center">Port : 3222</p>
+					</div>
+				</section>
+				
 				
 				<?php
-				echo "<h1>Créer votre Site Web</h1>";
+					if (isset($errorDomaine) && !empty($errorDomaine)) {
+						echo "<br/>";
+						echo "<b><font color='red'>".$errorDomaine."</font></b>";
+						echo "<br/><br/><br/>";
+					}
+					if (isset($error) && !empty($error)) {
+						echo "<br/>";
+						echo "<b><font color='red'>".$error."</font></b>";
+						echo "<br/><br/><br/>";
+					}					
+					echo "<br/>";
+					echo "<br/>";
+					echo "<hr>";
+					echo "<br/>";
+					
+					
+					echo "<div class='h4' align='left'>";
+					echo "Domaine aos.itinet.fr ";
 					if ($actifFqdn == 0) {
-						echo "<table style='margin-left: auto; margin-right: auto;'>";
-						echo "<tr>";
-						echo "<td><button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#aosPublic'>Avec le domaine aos.itinet.fr</button></td>";
+						echo "<button data-target='#aosPublic' data-toggle='modal' class='btn btn-primary glyphicon glyphicon-plus' type='button' title='Cliquez pour créer un site web dans aos.itinet.fr'></button>";
 					}
-					if (!empty($domaine[0])) {
-						echo "<td><button class='btn btn-primary btn-lg' data-toggle='modal' data-target='#externePublic'>Avec votre nom de domaine</button></td>";
-					}
-					echo "</tr>";
-					echo "</table>";
-					echo "<br/><br/><br/>";
-				
+					echo "</div>";
+					echo "<table class='table table-bordered table-condensed table-hover table-striped'><tr>";
+					
 					if ($publicAvailableAos == "1" || $devAvailableAos == "1") {
-						echo "<h1>Sites web avec aos.itinet.fr</h1>";
-						
-						if ($publicAvailableAos == "1") {								
-							echo "<table style='width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 2%;'><tr>";
-							echo"<td><b>".$fqdnAos."</b></td>";
+						echo "<tr><td><b>Enregistrements<b></td><td><b>Activer/Désactiver<b></td><td><b>Base de données<b></td><td><b>Supprimer<b></td>";
+						if($devAvailableAos == "0" || $devAvailableAos == "") {
+							echo "<td><b>Développement<b></td>";
+						} elseif ($publicAvailableAos == "0" || $publicAvailableAos == "") {
+							echo "<td><b>Public<b></td>";
+						}
+						echo "</tr>";
+						if ($publicAvailableAos == "1") {
+							if ($publicEnabledAos == "1") {
+								echo  "<td><a href='http://".$fqdnAos."' target='http://".$fqdnAos."'>".$fqdnAos."</a></td>";
+							} else {
+								echo"<td>".$fqdnAos."</td>";
+							}
+							
 							if ($publicEnabledAos == "0" || $publicEnabledAos == "") {
 								echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubActiverWebAos' value='Activer site web' class='btn btn-success'></form></td>";
 							} else {
@@ -286,12 +355,17 @@
 								echo "<td><button class='btn btn-primary' data-toggle='modal' data-target='#devAos'>Créer site Web Développement</button></td>";
 							}
 							echo "</tr>";
-							echo "</table>";
+							// echo "</table>";
 						}
 						
 						if ($devAvailableAos == "1") {
-							echo "<table style='width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 2%;'><tr>";
-							echo "<tr><td><b>".$fqdnDev."</b></td>";
+							// echo "<table class='table table-bordered table-condensed table-hover table-striped'><tr>";
+							if ($devEnabledAos == "1") {
+								echo "<td><a href='http://".$fqdnDev."' target='http://".$fqdnDev."'>".$fqdnDev."</a></td>";
+							} else {
+								echo "<tr><td>".$fqdnDev."</td>";
+							}
+							
 							if ($devEnabledAos == "0" || $devEnabledAos == "") {
 								echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='devActiverWebAos' value='Activer site web' class='btn btn-success'></form></td>";
 							} else {
@@ -308,24 +382,41 @@
 							if($publicAvailableAos == "0" || $publicAvailableAos == "") {
 								echo "<td><button class='btn btn-primary' data-toggle='modal' data-target='#aosPublicByDev'>Créer site Web Public</button></td>";
 							}
-							
 							echo "</tr>";
-							echo "</table>";
 						}	
 					}
+					echo "</table>";
+					echo "<br/>";
+					echo "<br/>";
 					
+					
+					if (!empty($domaine[0])) {
+						echo "<div class='h4' align='left'>";
+						echo "Votre domaine ";
+						echo "<button data-target='#externePublic' data-toggle='modal' class='btn btn-primary glyphicon glyphicon-plus' type='button' title='Cliquez pour créer un site web dans votre domaine'></button>";
+						echo "</div>";
+					}
+					echo "<table class='table table-bordered table-condensed table-hover table-striped'><tr>";
 					if (isset($pubAvailable) && $pubAvailable[0] == "1") {
 						$nb = count($pubAvailable);
 						if ($nb == 1) {
-							echo "<h1>Site web avec votre domaine</h1>";
+							$enreg = "Enregistrement";
 						} elseif ($nb > 1) {
-							echo "<h1>Sites web avec votre domaine</h1>";
+							$enreg = "Enregistrements";
 						}
+						/*echo "<button data-target='#aosPublic' data-toggle='modal' class='btn btn-primary glyphicon glyphicon-plus' type='button' title='Cliquez pour créer un site web dans votre domaine'></button>";
+						echo "</div>";*/
 						
-						
+						// echo "<table class='table table-bordered table-condensed table-hover table-striped'><tr>";
+						echo "<tr><td><b>".$enreg."<b></td><td><b>Activer/Désactiver<b></td><td><b>Base de données<b></td><td><b>Supprimer<b></td></tr>";
 						for ($i = 0; $i < $nb; $i++) {
-							echo "<table style='width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 2%;'><tr>";
-							echo"<td><b>".$fqdn[$i]."</b></td>";
+							// echo "<table class='table table-bordered table-condensed table-hover table-striped'><tr>";
+							if ($pubEnabled[$i] == "1") {
+								echo "<td><a href='http://".$fqdn[$i]."' target='http://".$fqdn[$i]."'>".$fqdn[$i]."</a></td>";
+							} else {
+								echo "<td>".$fqdn[$i]."</td>";
+							}
+							
 							if ($pubEnabled[$i] == "0" || $pubEnabled[$i] == "") {
 								echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubactiverweb".$i."' value='Activer site web' class='btn btn-success'></form></td>";
 							} else {
@@ -340,49 +431,58 @@
 							
 							echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubsupweb".$i."' value='Supprimer site web' class='btn btn-danger'></form></td>";
 							echo "</tr>";
-							echo "</table>";
+							// echo "</table>";
 						}
-						
 					}
+					echo "</table>";
+					echo "<br/>";
+					echo "<br/>";
 					
 					if (isset($nomEnregWeb)) {
 						$nbWeb = count($nomEnregWeb);
+						echo "<div class='h4' align='left'>";
 						if ($nbWeb == 1) {
-							echo "<h1>Site web à activer</h1>";
+							echo "Site web à activer";
+							$enreg = "Enregistrement";
 						} elseif ($nbWeb > 1) {
-							echo "<h1>Sites web à activer</h1>";
+							echo "Sites web à activer";
+							$enreg = "Enregistrements";
 						}
+						echo "</div>";
 						
+						echo "<table class='table table-bordered table-condensed table-hover table-striped'>";
+						echo "<tr><td><b>".$enreg."<b></td><td><b>Activer<b></td><td><b>Supprimer<b></td></tr><tr>";
 						for ($i = 0; $i < $nbWeb; $i++) {
-							echo "<table style='width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 2%;'><tr>";
-							echo"<td><b>".$nomEnregWeb[$i]."</b></td>";
+							echo"<td>".$nomEnregWeb[$i]."</td>";
 							echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='activerWeb".$i."' value='Activer site web' class='btn btn-success'></form></td>";
 							echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='supWeb".$i."' value='Supprimer site web' class='btn btn-danger'></form></td>";
 							echo "</tr>";
-							echo "</table>";
 						}
+						echo "</table>";
+						echo "<br/>";
+						echo "<br/>";
 					}
+					
 				?>
             </section>
             <!-- End Services -->
+		</div><!-- body ends -->
 
-            <!-- Begin footer -->
-            <footer class="text-off-white">
-                <div class="footer" style="position: unset; bottom: 0; width: 100%;">
-                    <div class="container text-center wow fadeIn" data-wow-delay="0.4s">
-                        <p class="copyright" style="color: e7e7e7">Copyright &copy; 2015 - Designed By <a href="http://www.aos.itinet.fr" class="theme-author">Admin Online Services</a> &amp; Developed by <a href="http://www.aos.itinet.fr" class="theme-author">AOS</a></p>
-                    </div>
-                </div>
-            </footer>
-            <!-- End footer -->
-            <a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a> <!-- Scroll to top button -->
+		<!-- Begin footer -->
+		<footer class="text-off-white">
+			<!--<div class="footer" style="position: absolute; bottom: 0; width: 100%;">-->
+			<div class="footer">
+				<div class="container text-center wow fadeIn" data-wow-delay="0.4s">
+					<p class="copyright" style="color: e7e7e7">Copyright &copy; 2015 - Designed By <a href="http://www.aos.itinet.fr" class="theme-author">Admin Online Services</a> &amp; Developed by <a href="http://www.aos.itinet.fr" class="theme-author">AOS</a></p>
+				</div>
+			</div>
+		</footer>
+		<!-- End footer -->
+		<a href="#" class="scrolltotop"><i class="fa fa-arrow-up"></i></a> <!-- Scroll to top button -->
                                               
-        </div><!-- body ends -->
+        <!--</div><!-- body ends -->
         
-        
-        
-        
-        <!-- Plugins JS -->
+				<!-- Plugins JS -->
 		<script src="./vues/inc/jquery/jquery-1.11.1.min.js"></script>
 		<script src="./vues/inc/bootstrap/js/bootstrap.min.js"></script>
 		<script src="./vues/inc/owl-carousel/js/owl.carousel.min.js"></script>
