@@ -254,15 +254,17 @@
 						$math = $espace/100;
 						$math1 = $math/1024;
 						$espace = $math1/1024;
+						$space = round($espace);
 						
-						$pourcent = 25000/$espace;
+						$pourcent = $space*100;
+						$pourcentage = $pourcent/250;
 						
 					?>
 					
 					<div class="col-md-3" style="margin: 0 4%;">
 						<div class="progress" style="margin-top: 1%; margin-bottom: 1%;">
 							<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-								<span class="sr-only"><?php echo $pourcent."% Complete"; ?></span>
+								<span class="sr-only"><?php echo $pourcentage."% Complete"; ?></span>
 							</div>
 							
 						</div>
