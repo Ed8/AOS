@@ -158,10 +158,11 @@
 	} elseif (isset($_POST['createDevAos'])) {
 		$devFqdnAos = "dev.".$fqdnAos;
 		$verifAosFqdn = verifAosFqdn($devFqdnAos);
+		$verification = verifAosFqdn($fqdnAos);
 		$plode = explode(".", $verifAosFqdn, 2);
 		if (isset($_POST["aosDevBdd"]) && $_POST["aosDevBdd"] == "add") {
 			$devBdd = '1';
-			$replace = str_replace('.', '_', $verifAosFqdn);
+			$replace = str_replace('.', '_', $verification);
 			$database = $replace;
 			 shell_exec('/var/www/aos/script/addDevDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$database.' aos_itinet_fr');
 		} else {
@@ -284,7 +285,7 @@
 		$req->execute();
 		$replace = str_replace('.', '_', $verifAosFqdn);
 		$database = $replace;
-		shell_exec('/var/www/aos/script/addPublicDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$database.' aos_tinet_fr');
+		shell_exec('/var/www/aos/script/addPublicDatabase.sh '.$_SESSION["nomUtilisateur"].' '.$database.' aos_itinet_fr');
 		header('Location: index.php?p=web');
 	}
 	
@@ -304,9 +305,9 @@
 		$req->execute();
 		$replace = str_replace('.', '_', $verifAosFqdn);
 		$database = $replace;
-		shell_exec('/var/www/aos/script/deletePublicDatabase.sh '.$verifAosFqdn.' aos.itinet.fr');
+		shell_exec('/var/www/aos/script/deletePublicDatabase.sh '.$database.' aos_itinet_fr');
 		shell_exec('/var/www/aos/script/disablePublicWebSite.sh '.$verifAosFqdn.' aos.itinet.fr');
-		shell_exec('/var/www/aos/script/deletePublicWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$database.' aos_itinet_fr');
+		shell_exec('/var/www/aos/script/deletePublicWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$verifAosFqdn.' aos.itinet.fr');
 		shell_exec('sudo bash /var/www/aos/script/delzone.sh '.$verifAosFqdn.' aos.itinet.fr fqdn 88.177.168.133');
 		
 		header('Location: index.php?p=web');
@@ -359,9 +360,9 @@
 		$req->execute();
 		$replace = str_replace('.', '_', $exDev[1]);
 		$database = $replace;
-		shell_exec('/var/www/aos/script/deleteDevDatabase.sh '.$exDev[1].' aos.itinet.fr');
+		shell_exec('/var/www/aos/script/deleteDevDatabase.sh '.$database.' aos_itinet_fr');
 		shell_exec('/var/www/aos/script/disableDevWebSite.sh '.$exDev[1].' aos.itinet.fr');
-		shell_exec('/var/www/aos/script/deleteDevWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$database.' aos_itinet_fr');
+		shell_exec('/var/www/aos/script/deleteDevWebSite.sh '.$_SESSION["nomUtilisateur"].' '.$exDev[1].' aos.itinet.fr');
 		shell_exec('sudo bash /var/www/aos/script/delzone.sh dev.'.$exDev[1].' aos.itinet.fr fqdn 88.177.168.133');
 		header('Location: index.php?p=web');
 	}
