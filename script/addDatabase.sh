@@ -10,5 +10,5 @@ else
 	url=$fqdn$domain
 fi
 
-sudo mysql -u root -p"sshi94" -e "CREATE DATABASE IF NOT EXISTS \`$url\`; GRANT ALL PRIVILEGES ON \`$url\`.* TO '$username'@'localhost';"
+sudo mysql -u root -p"sshi94" -e "CREATE DATABASE IF NOT EXISTS $url; GRANT ALL PRIVILEGES ON $url.* TO '$username'@'localhost';"
 

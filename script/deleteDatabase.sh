@@ -9,4 +9,4 @@ else
         url=$fqdn$domain
 fi
 
-sudo mysql -u root -p"sshi94" -e "DROP DATABASE IF EXISTS \`$url\`;"
+sudo mysql -u root -p"sshi94" -e "DROP DATABASE IF EXISTS $url;"

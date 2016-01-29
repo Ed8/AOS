@@ -34,7 +34,7 @@
 	</head>
 
     <body data-spy="scroll" data-target="#main-navbar">
-        <!--<div class="page-loader"></div>  <!-- Display loading image while page loads -->
+        <div class="page-loader"></div>  <!-- Display loading image while page loads -->
 		
     	<div class="body" style="width: 90%; margin-left:auto; margin-right: auto;">
         
@@ -66,8 +66,6 @@
                             <li><a class="page-scroll" href="index.php?p=web">WEB</a></li>
 							<li><a class="page-scroll" href="index.php?p=profil">Profil</a></li>
 							<li><a class="page-scroll" href="index.php?p=deconnexion">Déconnexion</a></li>
-							
-                            <!--<li><a class="page-scroll" href="#">Connexion</a></li>-->
                         </ul>
                     </div><!-- /.navbar-collapse -->
                   </div><!-- /.container -->
@@ -111,12 +109,6 @@
 											<input type='checkbox' name='aosBdd' value='add'>
 											<br/>
 											<br/>
-											<?php
-												/*if (isset($error) && !empty($error)) {
-													echo "<b>".$error."</b>";
-													echo "<br/><br/><br/>";
-												}*/
-											?>
 										</div>
 									</div>
 									<div class="modal-footer">
@@ -159,18 +151,11 @@
 											<input type='checkbox' name='domaineBdd' value='add'>
 											<br/>
 											<br/>
-											<?php
-												/*if (isset($errorDomaine) && !empty($errorDomaine)) {
-													echo "<b>".$errorDomaine."</b>";
-													echo "<br/><br/><br/>";
-												}*/
-											?>
 										</div>
 									</div>
 									<div class="modal-footer">
 										<button type="button" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Fermer</button>
 										<input type="submit" value="Créer" name="createDomaine" class="btn btn-success">
-										<!--data-toggle="modal" data-dismiss="modal" class="btn btn-success" data-target="#webModal2" name="nameWeb" value="Suivant"/>-->
 									</div>
 								</form>
 							</div>
@@ -201,7 +186,6 @@
 									<div class="modal-footer">
 										<button type="button" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Fermer</button>
 										<input type="submit" value="Créer" name="createDevAos" class="btn btn-success">
-										<!--data-toggle="modal" data-dismiss="modal" class="btn btn-success" data-target="#webModal2" name="nameWeb" value="Suivant"/>-->
 									</div>
 								</form>
 							</div>
@@ -241,7 +225,6 @@
 									<div class="modal-footer">
 										<button type="button" data-toggle="modal" data-dismiss="modal" class="btn btn-primary">Fermer</button>
 										<input type="submit" value="Créer" name="publicAos" class="btn btn-success">
-										<!--data-toggle="modal" data-dismiss="modal" class="btn btn-success" data-target="#webModal2" name="nameWeb" value="Suivant"/>-->
 									</div>
 								</form>
 							</div>
@@ -257,38 +240,37 @@
 						</div>
 					</div>
 				</div>
-				<br/>
-				<!--<div class="md-2">
-					<input type="button" value="Accéder à PhpMyAdmin" class="btn btn-default" onclick="window.open('http://phpmyadmin.aos.itinet.fr');">
-				</div>-->
-				<br/>
-				<br/>
 				<div class="form-group">
 					<!--<label for="singlebutton" class="col-md-5 control-label"></label>-->
-					<!--<div class="col-md-2" style="margin: 0 6%;">-->
 					<div class="col-md-3" style="margin: 0 4%;">
 						<input type="button" value="Accéder à PhpMyAdmin" class="btn btn-default" onclick="window.open('http://phpmyadmin.aos.itinet.fr');" style="width: 100%;">
 					</div>
-					<!--<div class="col-md-2" style="margin: 0 6%;">-->
 					<div class="col-md-3" style="margin: 0 4%;">
 						<a aria-controls="MonCollapse" aria-expanded="false" data-toggle="collapse" href="#MonCollapse" class="btn btn-info center-block" id="singlebutton">Informations</a>
 					</div>
 					
+					<?php
+						$espace = disk_free_space("/var/www/".$_SESSION['nomUtilisateur']."");
+						$math = $espace/100;
+						$math1 = $math/1024;
+						$espace = $math1/1024;
+						
+						$pourcent = 25000/$espace;
+						
+					?>
 					
 					<div class="col-md-3" style="margin: 0 4%;">
 						<div class="progress" style="margin-top: 1%; margin-bottom: 1%;">
 							<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-								<span class="sr-only">70% Complete</span>
+								<span class="sr-only"><?php echo $pourcent."% Complete"; ?></span>
 							</div>
 							
 						</div>
 						<?php
-								$space = disk_free_space("/var/www/".$_SESSION['nomUtilisateur']."");
-								echo $space." Mo sur 250 Mo d'espace utilisé";
+							echo $space." Mo d'espace disponible";
 						?>
 					</div>
 				</div>
-				<br/>
 				<br/>
 				<br/>
 				<br/>
@@ -306,19 +288,14 @@
 				<section id="services-section" class="page text-center">
 				<?php
 					if (isset($errorDomaine) && !empty($errorDomaine)) {
-						echo "<br/>";
 						echo "<b><font color='red'>".$errorDomaine."</font></b>";
 						echo "<br/><br/><br/>";
 					}
 					if (isset($error) && !empty($error)) {
-						echo "<br/>";
 						echo "<b><font color='red'>".$error."</font></b>";
 						echo "<br/><br/><br/>";
 					}					
-					echo "<br/>";
-					echo "<br/>";
 					echo "<hr>";
-					echo "<br/>";
 				echo "</section>";
 					
 					
@@ -363,11 +340,9 @@
 								echo "<td><button class='btn btn-primary' data-toggle='modal' data-target='#devAos'>Créer site Web Développement</button></td>";
 							}
 							echo "</tr>";
-							// echo "</table>";
 						}
 						
 						if ($devAvailableAos == "1") {
-							// echo "<table class='table table-bordered table-condensed table-hover table-striped'><tr>";
 							if ($devEnabledAos == "1") {
 								echo "<td><a href='http://".$fqdnDev."' target='http://".$fqdnDev."'>".$fqdnDev."</a></td>";
 							} else {
@@ -412,13 +387,9 @@
 						} elseif ($nb > 1) {
 							$enreg = "Liens";
 						}
-						/*echo "<button data-target='#aosPublic' data-toggle='modal' class='btn btn-primary glyphicon glyphicon-plus' type='button' title='Cliquez pour créer un site web dans votre domaine'></button>";
-						echo "</div>";*/
 						
-						// echo "<table class='table table-bordered table-condensed table-hover table-striped'><tr>";
 						echo "<tr><td><b>".$enreg."<b></td><td><b>Activer/Désactiver<b></td><td><b>Base de données<b></td><td><b>Supprimer<b></td></tr>";
 						for ($i = 0; $i < $nb; $i++) {
-							// echo "<table class='table table-bordered table-condensed table-hover table-striped'><tr>";
 							if ($pubEnabled[$i] == "1") {
 								echo "<td><a href='http://".$fqdn[$i]."' target='http://".$fqdn[$i]."'>".$fqdn[$i]."</a></td>";
 							} else {
@@ -439,7 +410,6 @@
 							
 							echo "<td><form method='post' action='index.php?p=web'><input type='submit' name='pubsupweb".$i."' value='Supprimer site web' class='btn btn-danger'></form></td>";
 							echo "</tr>";
-							// echo "</table>";
 						}
 					}
 					echo "</table>";
@@ -478,7 +448,6 @@
 
 		<!-- Begin footer -->
 		<footer class="text-off-white">
-			<!--<div class="footer" style="position: relative; bottom: 0; width: 100%;">-->
 			<div class="footer" style="margin-top: 40%;">
 				<div class="container text-center wow fadeIn" data-wow-delay="0.4s">
 					<p class="copyright" style="color: e7e7e7">Copyright &copy; 2015 - Designed By <a href="http://www.aos.itinet.fr" class="theme-author">Admin Online Services</a> &amp; Developed by <a href="http://www.aos.itinet.fr" class="theme-author">AOS</a></p>
